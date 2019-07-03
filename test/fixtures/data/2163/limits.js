@@ -1,0 +1,18 @@
+module.exports = [
+	{name: 'Max cpu time', soft: undefined, hard: undefined, units: 'seconds'},
+	{name: 'Max file size', soft: undefined, hard: undefined, units: 'bytes'},
+	{name: 'Max data size', soft: undefined, hard: undefined, units: 'bytes'},
+	{name: 'Max stack size', soft: 8388608, hard: undefined, units: 'bytes'},
+	{name: 'Max core file size', soft: undefined, hard: undefined, units: 'bytes'},
+	{name: 'Max resident set', soft: undefined, hard: undefined, units: 'bytes'},
+	{name: 'Max processes', soft: 30670, hard: 30670, units: 'processes'},
+	{name: 'Max open files', soft: 524288, hard: 524288, units: 'files'},
+	{name: 'Max locked memory', soft: 268435456, hard: 268435456, units: 'bytes'},
+	{name: 'Max address space', soft: undefined, hard: undefined, units: 'bytes'},
+	{name: 'Max file locks', soft: undefined, hard: undefined, units: 'locks'},
+	{name: 'Max pending signals', soft: 30670, hard: 30670, units: 'signals'},
+	{name: 'Max msgqueue size', soft: 819200, hard: 819200, units: 'bytes'},
+	{name: 'Max nice priority', soft: 0, hard: 0, units: undefined},
+	{name: 'Max realtime priority', soft: 0, hard: 0, units: undefined},
+	{name: 'Max realtime timeout', soft: undefined, hard: undefined, units: 'us'},
+];

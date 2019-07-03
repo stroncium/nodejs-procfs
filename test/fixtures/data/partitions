@@ -1,0 +1,6 @@
+major minor  #blocks  name
+
+ 259        0  250059096 nvme0n1
+ 259        1     512000 nvme0n1p1
+ 259        2   16777216 nvme0n1p2
+ 259        3  232768839 nvme0n1p3

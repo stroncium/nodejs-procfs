@@ -1,0 +1,65 @@
+{
+  "name": "@stroncium/procfs",
+  "version": "0.1.0",
+  "description": "Zero dependency set of functions to read and parse various file formats from procfs working in Node.js and imlemented in pure JS",
+  "main": "index.js",
+  "files": [
+    "api.md",
+    "lib/**"
+  ],
+  "scripts": {
+    "build:api-xml": "haxe -D use_rtti_doc -cp haxe -xml ./builder/.tmp/api.xml procfs.Procfs",
+    "build:clean-api-xml": "rm ./builder/.tmp/api.xml ./builder/.tmp/Main.n",
+    "build:docs-asserts": "cd ./builder/.tmp && SRC=./api.xml DST_API_MD=../../api.md DST_ASSERTS=../../test/fixtures/type/asserts.js haxe -cp ../ -x Main",
+    "build": "npm run build:api-xml && npm run build:docs-asserts && npm run build:clean-api-xml",
+    "test": "npm run build && npm run fasttest",
+    "fasttest": "nyc ava && xo"
+  },
+  "author": "Yanis Benson",
+  "license": "CC0-1.0",
+  "homepage": "https://github.com/stroncium/nodejs-procfs",
+  "bugs": {
+    "url": "https://github.com/stroncium/nodejs-procfs/issues",
+    "email": "yanis.benson+project.nodejs.procfs@gmail.com"
+  },
+  "devDependencies": {
+    "ava": "^1.4.1",
+    "nodemark": "^0.3.0",
+    "joi": "^14.3.1"
+  },
+  "xo": {
+    "rules": {
+      "comma-dangle": [
+        "error",
+        "always-multiline"
+      ],
+      "prefer-const": [
+        "off"
+      ],
+      "padding-line-between-statements": [
+        "off"
+      ],
+      "radix": [
+        "off"
+      ],
+      "no-return-assign": [
+        "off"
+      ],
+      "no-control-regex": [
+        "off"
+      ],
+      "capitalized-comments": [
+        "off"
+      ],
+      "spaced-comment": [
+        "off"
+      ],
+      "unicorn/filename-case": [
+        "off"
+      ],
+      "unicorn/no-hex-escape": [
+        "off"
+      ]
+    }
+  }
+}

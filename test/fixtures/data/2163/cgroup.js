@@ -1,0 +1,15 @@
+module.exports = [
+	{id: 12, subsystems: ['devices'], group: '/user.slice'},
+	{id: 11, subsystems: ['net_cls', 'net_prio'], group: '/'},
+	{id: 10, subsystems: ['pids'], group: '/user.slice/user-1000.slice/session-1.scope'},
+	{id: 9, subsystems: ['cpuset'], group: '/'},
+	{id: 8, subsystems: ['rdma'], group: '/'},
+	{id: 7, subsystems: ['blkio'], group: '/user.slice'},
+	{id: 6, subsystems: ['memory'], group: '/user.slice/user-1000.slice/session-1.scope'},
+	{id: 5, subsystems: ['freezer'], group: '/'},
+	{id: 4, subsystems: ['hugetlb'], group: '/'},
+	{id: 3, subsystems: ['cpu', 'cpuacct'], group: '/user.slice'},
+	{id: 2, subsystems: ['perf_event'], group: '/'},
+	{id: 1, subsystems: ['name=systemd'], group: '/user.slice/user-1000.slice/session-1.scope'},
+	{id: 0, subsystems: [], group: '/user.slice/user-1000.slice/session-1.scope'},
+];

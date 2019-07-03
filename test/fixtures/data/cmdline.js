@@ -1,0 +1,1 @@
+module.exports = 'BOOT_IMAGE=/vmlinuz-linux root=UUID=37182808-39a7-491e-aafe-592c612b504f rw quiet';

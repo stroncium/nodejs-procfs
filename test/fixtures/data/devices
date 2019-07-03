@@ -1,0 +1,38 @@
+Character devices:
+  1 mem
+  4 /dev/vc/0
+  4 tty
+  4 ttyS
+  5 /dev/tty
+  5 /dev/console
+  5 /dev/ptmx
+  7 vcs
+ 10 misc
+ 13 input
+ 29 fb
+116 alsa
+128 ptm
+136 pts
+180 usb
+188 ttyUSB
+189 usb_device
+226 drm
+239 mei
+240 hidraw
+241 vfio
+242 aux
+243 nvme
+244 bsg
+245 hmm_device
+246 watchdog
+247 ptp
+248 pps
+249 cec
+250 rtc
+251 dax
+252 dimmctl
+253 ndctl
+254 gpiochip
+
+Block devices:
+259 blkext
