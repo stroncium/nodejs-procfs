@@ -1,8 +1,10 @@
-# procfs
+# procfs [![Build Status](https://travis-ci.com/stroncium/nodejs-procfs.svg?branch=master)](https://travis-ci.com/stroncium/nodejs-procfs) [![codecov](https://codecov.io/gh/stroncium/nodejs-procfs/branch/master/graph/badge.svg)](https://codecov.io/gh/stroncium/nodejs-procfs)
 
-Zero dependency set of functions to read and parse various file formats from `procfs` working in Node.js and imlemented in pure JS.
+Zero dependency library for reading and parsing various files from `procfs` for Node.js, implemented in pure JS.
 
 Linux implements `procfs` filesystem mounted at `/proc`(usually). This filesystem is virtual, and can be used to extract various information about kernel state and running processes.
+
+Compatible with releases of Linux since 4.4 SLTS. Attempts to support new features from all the following releases. Features which are deprecated/discontinued in latest releases are not supported. Some features aren't expected to be used from Node.js and so were not implemented, if you need to use some of them, please open an feature request.
 
 ## Example
 
@@ -10,10 +12,9 @@ Linux implements `procfs` filesystem mounted at `/proc`(usually). This filesyste
 
 ## API
 
-Full version of API is available in [api.md](api.md).
+Full version of API is available in [api.md](https://github.com/stroncium/nodejs-procfs/blob/master/api.md).
 
-Currently, the folowing procfs files are supported by the library:
- - `/proc/*` - [procfs.processes](api.md#processespid)
+Currently, the folowing `procfs` paths are supported by the library:
  - `/proc/<pid>/autogroup` - [procfs.processAutogroup](api.md#processAutogroup-pid)
  - `/proc/<pid>/cgroups` - [procfs.processCgroups](api.md#processCgroups-pid)
  - `/proc/<pid>/cmdline` - [procfs.processCmdline](api.md#processCmdline-pid)
@@ -39,7 +40,7 @@ Currently, the folowing procfs files are supported by the library:
  - `/proc/<pid>/timerslack_ns` - [procfs.processTimerslackNs](api.md#processtimerslackns-pid)
  - `/proc/<pid>/uid_map` - [procfs.processUidMap](api.md#processUidMap-pid)
  - `/proc/cmdline` - [procfs.cmdline](api.md#cmdline)
- - `/proc/config` - [procfs.config](api.md#config)
+ - `/proc/config.gz` - [procfs.config](api.md#config)
  - `/proc/cpuinfo` - [procfs.cpuinfo](api.md#cpuinfo)
  - `/proc/devices` - [procfs.devices](api.md#devices)
  - `/proc/diskstats` - [procfs.diskstats](api.md#diskstats)
@@ -51,22 +52,18 @@ Currently, the folowing procfs files are supported by the library:
  - `/proc/swaps` - [procfs.swaps](api.md#swaps)
  - `/proc/uptime` - [procfs.uptime](api.md#uptime)
  - `/proc/version` - [procfs.version](api.md#version)
+ - `/proc/*` - [procfs.processes](api.md#processes)
 
 ## Performance
-Good performance is considered one of the main goals of this library, but for some calls which aren't expected to be used frequently the parsing is done using sub-optimal(but still quite performant). If you encounter a need for performance optimizations of some call, please create an issue.
+Good performance is considered one of the main goals of this library, but for some calls which aren't expected to be used frequently the parsing might be done in sub-optimal(but still quite performant) way. If you encounter a need for performance optimizations of some call, please open an issue.
 
 Currently, all the IO is done synchronously, in most cases it is faster than asynchronous IO for `procfs`.
 For many methods, synchronous IO is *always* faster than asynchronous, as time required to perform full read synchronously is smaller than *just initializing* asynchronous read structures. For others, it is on par. In case when a lot of relatively big files are read at the same time, asynchronous IO can be faster on multi-core systems, so introducing async versions of methods is considered for future versions.
 
-## Not implemented paths
-Some paths aren't expected to be used from Node.js and so were not implemented. If you need to use some of them, please file an issue.
-
-## Paths that won't be implemented due to being deprecated
-- `/proc/<pid>/oom_adj`
-- `/proc/<pid>/seccomp`
-
 ## Development
 
-`npm run fasttest` to perform a test without updating docs nor type asserts.
-`npm run test` to `npm run build && npm run fasttest`
-`npm run build` builds `api.md` and type asserts for tests from `haxe/procfs/Procfs.hx` and requires `haxe` installed.
+`npm run test` to perform a test without updating docs nor type asserts.
+
+`npm run fulltest` to `npm run build && npm run test`
+
+`npm run build` builds `api.md` and type asserts for tests from `haxe/procfs/Procfs.hx`.

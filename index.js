@@ -8,6 +8,9 @@ const {
 	readBuffer,
 	readdir,
 	exists,
+	devIdGetMinor,
+	devIdGetMajor,
+	devIdFromMajorMinor,
 } = require('./lib/utils');
 
 const procfsExists = exists('/proc');
@@ -124,6 +127,10 @@ const procfs = {
 	processExe,
 	processCwd,
 	config,
+
+	devIdGetMinor,
+	devIdGetMajor,
+	devIdFromMajorMinor,
 };
 
 for (let [name, path] of [

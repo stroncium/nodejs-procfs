@@ -1,5 +1,6 @@
 using StringTools;
 import haxe.rtti.CType;
+import JavadocHandler;
 
 @:publicFields
 class Md{
@@ -33,23 +34,33 @@ class Md{
 		}
 	}
 
+	static function isUnstable(doc:DocInfos) {
+		for(tag in doc.unknownTags) if(tag.name == 'unstable') return true;
+		return false;
+	}
+
 	function addField(f:ClassField) {
 		text.push(switch(f.type) {
 			case CFunction(args, ret):
 				var doc = JavadocHandler.parse(f.doc);
+				var unstable = isUnstable(doc);
 				var argsText = [for(a in args) a.opt ? '[${a.name}]' : '${a.name}'].join(', ');
+
 				var md = '### ${f.name} ($argsText)\n';
+				if(unstable) md+= '⚠️ **unstable**\n';
 				if(doc.text != null) md+= doc.text+'\n';
 				for(a in args) {
 					md+= ' - `${a.name}` ${typeName(a.t)}';
-					if(doc.params[a.name] != null) md+= ' - ' + doc.params[a.name];
+					if(doc.params[a.name] != null) md+= ': ' + doc.params[a.name];
 					md+= '\n';
 				}
 
 				md+= ' - returns ${typeName(ret)}';
-				if(doc.returns != null) md+= ' ' + doc.returns.text;
+				if(doc.returns != null) md+= ': ' + doc.returns.text;
 				md+= '\n';
 
+
+				md+= '---\n';
 				md;
 			case _: throw 'unexpected field '+f;
 		});
@@ -68,7 +79,7 @@ class Md{
 		var doc = JavadocHandler.parse(td.doc);
 
 		var md = '## type ${mapPath(td.path)}\n';
-		if(doc.text != null) md+= '${doc.text}\n';
+		if(doc.text != null) md+= '${doc.text}\n\n';
 		switch(td.type) {
 			case CAnonymous(fields):
 				var fields = [for(f in fields) f];
@@ -79,11 +90,13 @@ class Md{
 					if(isOptional(f)) parts.push('*optional*');
 					parts.push('`${f.name}`');
 					parts.push(typeName(f.type));
-					if(doc.fields[f.name] != null) parts.push('- '+doc.fields[f.name]);
+					if(doc.fields[f.name] != null) parts.push(': '+doc.fields[f.name]);
 					md+= ' - ${parts.join(' ')}\n';
 				}
 			case _: md+= 'Type: ${typeName(td.type)}\n';
 		}
+
+		md+= '\n***\n';
 
 		text.push(md);
 	}

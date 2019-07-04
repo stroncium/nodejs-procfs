@@ -15,6 +15,7 @@ class Main{
 		return switch (path) {
 			case 'Int': 'integer';
 			case 'String': 'string';
+			case 'Bool': 'boolean';
 			case 'procfs.Procfs': 'procfs';
 			case path if (path.startsWith('procfs.')) : path.substr('procfs.'.length);
 			case _: path;

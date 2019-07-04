@@ -1,9 +1,11 @@
 let test = require('ava');
-let procfs = require('..');
 const typeAsserts = require('./fixtures/type/asserts');
+let procfs = require('..');
 
 const existingPid = process.pid;
 const nonexistingPid = 2 ** 23;
+
+// Available in Linux 4.4
 for (let {name, pided} of [
 	{name: 'processMounts', pided: true},
 	{name: 'processMountinfo', pided: true},
@@ -12,7 +14,6 @@ for (let {name, pided} of [
 	{name: 'processGidMap', pided: true},
 	{name: 'processEnviron', pided: true},
 	{name: 'processOomScore', pided: true},
-	{name: 'processTimerslackNs', pided: true},
 	{name: 'processCmdline', pided: true},
 	{name: 'processAutogroup', pided: true},
 	{name: 'processStatm', pided: true},
@@ -42,7 +43,6 @@ for (let {name, pided} of [
 	{name: 'diskstats'},
 	{name: 'partitions'},
 	{name: 'meminfo'},
-	{name: 'config'},
 ]) {
 	let assertType = typeAsserts[name];
 
@@ -60,7 +60,47 @@ for (let {name, pided} of [
 
 		test(`procfs.${name}(<nonexisting pid>)`, t => {
 			let result = procfs[name](nonexistingPid);
-			t.true(result === undefined);
+			t.is(result, undefined);
+		});
+
+		test(`procfs.${name}(<incorrect pid>)`, t => {
+			t.throws(() => procfs[name]('stat'), 'pid');
+			t.throws(() => procfs[name](-1), 'pid');
+			t.throws(() => procfs[name](1.5), 'pid');
+		});
+	}
+}
+
+// Not available in Linux 4.4
+for (let {name, pided} of [
+	{name: 'processTimerslackNs', pided: true},
+	{name: 'config'},
+]) {
+	let assertType = typeAsserts[name];
+
+	test(`procfs.${name}()`, t => {
+		let result = procfs[name]();
+		if (result === undefined) {
+			t.is(result, undefined);
+		} else {
+			t.true(result !== undefined);
+			assertType(result);
+		}
+	});
+	if (pided) {
+		test(`procfs.${name}(<existing pid>)`, t => {
+			let result = procfs[name](existingPid);
+			if (result === undefined) {
+				t.is(result, undefined);
+			} else {
+				t.true(result !== undefined);
+				assertType(result);
+			}
+		});
+
+		test(`procfs.${name}(<nonexisting pid>)`, t => {
+			let result = procfs[name](nonexistingPid);
+			t.is(result, undefined);
 		});
 
 		test(`procfs.${name}(<incorrect pid>)`, t => {

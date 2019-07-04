@@ -6,7 +6,7 @@ Path string
 typedef Path = String;
 
 /**
-Device ID. Major and minor parts can be extracted using utility functions `devIdGetMinor`, `devIdGetMajor` and combined using `devIdFromMajorMinor`.
+Device ID. Major and minor parts can be extracted using utility functions `procfs.devIdGetMinor`, `procfs.devIdGetMajor` and combined using `procfs.devIdFromMajorMinor`.
 **/
 typedef DevId = Int;
 
@@ -109,9 +109,18 @@ typedef ProcessStat = {
 	childGuestTicks: Int,
 };
 
+/**
+@field umask Available since Linux 4.7
+@field speculationStoreBypass Available since Linux 4.17
+@field rssAnon Available since Linux 4.5
+@field rssFile Available since Linux 4.5
+@field rssShmem Available since Linux 4.5
+@field noNewPrivs Available since Linux 4.10
+@field coreDumping Available since Linux 4.15
+**/
 typedef ProcessStatus = {
 	name: String,
-	umask: Int,
+	?umask: Int,
 	state: String,
 	threadGroupId: Int,
 	numaGroupId: Int,
@@ -134,9 +143,9 @@ typedef ProcessStatus = {
 	vmPinned: Int,
 	vmHwm: Int,
 	vmRss: Int,
-	rssAnon: Int,
-	rssFile: Int,
-	rssShmem: Int,
+	?rssAnon: Int,
+	?rssFile: Int,
+	?rssShmem: Int,
 	vmData: Int,
 	vmStack: Int,
 	vmExe: Int,
@@ -144,7 +153,7 @@ typedef ProcessStatus = {
 	vmPte: Int,
 	vmSwap: Int,
 	hugetlbPagesSize: Int,
-	coreDumping: Bool,
+	?coreDumping: Bool,
 	threads: Int,
 	signalsQueued: Int,
 	signalsQueuedLimit: Int,
@@ -158,9 +167,9 @@ typedef ProcessStatus = {
 	capabilityEffective: String, //TODO
 	capabilityBounding: String, //TODO
 	capabilityAmbient: String, //TODO
-	noNewPrivs: Bool,
+	?noNewPrivs: Bool,
 	seccompMode: Int,
-	speculationStoreBypass: String,
+	?speculationStoreBypass: String,
 	cpusAllowedMask: Int,
 	memoriesAllowedMask: Int,
 	contextSwitchesVoluntary: Int,
@@ -287,6 +296,11 @@ typedef Partition = {
 	name: String,
 };
 
+/**
+@field shmemPmdMapped Available since Linux 4.8 if the kernel is configured with `CONFIG_TRANSPARENT_HUGEPAGE`
+@field shmemHugePages Available since Linux 4.8 if the kernel is configured with `CONFIG_TRANSPARENT_HUGEPAGE`
+@field kernelReclaimable Available since Linux 4.20
+**/
 typedef Meminfo = {
 	total: Int,
 	free: Int,
@@ -303,7 +317,7 @@ typedef Meminfo = {
 	anonPages: Int,
 	mapped: Int,
 	shmem: Int,
-	kernelReclaimable: Int,
+	?kernelReclaimable: Int,
 	slab: Int,
 	slabReclaimable: Int,
 	slabUnreclaimable: Int,
@@ -315,8 +329,8 @@ typedef Meminfo = {
 	vmallocTotal: Int,
 	hardwareCorrupted: Int,
 	anonHugePages: Int,
-	shmemHugePages: Int,
-	shmemPmdMapped: Int,
+	?shmemHugePages: Int,
+	?shmemPmdMapped: Int,
 	hugepagesTotal: Int,
 	hugepagesFree: Int,
 	hugepagesReserved: Int,
@@ -379,126 +393,147 @@ extern class Procfs{
 	/**
 		Parses contents of `/proc/<pid>/mounts`
 		@param pid Process pid, self process if omitted
+		@unstable
 	**/
 	public static function processMounts(?pid:Int): Array<ProcessMount>;
 
 	/**
 		Parses contents of `/proc/<pid>/mountinfo`
 		@param pid Process pid, self process if omitted
+		@unstable
 	**/
 	public static function processMountinfo(?pid:Int): Array<ProcessMountinfo>;
 
 	/**
 		Parses contents of `/proc/<pid>/io`
 		@param pid Process pid, self process if omitted
+		@unstable
 	**/
 	public static function processIo(?pid:Int): ProcessIo;
 
 	/**
 		Parses contents of `/proc/<pid>/uid_map`
 		@param pid Process pid, self process if omitted
+		@unstable
 	**/
 	public static function processUidMap(?pid:Int): Array<ProcessIdMapEntry>;
 
 	/**
 		Parses contents of `/proc/<pid>/gid_map`
 		@param pid Process pid, self process if omitted
+		@unstable
 	**/
 	public static function processGidMap(?pid:Int): Array<ProcessIdMapEntry>;
 
 	/**
 		Parses contents of `/proc/<pid>/environ`
 		@param pid Process pid, self process if omitted
+		@unstable
 	**/
 	public static function processEnviron(?pid:Int): Dynamic;
 
 	/**
 		Parses contents of `/proc/<pid>/oom_score`
 		@param pid Process pid, self process if omitted
+		@unstable
 	**/
 	public static function processOomScore(?pid:Int): Int;
 
 	/**
 		Parses contents of `/proc/<pid>/timerslack_ns`
 		@param pid Process pid, self process if omitted
+		@unstable
 	**/
 	public static function processTimerslackNs(?pid:Int): Int;
 
 	/**
 		Parses contents of `/proc/<pid>/cmdline`
 		@param pid Process pid, self process if omitted
+		@unstable
 	**/
 	public static function processCmdline(?pid:Int): Array<String>;
 
 	/**
 		Parses contents of `/proc/<pid>/autogroup`
 		@param pid Process pid, self process if omitted
+		@unstable
 	**/
 	public static function processAutogroup(?pid:Int): ProcessAutogroup;
 
 	/**
 		Parses contents of `/proc/<pid>/statm`
 		@param pid Process pid, self process if omitted
+		@unstable
 	**/
 	public static function processStatm(?pid:Int): ProcessStatm;
 
 	/**
 		Parses contents of `/proc/<pid>/comm`
 		@param pid Process pid, self process if omitted
+		@unstable
 	**/
 	public static function processComm(?pid:Int): String;
 
 	/**
 		Parses contents of `/proc/<pid>/setgroups`
 		@param pid Process pid, self process if omitted
+		@unstable
 	**/
 	public static function processSetgroups(?pid:Int): String;
 
 	/**
 		Parses contents of `/proc/<pid>/cgroups`
 		@param pid Process pid, self process if omitted
+		@unstable
 	**/
 	public static function processCgroups(?pid:Int): Array<ProcessCgroup>;
 
 	/**
 		Parses contents of `/proc/<pid>/personality`
 		@param pid Process pid, self process if omitted
+		@unstable
 	**/
 	public static function processPersonality(?pid:Int): Int;
 
 	/**
 		Parses contents of `/proc/<pid>/cpuset`
 		@param pid Process pid, self process if omitted
+		@unstable
 	**/
 	public static function processCpuset(?pid:Int): String;
 
 	/**
 		Parses contents of `/proc/<pid>/limits`
 		@param pid Process pid, self process if omitted
+		@unstable
 	**/
 	public static function processLimits(?pid:Int): Array<ProcessLimit>;
 
 	/**
 		Parses contents of `/proc/<pid>/stat`
 		@param pid Process pid, self process if omitted
+		@unstable
 	**/
 	public static function processStat(?pid:Int): ProcessStat;
 
 	/**
 		Parses contents of `/proc/<pid>/status`
 		@param pid Process pid, self process if omitted
+		@unstable
 	**/
 	public static function processStatus(?pid:Int): ProcessStatus;
 
 	/**
 		Lists process curent fds, `/proc/<pid>/fd/*`
 		@param pid Process pid, self process if omitted
+		@unstable
 	**/
 	public static function processFds(?pid:Int): Array<Int>;
 
 	/**
 		Lists process curent threads, `/proc/<pid>/task/*`
 		@param pid Process pid, self process if omitted
+		@unstable
 	**/
 	public static function processThreads(?pid:Int): Array<Int>;
 
@@ -506,6 +541,7 @@ extern class Procfs{
 		Parses contents of `/proc/<pid>/fdinfo/<fd>`
 		@param pid Process pid, self process if omitted
 		@param fd fd in question
+		@unstable
 	**/
 	public static function processFdinfo(fd:Int, ?pid:Int): ProcessFdinfo;
 
@@ -513,88 +549,122 @@ extern class Procfs{
 		Parses contents of `/proc/<pid>/fd/<fd>`
 		@param pid Process pid, self process if omitted
 		@param fd fd in question
+		@unstable
 	**/
 	public static function processFd(fd:Int, ?pid:Int): String;
 
 	/**
 		Parses contents of `/proc/<pid>/exe`
 		@param pid Process pid, self process if omitted
+		@unstable
 	**/
 	public static function processExe(?pid:Int): ProcessExe;
 
 	/**
 		Parses contents of `/proc/<pid>/cwd`
 		@param pid Process pid, self process if omitted
+		@unstable
 	**/
 	public static function processCwd(?pid:Int): String;
 
 	/**
 		Parses contents of `/proc/cpuinfo`
+		@unstable
 	**/
 	public static function cpuinfo(): Array<CpuCoreInfo>;
 
 	/**
 		Parses contents of `/proc/loadavg`
+		@unstable
 	**/
 	public static function loadavg(): Loadavg;
 
 	/**
 		Parses contents of `/proc/uptime`
+		@unstable
 	**/
 	public static function uptime(): Uptime;
 
 	/**
 		Parses contents of `/proc/version`
+		@unstable
 	**/
 	public static function version(): String;
 
 	/**
 		Parses contents of `/proc/cmdline`
+		@unstable
 	**/
 	public static function cmdline(): String;
 
 	/**
 		Parses contents of `/proc/swaps`
+		@unstable
 	**/
 	public static function swaps(): Array<Swap>;
 
 	/**
 		Parses contents of `/proc/stat`
+		@unstable
 	**/
 	public static function stat(): Stat;
 
 	/**
 		Parses contents of `/proc/devices`
+		@unstable
 	**/
 	public static function devices(): Array<Device>;
 
 	/**
 		Parses contents of `/proc/filesystems`
+		@unstable
 	**/
 	public static function filesystems(): Array<Filesystem>;
 
 	/**
 		Parses contents of `/proc/diskstats`
+		@unstable
 	**/
 	public static function diskstats(): Array<Diskstat>;
 
 	/**
 		Parses contents of `/proc/partitions`
+		@unstable
 	**/
 	public static function partitions(): Array<Partition>;
 
 	/**
 		Parses contents of `/proc/meminfo`
+		@unstable
 	**/
 	public static function meminfo(): Meminfo;
 
 	/**
-		Lists currently running processes pids, `/proc/*`
+		Parses list of `/proc/*` entries
+		@returns pids of currently running processes
 	**/
 	public static function processes(): Array<Int>;
 
 	/**
-		Gets gunziped content of `/proc/config`
+		Available if the kernel is configured with `CONFIG_IKCONFIG_PROC`
+		@returns gunziped content of `/proc/config.gz`
 	**/
 	public static function config(): String;
+
+	/**
+		@returns minor part of devId
+	**/
+	public static function devIdGetMinor(devId:DevId):Int;
+
+	/**
+		@returns major part of devId
+	**/
+	public static function devIdGetMajor(devId:DevId):Int;
+
+	/**
+		@param major major part of DevId
+		@param minor minor part of DevId
+		@returns id combined from major and minor parts
+	**/
+	public static function devIdFromMajorMinor(major:Int, minor:Int):DevId;
 }

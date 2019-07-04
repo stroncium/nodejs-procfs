@@ -1,10 +1,9 @@
 {
   "name": "@stroncium/procfs",
-  "version": "0.1.0",
-  "description": "Zero dependency set of functions to read and parse various file formats from procfs working in Node.js and imlemented in pure JS",
+  "version": "0.2.2",
+  "description": "Zero dependency library for reading and parsing various files from `procfs` for Node.js, implemented in pure JS.",
   "main": "index.js",
   "files": [
-    "api.md",
     "lib/**"
   ],
   "scripts": {
@@ -12,20 +11,71 @@
     "build:clean-api-xml": "rm ./builder/.tmp/api.xml ./builder/.tmp/Main.n",
     "build:docs-asserts": "cd ./builder/.tmp && SRC=./api.xml DST_API_MD=../../api.md DST_ASSERTS=../../test/fixtures/type/asserts.js haxe -cp ../ -x Main",
     "build": "npm run build:api-xml && npm run build:docs-asserts && npm run build:clean-api-xml",
-    "test": "npm run build && npm run fasttest",
-    "fasttest": "nyc ava && xo"
+    "coverage": "codecov",
+    "fulltest": "npm run build && npm run test",
+    "test": "nyc --reporter=lcov ava && xo"
   },
-  "author": "Yanis Benson",
+  "engines": {
+    "node": ">=8"
+  },
+  "author": "Yanis Benson <yanis.benson+project.nodejs.procfs@gmail.com>",
+  "keywords": [
+    "proc",
+    "procfs",
+    "process",
+    "uptime",
+    "stat",
+    "statm",
+    "status",
+    "mountinfo",
+    "cpuinfo",
+    "loadavg",
+    "meminfo",
+    "diskstats",
+    "io",
+    "devices",
+    "filesystems",
+    "partitions",
+    "swaps",
+    "autogroup",
+    "cgroups",
+    "cmdline",
+    "comm",
+    "cpuset",
+    "cwd",
+    "environ",
+    "exe",
+    "fd",
+    "gid_map",
+    "limits",
+    "oom_score",
+    "personality",
+    "setgroups",
+    "timerslack_ns",
+    "uid_map",
+    "cmdline",
+    "config",
+    "version",
+    "nodejs",
+    "linux"
+  ],
   "license": "CC0-1.0",
   "homepage": "https://github.com/stroncium/nodejs-procfs",
   "bugs": {
     "url": "https://github.com/stroncium/nodejs-procfs/issues",
     "email": "yanis.benson+project.nodejs.procfs@gmail.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stroncium/nodejs-procfs.git"
+  },
   "devDependencies": {
     "ava": "^1.4.1",
-    "nodemark": "^0.3.0",
-    "joi": "^14.3.1"
+    "codecov": "^3.5.0",
+    "haxe": "^5.0.10",
+    "joi": "^14.3.1",
+    "nyc": "^14.1.1",
+    "xo": "^0.24.0"
   },
   "xo": {
     "rules": {

@@ -3,6 +3,7 @@ using StringTools;
 class JavadocHandler {
 	public static function parse(doc:String):DocInfos {
 		var tags = [];
+		var unknownTags = [];
 		var infos:DocInfos = {
 			text: null,
 			throws: [],
@@ -10,12 +11,12 @@ class JavadocHandler {
 			fields: new Map(),
 			sees: [],
 			events: [],
-			tags: tags
+			tags: tags,
+			unknownTags: unknownTags,
 		};
 
 		if(doc != null) {
-			// TODO: need to parse this better as haxe source might have this sort of meta
-			var ereg = ~/\s*@(\S+)\s+([^@]+)\s*/gm;
+			var ereg = ~/\s*@([^\s@]+)(?:\s+([^@]*)\s*)?/gm;
 
 			var newText = ereg.map(doc, function(e) {
 				var name = e.matched(1);
@@ -64,12 +65,14 @@ class JavadocHandler {
 				case 'event':
 					infos.events.push(tag);
 				default:
+					unknownTags.push(tag);
 			}
 		}
 		return infos;
 	}
 
 	static function trimDoc(doc:String) {
+		if (doc == null) return null;
 		var ereg = ~/^\s+/m;
 		if (ereg.match(doc)) {
 			var space = new EReg('^' + ereg.matched(0), 'mg');
@@ -90,11 +93,12 @@ typedef DocInfos = {
 	fields:Map<String, String>,
 	throws:Array<DocTag>,
 	events:Array<DocTag>,
-	tags:Array<DocTag>
+	tags:Array<DocTag>,
+	unknownTags:Array<DocTag>,
 }
 
 typedef DocTag = {
 	name:String,
 	text:String,
-	?value:String
+	?value:String,
 }

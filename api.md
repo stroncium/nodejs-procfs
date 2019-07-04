@@ -1,235 +1,336 @@
 ## procfs
 
 ### processMounts ([pid])
+⚠️ **unstable**
 Parses contents of `/proc/<pid>/mounts`
- - `pid` integer - Process pid, self process if omitted
+ - `pid` integer: Process pid, self process if omitted
  - returns Array\<[ProcessMount](#type-processmount)>
+---
 
 
 ### processMountinfo ([pid])
+⚠️ **unstable**
 Parses contents of `/proc/<pid>/mountinfo`
- - `pid` integer - Process pid, self process if omitted
+ - `pid` integer: Process pid, self process if omitted
  - returns Array\<[ProcessMountinfo](#type-processmountinfo)>
+---
 
 
 ### processIo ([pid])
+⚠️ **unstable**
 Parses contents of `/proc/<pid>/io`
- - `pid` integer - Process pid, self process if omitted
+ - `pid` integer: Process pid, self process if omitted
  - returns [ProcessIo](#type-processio)
+---
 
 
 ### processUidMap ([pid])
+⚠️ **unstable**
 Parses contents of `/proc/<pid>/uid_map`
- - `pid` integer - Process pid, self process if omitted
+ - `pid` integer: Process pid, self process if omitted
  - returns Array\<[ProcessIdMapEntry](#type-processidmapentry)>
+---
 
 
 ### processGidMap ([pid])
+⚠️ **unstable**
 Parses contents of `/proc/<pid>/gid_map`
- - `pid` integer - Process pid, self process if omitted
+ - `pid` integer: Process pid, self process if omitted
  - returns Array\<[ProcessIdMapEntry](#type-processidmapentry)>
+---
 
 
 ### processEnviron ([pid])
+⚠️ **unstable**
 Parses contents of `/proc/<pid>/environ`
- - `pid` integer - Process pid, self process if omitted
+ - `pid` integer: Process pid, self process if omitted
  - returns object
+---
 
 
 ### processOomScore ([pid])
+⚠️ **unstable**
 Parses contents of `/proc/<pid>/oom_score`
- - `pid` integer - Process pid, self process if omitted
+ - `pid` integer: Process pid, self process if omitted
  - returns integer
+---
 
 
 ### processTimerslackNs ([pid])
+⚠️ **unstable**
 Parses contents of `/proc/<pid>/timerslack_ns`
- - `pid` integer - Process pid, self process if omitted
+ - `pid` integer: Process pid, self process if omitted
  - returns integer
+---
 
 
 ### processCmdline ([pid])
+⚠️ **unstable**
 Parses contents of `/proc/<pid>/cmdline`
- - `pid` integer - Process pid, self process if omitted
+ - `pid` integer: Process pid, self process if omitted
  - returns Array\<string>
+---
 
 
 ### processAutogroup ([pid])
+⚠️ **unstable**
 Parses contents of `/proc/<pid>/autogroup`
- - `pid` integer - Process pid, self process if omitted
+ - `pid` integer: Process pid, self process if omitted
  - returns [ProcessAutogroup](#type-processautogroup)
+---
 
 
 ### processStatm ([pid])
+⚠️ **unstable**
 Parses contents of `/proc/<pid>/statm`
- - `pid` integer - Process pid, self process if omitted
+ - `pid` integer: Process pid, self process if omitted
  - returns [ProcessStatm](#type-processstatm)
+---
 
 
 ### processComm ([pid])
+⚠️ **unstable**
 Parses contents of `/proc/<pid>/comm`
- - `pid` integer - Process pid, self process if omitted
+ - `pid` integer: Process pid, self process if omitted
  - returns string
+---
 
 
 ### processSetgroups ([pid])
+⚠️ **unstable**
 Parses contents of `/proc/<pid>/setgroups`
- - `pid` integer - Process pid, self process if omitted
+ - `pid` integer: Process pid, self process if omitted
  - returns string
+---
 
 
 ### processCgroups ([pid])
+⚠️ **unstable**
 Parses contents of `/proc/<pid>/cgroups`
- - `pid` integer - Process pid, self process if omitted
+ - `pid` integer: Process pid, self process if omitted
  - returns Array\<[ProcessCgroup](#type-processcgroup)>
+---
 
 
 ### processPersonality ([pid])
+⚠️ **unstable**
 Parses contents of `/proc/<pid>/personality`
- - `pid` integer - Process pid, self process if omitted
+ - `pid` integer: Process pid, self process if omitted
  - returns integer
+---
 
 
 ### processCpuset ([pid])
+⚠️ **unstable**
 Parses contents of `/proc/<pid>/cpuset`
- - `pid` integer - Process pid, self process if omitted
+ - `pid` integer: Process pid, self process if omitted
  - returns string
+---
 
 
 ### processLimits ([pid])
+⚠️ **unstable**
 Parses contents of `/proc/<pid>/limits`
- - `pid` integer - Process pid, self process if omitted
+ - `pid` integer: Process pid, self process if omitted
  - returns Array\<[ProcessLimit](#type-processlimit)>
+---
 
 
 ### processStat ([pid])
+⚠️ **unstable**
 Parses contents of `/proc/<pid>/stat`
- - `pid` integer - Process pid, self process if omitted
+ - `pid` integer: Process pid, self process if omitted
  - returns [ProcessStat](#type-processstat)
+---
 
 
 ### processStatus ([pid])
+⚠️ **unstable**
 Parses contents of `/proc/<pid>/status`
- - `pid` integer - Process pid, self process if omitted
+ - `pid` integer: Process pid, self process if omitted
  - returns [ProcessStatus](#type-processstatus)
+---
 
 
 ### processFds ([pid])
+⚠️ **unstable**
 Lists process curent fds, `/proc/<pid>/fd/*`
- - `pid` integer - Process pid, self process if omitted
+ - `pid` integer: Process pid, self process if omitted
  - returns Array\<integer>
+---
 
 
 ### processThreads ([pid])
+⚠️ **unstable**
 Lists process curent threads, `/proc/<pid>/task/*`
- - `pid` integer - Process pid, self process if omitted
+ - `pid` integer: Process pid, self process if omitted
  - returns Array\<integer>
+---
 
 
 ### processFdinfo (fd, [pid])
+⚠️ **unstable**
 Parses contents of `/proc/<pid>/fdinfo/<fd>`
- - `fd` integer - fd in question
- - `pid` integer - Process pid, self process if omitted
+ - `fd` integer: fd in question
+ - `pid` integer: Process pid, self process if omitted
  - returns [ProcessFdinfo](#type-processfdinfo)
+---
 
 
 ### processFd (fd, [pid])
+⚠️ **unstable**
 Parses contents of `/proc/<pid>/fd/<fd>`
- - `fd` integer - fd in question
- - `pid` integer - Process pid, self process if omitted
+ - `fd` integer: fd in question
+ - `pid` integer: Process pid, self process if omitted
  - returns string
+---
 
 
 ### processExe ([pid])
+⚠️ **unstable**
 Parses contents of `/proc/<pid>/exe`
- - `pid` integer - Process pid, self process if omitted
+ - `pid` integer: Process pid, self process if omitted
  - returns [ProcessExe](#type-processexe)
+---
 
 
 ### processCwd ([pid])
+⚠️ **unstable**
 Parses contents of `/proc/<pid>/cwd`
- - `pid` integer - Process pid, self process if omitted
+ - `pid` integer: Process pid, self process if omitted
  - returns string
+---
 
 
 ### cpuinfo ()
+⚠️ **unstable**
 Parses contents of `/proc/cpuinfo`
  - returns Array\<[CpuCoreInfo](#type-cpucoreinfo)>
+---
 
 
 ### loadavg ()
+⚠️ **unstable**
 Parses contents of `/proc/loadavg`
  - returns [Loadavg](#type-loadavg)
+---
 
 
 ### uptime ()
+⚠️ **unstable**
 Parses contents of `/proc/uptime`
  - returns [Uptime](#type-uptime)
+---
 
 
 ### version ()
+⚠️ **unstable**
 Parses contents of `/proc/version`
  - returns string
+---
 
 
 ### cmdline ()
+⚠️ **unstable**
 Parses contents of `/proc/cmdline`
  - returns string
+---
 
 
 ### swaps ()
+⚠️ **unstable**
 Parses contents of `/proc/swaps`
  - returns Array\<[Swap](#type-swap)>
+---
 
 
 ### stat ()
+⚠️ **unstable**
 Parses contents of `/proc/stat`
  - returns [Stat](#type-stat)
+---
 
 
 ### devices ()
+⚠️ **unstable**
 Parses contents of `/proc/devices`
  - returns Array\<[Device](#type-device)>
+---
 
 
 ### filesystems ()
+⚠️ **unstable**
 Parses contents of `/proc/filesystems`
  - returns Array\<[Filesystem](#type-filesystem)>
+---
 
 
 ### diskstats ()
+⚠️ **unstable**
 Parses contents of `/proc/diskstats`
  - returns Array\<[Diskstat](#type-diskstat)>
+---
 
 
 ### partitions ()
+⚠️ **unstable**
 Parses contents of `/proc/partitions`
  - returns Array\<[Partition](#type-partition)>
+---
 
 
 ### meminfo ()
+⚠️ **unstable**
 Parses contents of `/proc/meminfo`
  - returns [Meminfo](#type-meminfo)
+---
 
 
 ### processes ()
-Lists currently running processes pids, `/proc/*`
- - returns Array\<integer>
+Parses list of `/proc/*` entries
+ - returns Array\<integer>: pids of currently running processes
+---
 
 
 ### config ()
-Gets gunziped content of `/proc/config`
- - returns string
+Available if the kernel is configured with `CONFIG_IKCONFIG_PROC`
+ - returns string: gunziped content of `/proc/config.gz`
+---
+
+
+### devIdGetMinor (devId)
+ - `devId` [DevId](#type-devid)
+ - returns integer: minor part of devId
+---
+
+
+### devIdGetMajor (devId)
+ - `devId` [DevId](#type-devid)
+ - returns integer: major part of devId
+---
+
+
+### devIdFromMajorMinor (major, minor)
+ - `major` integer: major part of DevId
+ - `minor` integer: minor part of DevId
+ - returns [DevId](#type-devid): id combined from major and minor parts
+---
 
 
 ## type Path
 Path string
+
 Type: string
+
+***
 
 
 ## type DevId
-Device ID. Major and minor parts can be extracted using utility functions `devIdGetMinor`, `devIdGetMajor` and combined using `devIdFromMajorMinor`.
+Device ID. Major and minor parts can be extracted using utility functions `procfs.devIdGetMinor`, `procfs.devIdGetMajor` and combined using `procfs.devIdFromMajorMinor`.
+
 Type: integer
+
+***
 
 
 ## type ProcessMount
@@ -240,6 +341,8 @@ Object with properties:
  - `passno` integer
  - `spec` string
  - `vfstype` string
+
+***
 
 
 ## type ProcessMountinfo
@@ -255,6 +358,8 @@ Object with properties:
  - `superOptions` Array\<string>
  - `type` string
 
+***
+
 
 ## type ProcessIo
 Object with properties:
@@ -266,6 +371,8 @@ Object with properties:
  - `write` integer
  - `writeSyscalls` integer
 
+***
+
 
 ## type ProcessIdMapEntry
 Object with properties:
@@ -273,11 +380,15 @@ Object with properties:
  - `length` integer
  - `sourceStart` integer
 
+***
+
 
 ## type ProcessAutogroup
 Object with properties:
  - `name` string
  - `nice` integer
+
+***
 
 
 ## type ProcessStatm
@@ -288,12 +399,16 @@ Object with properties:
  - `size` integer
  - `text` integer
 
+***
+
 
 ## type ProcessCgroup
 Object with properties:
  - `group` string
  - `id` integer
  - `subsystems` Array\<string>
+
+***
 
 
 ## type ProcessLimit
@@ -302,6 +417,8 @@ Object with properties:
  - *optional* `hard` integer
  - *optional* `soft` integer
  - *optional* `units` string
+
+***
 
 
 ## type ProcessStat
@@ -338,6 +455,8 @@ Object with properties:
  - `userTicks` integer
  - `vsize` integer
 
+***
+
 
 ## type ProcessStatus
 Object with properties:
@@ -348,7 +467,6 @@ Object with properties:
  - `capabilityPermitted` string
  - `contextSwitchesNonvoluntary` integer
  - `contextSwitchesVoluntary` integer
- - `coreDumping` Bool
  - `cpusAllowedMask` integer
  - `fdSize` integer
  - `gidEffective` integer
@@ -359,13 +477,9 @@ Object with properties:
  - `hugetlbPagesSize` integer
  - `memoriesAllowedMask` integer
  - `name` string
- - `noNewPrivs` Bool
  - `numaGroupId` integer
  - `parent` integer
  - `pid` integer
- - `rssAnon` integer
- - `rssFile` integer
- - `rssShmem` integer
  - `seccompMode` integer
  - `sharedSignalsPending` integer
  - `signalsBlocked` string
@@ -374,7 +488,6 @@ Object with properties:
  - `signalsPending` integer
  - `signalsQueued` integer
  - `signalsQueuedLimit` integer
- - `speculationStoreBypass` string
  - `state` string
  - `threadGroupId` integer
  - `threads` integer
@@ -383,7 +496,6 @@ Object with properties:
  - `uidFilesystem` integer
  - `uidReal` integer
  - `uidSavedSet` integer
- - `umask` integer
  - `vmData` integer
  - `vmExe` integer
  - `vmHwm` integer
@@ -396,6 +508,15 @@ Object with properties:
  - `vmSize` integer
  - `vmStack` integer
  - `vmSwap` integer
+ - *optional* `coreDumping` boolean : Available since Linux 4.15
+ - *optional* `noNewPrivs` boolean : Available since Linux 4.10
+ - *optional* `rssAnon` integer : Available since Linux 4.5
+ - *optional* `rssFile` integer : Available since Linux 4.5
+ - *optional* `rssShmem` integer : Available since Linux 4.5
+ - *optional* `speculationStoreBypass` string : Available since Linux 4.17
+ - *optional* `umask` integer : Available since Linux 4.7
+
+***
 
 
 ## type CpuCoreInfo
@@ -413,8 +534,8 @@ Object with properties:
  - `cpuidLevel` integer
  - `family` integer
  - `flags` Array\<string>
- - `fpu` Bool
- - `fpuException` Bool
+ - `fpu` boolean
+ - `fpuException` boolean
  - `id` integer
  - `initialApicId` integer
  - `microcode` string
@@ -424,7 +545,9 @@ Object with properties:
  - `siblings` integer
  - `stepping` integer
  - `vendorId` string
- - `wp` Bool
+ - `wp` boolean
+
+***
 
 
 ## type Loadavg
@@ -436,11 +559,15 @@ Object with properties:
  - `mostRecentlyCreatedPid` Float
  - `runnableEntities` Float
 
+***
+
 
 ## type Uptime
 Object with properties:
  - `idle` Float
  - `time` Float
+
+***
 
 
 ## type Swap
@@ -450,6 +577,8 @@ Object with properties:
  - `size` integer
  - `type` string
  - `used` integer
+
+***
 
 
 ## type StatCpuTime
@@ -464,6 +593,8 @@ Object with properties:
  - `steal` integer
  - `system` integer
  - `user` integer
+
+***
 
 
 ## type Stat
@@ -484,18 +615,24 @@ Object with properties:
  - *optional* `swapIn` integer
  - *optional* `swapOut` integer
 
+***
+
 
 ## type Device
 Object with properties:
- - `group` string - Group name
- - `major` integer - Device ID major part
- - `type` string - `character` or `block`
+ - `group` string : Group name
+ - `major` integer : Device ID major part
+ - `type` string : `character` or `block`
+
+***
 
 
 ## type Filesystem
 Object with properties:
  - `name` string
- - `requiresBlockDevice` Bool
+ - `requiresBlockDevice` boolean
+
+***
 
 
 ## type Diskstat
@@ -515,12 +652,16 @@ Object with properties:
  - `writes` integer
  - `writesMerged` integer
 
+***
+
 
 ## type Partition
 Object with properties:
  - `blocks` integer
  - `devId` [DevId](#type-devid)
  - `name` string
+
+***
 
 
 ## type Meminfo
@@ -546,13 +687,10 @@ Object with properties:
  - `hugepagesSurplus` integer
  - `hugepagesTotal` integer
  - `inactive` integer
- - `kernelReclaimable` integer
  - `kernelStack` integer
  - `mapped` integer
  - `pageTables` integer
  - `shmem` integer
- - `shmemHugePages` integer
- - `shmemPmdMapped` integer
  - `slab` integer
  - `slabReclaimable` integer
  - `slabUnreclaimable` integer
@@ -563,6 +701,11 @@ Object with properties:
  - `vmallocTotal` integer
  - `writeback` integer
  - `writebackTmp` integer
+ - *optional* `kernelReclaimable` integer : Available since Linux 4.20
+ - *optional* `shmemHugePages` integer : Available since Linux 4.8 if the kernel is configured with `CONFIG_TRANSPARENT_HUGEPAGE`
+ - *optional* `shmemPmdMapped` integer : Available since Linux 4.8 if the kernel is configured with `CONFIG_TRANSPARENT_HUGEPAGE`
+
+***
 
 
 ## type ProcessFdinfoEpollCounter
@@ -570,6 +713,8 @@ Object with properties:
  - `data` string
  - `eventMask` integer
  - `fd` integer
+
+***
 
 
 ## type ProcessFdinfoInotifyFile
@@ -580,6 +725,8 @@ Object with properties:
  - `mask` integer
  - `wd` integer
 
+***
+
 
 ## type ProcessFdinfoFanotifyMark
 Object with properties:
@@ -588,6 +735,8 @@ Object with properties:
  - `ignoredMask` integer
  - `inode` integer
  - `mask` integer
+
+***
 
 
 ## type ProcessFdinfo
@@ -610,10 +759,14 @@ Object with properties:
  - *optional* `timerTicks` integer
  - *optional* `timerValue` Array\<integer>
 
+***
+
 
 ## type ProcessExe
 Object with properties:
- - `deleted` Bool
+ - `deleted` boolean
  - `path` string
+
+***
 
 

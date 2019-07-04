@@ -52,7 +52,7 @@ for (let [parserName, fixtures] of [
 	['processStat', 'self/stat'],
 	['processStatus', 'self/status'],
 
-	['cpuinfo', 'cpuinfo'],
+	['cpuinfo', 'cpuinfo,cpuinfo-synthetic'],
 	['loadavg', 'loadavg'],
 	['uptime', 'uptime'],
 	['version', 'version'],
