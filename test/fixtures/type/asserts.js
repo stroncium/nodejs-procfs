@@ -9,14 +9,6 @@ const asserter = schema => v => {
 };
 
 module.exports = {
-	processMounts: asserter(Joi.array().items(Joi.object().keys({
-		vfstype: Joi.string().required(),
-		spec: Joi.string().required(),
-		passno: Joi.number().integer().required(),
-		mntops: Joi.array().items(Joi.string()).min(0).required(),
-		freq: Joi.number().integer().required(),
-		file: Joi.string().required(),
-	})).min(0).required()),
 	processMountinfo: asserter(Joi.array().items(Joi.object().keys({
 		type: Joi.string().required(),
 		superOptions: Joi.array().items(Joi.string()).min(0).required(),

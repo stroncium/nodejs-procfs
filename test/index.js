@@ -7,7 +7,6 @@ const nonexistingPid = 2 ** 23;
 
 // Available in Linux 4.4
 for (let {name, pided} of [
-	{name: 'processMounts', pided: true},
 	{name: 'processMountinfo', pided: true},
 	{name: 'processIo', pided: true},
 	{name: 'processUidMap', pided: true},

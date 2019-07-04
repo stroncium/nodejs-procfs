@@ -134,7 +134,6 @@ const procfs = {
 };
 
 for (let [name, path] of [
-	['processMounts', '/mounts'],
 	['processMountinfo', '/mountinfo'],
 	['processIo', '/io'],
 	['processUidMap', '/uid_map'],

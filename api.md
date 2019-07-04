@@ -1,13 +1,5 @@
 ## procfs
 
-### processMounts ([pid])
-⚠️ **unstable**
-Parses contents of `/proc/<pid>/mounts`
- - `pid` integer: Process pid, self process if omitted
- - returns Array\<[ProcessMount](#type-processmount)>
----
-
-
 ### processMountinfo ([pid])
 ⚠️ **unstable**
 Parses contents of `/proc/<pid>/mountinfo`
@@ -329,18 +321,6 @@ Type: string
 Device ID. Major and minor parts can be extracted using utility functions `procfs.devIdGetMinor`, `procfs.devIdGetMajor` and combined using `procfs.devIdFromMajorMinor`.
 
 Type: integer
-
-***
-
-
-## type ProcessMount
-Object with properties:
- - `file` [Path](#type-path)
- - `freq` integer
- - `mntops` Array\<string>
- - `passno` integer
- - `spec` string
- - `vfstype` string
 
 ***
 

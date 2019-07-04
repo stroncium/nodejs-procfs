@@ -10,15 +10,6 @@ Device ID. Major and minor parts can be extracted using utility functions `procf
 **/
 typedef DevId = Int;
 
-typedef ProcessMount = {
-	spec: String,
-	file: Path,
-	vfstype: String,
-	mntops: Array<String>,
-	freq: Int,
-	passno: Int,
-};
-
 typedef ProcessMountinfo = {
 	mountId: Int,
 	parentId: Int,
@@ -390,13 +381,6 @@ typedef ProcessExe = {
 };
 
 extern class Procfs{
-	/**
-		Parses contents of `/proc/<pid>/mounts`
-		@param pid Process pid, self process if omitted
-		@unstable
-	**/
-	public static function processMounts(?pid:Int): Array<ProcessMount>;
-
 	/**
 		Parses contents of `/proc/<pid>/mountinfo`
 		@param pid Process pid, self process if omitted

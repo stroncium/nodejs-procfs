@@ -32,7 +32,6 @@ test('parser processes (/proc/*)', t => {
 });
 
 for (let [parserName, fixtures] of [
-	['processMounts', 'self/mounts'],
 	['processMountinfo', 'self/mountinfo'],
 	['processIo', 'self/io'],
 	['processUidMap', 'self/uid_map'],
