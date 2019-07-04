@@ -50,7 +50,7 @@ class Md{
 				if(unstable) md+= '⚠️ **unstable**\n';
 				if(doc.text != null) md+= doc.text+'\n';
 				for(a in args) {
-					md+= ' - `${a.name}` ${typeName(a.t)}';
+					md+= ' - **`${a.name}`** ${typeName(a.t)}';
 					if(doc.params[a.name] != null) md+= ': ' + doc.params[a.name];
 					md+= '\n';
 				}
@@ -88,7 +88,7 @@ class Md{
 				for(f in fields){
 					var parts = [];
 					if(isOptional(f)) parts.push('*optional*');
-					parts.push('`${f.name}`');
+					parts.push('**`${f.name}`**');
 					parts.push(typeName(f.type));
 					if(doc.fields[f.name] != null) parts.push(': '+doc.fields[f.name]);
 					md+= ' - ${parts.join(' ')}\n';

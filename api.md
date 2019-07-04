@@ -2,28 +2,28 @@
 
 ### processMountinfo ([pid])
 Parses contents of `/proc/<pid>/mountinfo`
- - `pid` integer: Process pid, self process if omitted
+ - **`pid`** integer: Process pid, self process if omitted
  - returns Array\<[ProcessMountinfo](#type-processmountinfo)>
 ---
 
 
 ### processIo ([pid])
 Parses contents of `/proc/<pid>/io`
- - `pid` integer: Process pid, self process if omitted
+ - **`pid`** integer: Process pid, self process if omitted
  - returns [ProcessIo](#type-processio)
 ---
 
 
 ### processUidMap ([pid])
 Parses contents of `/proc/<pid>/uid_map`
- - `pid` integer: Process pid, self process if omitted
+ - **`pid`** integer: Process pid, self process if omitted
  - returns Array\<[ProcessIdMapEntry](#type-processidmapentry)>
 ---
 
 
 ### processGidMap ([pid])
 Parses contents of `/proc/<pid>/gid_map`
- - `pid` integer: Process pid, self process if omitted
+ - **`pid`** integer: Process pid, self process if omitted
  - returns Array\<[ProcessIdMapEntry](#type-processidmapentry)>
 ---
 
@@ -31,21 +31,21 @@ Parses contents of `/proc/<pid>/gid_map`
 ### processEnviron ([pid])
 ⚠️ **unstable**
 Parses contents of `/proc/<pid>/environ`
- - `pid` integer: Process pid, self process if omitted
+ - **`pid`** integer: Process pid, self process if omitted
  - returns object
 ---
 
 
 ### processOomScore ([pid])
 Parses contents of `/proc/<pid>/oom_score`
- - `pid` integer: Process pid, self process if omitted
+ - **`pid`** integer: Process pid, self process if omitted
  - returns integer: current score that the kernel gives to this process for the purpose of selecting a process for the OOM-killer
 ---
 
 
 ### processTimerslackNs ([pid])
 Parses contents of `/proc/<pid>/timerslack_ns`
- - `pid` integer: Process pid, self process if omitted
+ - **`pid`** integer: Process pid, self process if omitted
  - returns integer: process's "current" timer slack value, in nanoseconds
 ---
 
@@ -54,14 +54,14 @@ Parses contents of `/proc/<pid>/timerslack_ns`
 Parses contents of `/proc/<pid>/cmdline`
 		Complete list of command-line arguments for the process, unless the process is a zombie. In the latter case, `null`.
 		Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
- - `pid` integer: Process pid, self process if omitted
+ - **`pid`** integer: Process pid, self process if omitted
  - returns Array\<string>
 ---
 
 
 ### processAutogroup ([pid])
 Parses contents of `/proc/<pid>/autogroup`
- - `pid` integer: Process pid, self process if omitted
+ - **`pid`** integer: Process pid, self process if omitted
  - returns [ProcessAutogroup](#type-processautogroup)
 ---
 
@@ -69,7 +69,7 @@ Parses contents of `/proc/<pid>/autogroup`
 ### processStatm ([pid])
 ⚠️ **unstable**
 Parses contents of `/proc/<pid>/statm`
- - `pid` integer: Process pid, self process if omitted
+ - **`pid`** integer: Process pid, self process if omitted
  - returns [ProcessStatm](#type-processstatm)
 ---
 
@@ -77,7 +77,7 @@ Parses contents of `/proc/<pid>/statm`
 ### processComm ([pid])
 Parses contents of `/proc/<pid>/comm`
 		Note: different threads in the same process may have different comm values
- - `pid` integer: Process pid, self process if omitted
+ - **`pid`** integer: Process pid, self process if omitted
  - returns string: the command name associated with the process
 ---
 
@@ -87,7 +87,7 @@ Parses contents of `/proc/<pid>/comm`
 Parses contents of `/proc/<pid>/setgroups`
 		Returns `"allow"` if processes in the user namespace that contains the target process are permitted to employ the `setgroups` system call, `"deny"` otherwise.
 		Note: regardless of the value, calls to `setgroups` are also not permitted if `/proc/[pid]/gid_map` has not yet been set.
- - `pid` integer: Process pid, self process if omitted
+ - **`pid`** integer: Process pid, self process if omitted
  - returns string: `allow` or `deny`
 
 ---
@@ -96,7 +96,7 @@ Parses contents of `/proc/<pid>/setgroups`
 ### processCgroups ([pid])
 ⚠️ **unstable**
 Parses contents of `/proc/<pid>/cgroups`
- - `pid` integer: Process pid, self process if omitted
+ - **`pid`** integer: Process pid, self process if omitted
  - returns Array\<[ProcessCgroup](#type-processcgroup)>
 ---
 
@@ -105,14 +105,14 @@ Parses contents of `/proc/<pid>/cgroups`
 Parses contents of `/proc/<pid>/personality`
 		Process's execution domain, as set by `personality`.
 		Note: permission to access this file is governed by ptrace access mode `PTRACE_MODE_ATTACH_FSCREDS`
- - `pid` integer: Process pid, self process if omitted
+ - **`pid`** integer: Process pid, self process if omitted
  - returns integer
 ---
 
 
 ### processCpuset ([pid])
 Parses contents of `/proc/<pid>/cpuset`
- - `pid` integer: Process pid, self process if omitted
+ - **`pid`** integer: Process pid, self process if omitted
  - returns string: path of the process's cpuset directory relative to the root of the cpuset filesystem
 ---
 
@@ -120,7 +120,7 @@ Parses contents of `/proc/<pid>/cpuset`
 ### processLimits ([pid])
 ⚠️ **unstable**
 Parses contents of `/proc/<pid>/limits`
- - `pid` integer: Process pid, self process if omitted
+ - **`pid`** integer: Process pid, self process if omitted
  - returns Array\<[ProcessLimit](#type-processlimit)>
 ---
 
@@ -128,7 +128,7 @@ Parses contents of `/proc/<pid>/limits`
 ### processStat ([pid])
 ⚠️ **unstable**
 Parses contents of `/proc/<pid>/stat`
- - `pid` integer: Process pid, self process if omitted
+ - **`pid`** integer: Process pid, self process if omitted
  - returns [ProcessStat](#type-processstat)
 ---
 
@@ -137,21 +137,21 @@ Parses contents of `/proc/<pid>/stat`
 ⚠️ **unstable**
 Parses contents of `/proc/<pid>/status`
 		Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
- - `pid` integer: Process pid, self process if omitted
+ - **`pid`** integer: Process pid, self process if omitted
  - returns [ProcessStatus](#type-processstatus)
 ---
 
 
 ### processFds ([pid])
 Parses list of `/proc/<pid>/fd/*` entries.
- - `pid` integer: Process pid, self process if omitted
+ - **`pid`** integer: Process pid, self process if omitted
  - returns Array\<integer>: process's current open fds
 ---
 
 
 ### processThreads ([pid])
 Parses list of `/proc/<pid>/task/*` entries.
- - `pid` integer: Process pid, self process if omitted
+ - **`pid`** integer: Process pid, self process if omitted
  - returns Array\<integer>: process's current threads
 ---
 
@@ -159,8 +159,8 @@ Parses list of `/proc/<pid>/task/*` entries.
 ### processFdinfo (fd, [pid])
 ⚠️ **unstable**
 Parses contents of `/proc/<pid>/fdinfo/<fd>`
- - `fd` integer: fd in question
- - `pid` integer: Process pid, self process if omitted
+ - **`fd`** integer: fd in question
+ - **`pid`** integer: Process pid, self process if omitted
  - returns [ProcessFdinfo](#type-processfdinfo)
 ---
 
@@ -168,8 +168,8 @@ Parses contents of `/proc/<pid>/fdinfo/<fd>`
 ### processFd (fd, [pid])
 ⚠️ **unstable**
 Parses contents of `/proc/<pid>/fd/<fd>`
- - `fd` integer: fd in question
- - `pid` integer: Process pid, self process if omitted
+ - **`fd`** integer: fd in question
+ - **`pid`** integer: Process pid, self process if omitted
  - returns string
 ---
 
@@ -177,7 +177,7 @@ Parses contents of `/proc/<pid>/fd/<fd>`
 ### processExe ([pid])
 ⚠️ **unstable**
 Parses contents of `/proc/<pid>/exe`
- - `pid` integer: Process pid, self process if omitted
+ - **`pid`** integer: Process pid, self process if omitted
  - returns [ProcessExe](#type-processexe)
 ---
 
@@ -186,7 +186,7 @@ Parses contents of `/proc/<pid>/exe`
 Reads symlink at `/proc/<pid>/cwd`
 		Note: in a multithreaded process, it is not available if the main thread has already terminated.
 		Note: permission to read this file(symlink) is governed by ptrace access mode `PTRACE_MODE_READ_FSCREDS`.
- - `pid` integer: Process pid, self process if omitted
+ - **`pid`** integer: Process pid, self process if omitted
  - returns [Path](#type-path): path to process `cwd`
 ---
 
@@ -286,20 +286,20 @@ Available if the kernel is configured with `CONFIG_IKCONFIG_PROC`
 
 
 ### devIdGetMinor (devId)
- - `devId` [DevId](#type-devid)
+ - **`devId`** [DevId](#type-devid)
  - returns integer: minor part of devId
 ---
 
 
 ### devIdGetMajor (devId)
- - `devId` [DevId](#type-devid)
+ - **`devId`** [DevId](#type-devid)
  - returns integer: major part of devId
 ---
 
 
 ### devIdFromMajorMinor (major, minor)
- - `major` integer: major part of DevId
- - `minor` integer: minor part of DevId
+ - **`major`** integer: major part of DevId
+ - **`minor`** integer: minor part of DevId
  - returns [DevId](#type-devid): id combined from major and minor parts
 ---
 
@@ -322,428 +322,428 @@ Type: integer
 
 ## type ProcessMountinfo
 Object with properties:
- - `devId` [DevId](#type-devid) : value of st_dev for files on this filesystem
- - `mountId` integer : unique ID for the mount (may be reused after umount)
- - `mountOptions` Array\<string> : per-mount options
- - `mountPoint` [Path](#type-path) : pathname of the mount point relative to the process's root directory
- - `mountSource` string : filesystem-specific information or "none"
- - `optionalFields` Array\<string> : zero or more fields of the form "tag[:value]"
- - `parentId` integer : ID of the parent mount (or of self for the root of  this  mount  namespace's mount tree)
- - `root` string : pathname of the directory in the filesystem which forms the root of this mount
- - `superOptions` Array\<string> : per-superblock options
- - `type` string : filesystem type in the form "type[.subtype]"
+ - **`devId`** [DevId](#type-devid) : value of st_dev for files on this filesystem
+ - **`mountId`** integer : unique ID for the mount (may be reused after umount)
+ - **`mountOptions`** Array\<string> : per-mount options
+ - **`mountPoint`** [Path](#type-path) : pathname of the mount point relative to the process's root directory
+ - **`mountSource`** string : filesystem-specific information or "none"
+ - **`optionalFields`** Array\<string> : zero or more fields of the form "tag[:value]"
+ - **`parentId`** integer : ID of the parent mount (or of self for the root of  this  mount  namespace's mount tree)
+ - **`root`** string : pathname of the directory in the filesystem which forms the root of this mount
+ - **`superOptions`** Array\<string> : per-superblock options
+ - **`type`** string : filesystem type in the form "type[.subtype]"
 
 ***
 
 
 ## type ProcessIo
 Object with properties:
- - `read` integer : `rchar`, number of bytes read
- - `readReal` integer : `read_bytes`, number of bytes read which were really fetched from storage layer
- - `readSyscalls` integer : `syscr`, number of read syscalls
- - `write` integer : `wchar`, number of bytes written
- - `writeCancelled` integer : `cancelled_write_bytes`, number of bytes process caused to not be written
- - `writeReal` integer : `write_bytes`, number of bytes written which were really sent to storage layer
- - `writeSyscalls` integer : `syscw`, number of write syscalls
+ - **`read`** integer : `rchar`, number of bytes read
+ - **`readReal`** integer : `read_bytes`, number of bytes read which were really fetched from storage layer
+ - **`readSyscalls`** integer : `syscr`, number of read syscalls
+ - **`write`** integer : `wchar`, number of bytes written
+ - **`writeCancelled`** integer : `cancelled_write_bytes`, number of bytes process caused to not be written
+ - **`writeReal`** integer : `write_bytes`, number of bytes written which were really sent to storage layer
+ - **`writeSyscalls`** integer : `syscw`, number of write syscalls
 
 ***
 
 
 ## type ProcessIdMapEntry
 Object with properties:
- - `length` integer : length of the range of IDs that is mapped between the two user namespaces
- - `start` integer : start of the range of IDs to which the IDs do map
+ - **`length`** integer : length of the range of IDs that is mapped between the two user namespaces
+ - **`start`** integer : start of the range of IDs to which the IDs do map
 Interpretation depends on whether the process that opened and the target process pid are in the same user namespace.
 If the two processes are in different user namespaces, it is the start of a range of IDs in the user namespace of the process that opened the file
 If the two processes are in the same user namespace it is the start of the range of IDs in the parent user namespace of target process.
- - `targetStart` integer : start of the range of IDs in the user namespace of the target process
+ - **`targetStart`** integer : start of the range of IDs in the user namespace of the target process
 
 ***
 
 
 ## type ProcessAutogroup
 Object with properties:
- - `name` string : autogroup name
- - `nice` integer : autogroup nice value
+ - **`name`** string : autogroup name
+ - **`nice`** integer : autogroup nice value
 
 ***
 
 
 ## type ProcessStatm
 Object with properties:
- - `data` integer
- - `resident` integer
- - `shared` integer
- - `size` integer
- - `text` integer
+ - **`data`** integer
+ - **`resident`** integer
+ - **`shared`** integer
+ - **`size`** integer
+ - **`text`** integer
 
 ***
 
 
 ## type ProcessCgroup
 Object with properties:
- - `group` string
- - `id` integer
- - `subsystems` Array\<string>
+ - **`group`** string
+ - **`id`** integer
+ - **`subsystems`** Array\<string>
 
 ***
 
 
 ## type ProcessLimit
 Object with properties:
- - `name` string
- - *optional* `hard` integer
- - *optional* `soft` integer
- - *optional* `units` string
+ - **`name`** string
+ - *optional* **`hard`** integer
+ - *optional* **`soft`** integer
+ - *optional* **`units`** string
 
 ***
 
 
 ## type ProcessStat
 Object with properties:
- - `blockIoTicks` integer
- - `childGuestTicks` integer
- - `childKernelTicks` integer
- - `childMajorFaults` integer
- - `childMinorFaults` integer
- - `childUserTicks` integer
- - `comm` string
- - `exitSignal` integer
- - `flags` integer
- - `guestTicks` integer
- - `kernelTicks` integer
- - `lastCpu` integer
- - `majorFaults` integer
- - `minorFaults` integer
- - `nice` integer
- - `parent` integer
- - `pid` integer
- - `priority` integer
- - `processGroup` integer
- - `realtimePriority` integer
- - `rss` integer
- - `rssSoftLimit` Float
- - `schedulingPolicy` integer
- - `session` integer
- - `startTicks` integer
- - `state` string
- - `terminalProcessGroup` integer
- - `threads` integer
- - `tty` integer
- - `userTicks` integer
- - `vsize` integer
+ - **`blockIoTicks`** integer
+ - **`childGuestTicks`** integer
+ - **`childKernelTicks`** integer
+ - **`childMajorFaults`** integer
+ - **`childMinorFaults`** integer
+ - **`childUserTicks`** integer
+ - **`comm`** string
+ - **`exitSignal`** integer
+ - **`flags`** integer
+ - **`guestTicks`** integer
+ - **`kernelTicks`** integer
+ - **`lastCpu`** integer
+ - **`majorFaults`** integer
+ - **`minorFaults`** integer
+ - **`nice`** integer
+ - **`parent`** integer
+ - **`pid`** integer
+ - **`priority`** integer
+ - **`processGroup`** integer
+ - **`realtimePriority`** integer
+ - **`rss`** integer
+ - **`rssSoftLimit`** Float
+ - **`schedulingPolicy`** integer
+ - **`session`** integer
+ - **`startTicks`** integer
+ - **`state`** string
+ - **`terminalProcessGroup`** integer
+ - **`threads`** integer
+ - **`tty`** integer
+ - **`userTicks`** integer
+ - **`vsize`** integer
 
 ***
 
 
 ## type ProcessStatus
 Object with properties:
- - `capabilityAmbient` string
- - `capabilityBounding` string
- - `capabilityEffective` string
- - `capabilityInheritable` string
- - `capabilityPermitted` string
- - `contextSwitchesNonvoluntary` integer
- - `contextSwitchesVoluntary` integer
- - `cpusAllowedMask` integer
- - `fdSize` integer
- - `gidEffective` integer
- - `gidFilesystem` integer
- - `gidReal` integer
- - `gidSavedSet` integer
- - `groups` Array\<integer>
- - `hugetlbPagesSize` integer
- - `memoriesAllowedMask` integer
- - `name` string
- - `numaGroupId` integer
- - `parent` integer
- - `pid` integer
- - `seccompMode` integer
- - `sharedSignalsPending` integer
- - `signalsBlocked` string
- - `signalsCaught` string
- - `signalsIgnored` string
- - `signalsPending` integer
- - `signalsQueued` integer
- - `signalsQueuedLimit` integer
- - `state` string
- - `threadGroupId` integer
- - `threads` integer
- - `tracer` integer
- - `uidEffective` integer
- - `uidFilesystem` integer
- - `uidReal` integer
- - `uidSavedSet` integer
- - `vmData` integer
- - `vmExe` integer
- - `vmHwm` integer
- - `vmLib` integer
- - `vmLocked` integer
- - `vmPeak` integer
- - `vmPinned` integer
- - `vmPte` integer
- - `vmRss` integer
- - `vmSize` integer
- - `vmStack` integer
- - `vmSwap` integer
- - *optional* `coreDumping` boolean : Available since Linux 4.15
- - *optional* `noNewPrivs` boolean : Available since Linux 4.10
- - *optional* `rssAnon` integer : Available since Linux 4.5
- - *optional* `rssFile` integer : Available since Linux 4.5
- - *optional* `rssShmem` integer : Available since Linux 4.5
- - *optional* `speculationStoreBypass` string : Available since Linux 4.17
- - *optional* `umask` integer : Available since Linux 4.7
+ - **`capabilityAmbient`** string
+ - **`capabilityBounding`** string
+ - **`capabilityEffective`** string
+ - **`capabilityInheritable`** string
+ - **`capabilityPermitted`** string
+ - **`contextSwitchesNonvoluntary`** integer
+ - **`contextSwitchesVoluntary`** integer
+ - **`cpusAllowedMask`** integer
+ - **`fdSize`** integer
+ - **`gidEffective`** integer
+ - **`gidFilesystem`** integer
+ - **`gidReal`** integer
+ - **`gidSavedSet`** integer
+ - **`groups`** Array\<integer>
+ - **`hugetlbPagesSize`** integer
+ - **`memoriesAllowedMask`** integer
+ - **`name`** string
+ - **`numaGroupId`** integer
+ - **`parent`** integer
+ - **`pid`** integer
+ - **`seccompMode`** integer
+ - **`sharedSignalsPending`** integer
+ - **`signalsBlocked`** string
+ - **`signalsCaught`** string
+ - **`signalsIgnored`** string
+ - **`signalsPending`** integer
+ - **`signalsQueued`** integer
+ - **`signalsQueuedLimit`** integer
+ - **`state`** string
+ - **`threadGroupId`** integer
+ - **`threads`** integer
+ - **`tracer`** integer
+ - **`uidEffective`** integer
+ - **`uidFilesystem`** integer
+ - **`uidReal`** integer
+ - **`uidSavedSet`** integer
+ - **`vmData`** integer
+ - **`vmExe`** integer
+ - **`vmHwm`** integer
+ - **`vmLib`** integer
+ - **`vmLocked`** integer
+ - **`vmPeak`** integer
+ - **`vmPinned`** integer
+ - **`vmPte`** integer
+ - **`vmRss`** integer
+ - **`vmSize`** integer
+ - **`vmStack`** integer
+ - **`vmSwap`** integer
+ - *optional* **`coreDumping`** boolean : Available since Linux 4.15
+ - *optional* **`noNewPrivs`** boolean : Available since Linux 4.10
+ - *optional* **`rssAnon`** integer : Available since Linux 4.5
+ - *optional* **`rssFile`** integer : Available since Linux 4.5
+ - *optional* **`rssShmem`** integer : Available since Linux 4.5
+ - *optional* **`speculationStoreBypass`** string : Available since Linux 4.17
+ - *optional* **`umask`** integer : Available since Linux 4.7
 
 ***
 
 
 ## type CpuCoreInfo
 Object with properties:
- - `addressSizes` string
- - `apicId` integer
- - `bogoMips` integer
- - `bugs` Array\<string>
- - `cacheAlignment` integer
- - `cacheSize` string
- - `clflushSize` integer
- - `coreId` integer
- - `cores` integer
- - `cpuMhz` Float
- - `cpuidLevel` integer
- - `family` integer
- - `flags` Array\<string>
- - `fpu` boolean
- - `fpuException` boolean
- - `id` integer
- - `initialApicId` integer
- - `microcode` string
- - `model` integer
- - `modelName` string
- - `physicalId` integer
- - `siblings` integer
- - `stepping` integer
- - `vendorId` string
- - `wp` boolean
+ - **`addressSizes`** string
+ - **`apicId`** integer
+ - **`bogoMips`** integer
+ - **`bugs`** Array\<string>
+ - **`cacheAlignment`** integer
+ - **`cacheSize`** string
+ - **`clflushSize`** integer
+ - **`coreId`** integer
+ - **`cores`** integer
+ - **`cpuMhz`** Float
+ - **`cpuidLevel`** integer
+ - **`family`** integer
+ - **`flags`** Array\<string>
+ - **`fpu`** boolean
+ - **`fpuException`** boolean
+ - **`id`** integer
+ - **`initialApicId`** integer
+ - **`microcode`** string
+ - **`model`** integer
+ - **`modelName`** string
+ - **`physicalId`** integer
+ - **`siblings`** integer
+ - **`stepping`** integer
+ - **`vendorId`** string
+ - **`wp`** boolean
 
 ***
 
 
 ## type Loadavg
 Object with properties:
- - `existingEntities` Float : number of kernel scheduling entities that currently exist on the system
- - `jobsAvg15Min` Float : number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 15 minutes
- - `jobsAvg1Min` Float : number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 1 minute
- - `jobsAvg5Min` Float : number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 5 minutes
- - `mostRecentlyCreatedPid` Float : pid of the process that was most recently created on the system
- - `runnableEntities` Float : number of currently runnable kernel scheduling entities
+ - **`existingEntities`** Float : number of kernel scheduling entities that currently exist on the system
+ - **`jobsAvg15Min`** Float : number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 15 minutes
+ - **`jobsAvg1Min`** Float : number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 1 minute
+ - **`jobsAvg5Min`** Float : number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 5 minutes
+ - **`mostRecentlyCreatedPid`** Float : pid of the process that was most recently created on the system
+ - **`runnableEntities`** Float : number of currently runnable kernel scheduling entities
 
 ***
 
 
 ## type Uptime
 Object with properties:
- - `idle` Float : amount of time spent in the idle process, in seconds
- - `time` Float : uptime of the system, including time spend in suspend, in seconds
+ - **`idle`** Float : amount of time spent in the idle process, in seconds
+ - **`time`** Float : uptime of the system, including time spend in suspend, in seconds
 
 ***
 
 
 ## type Swap
 Object with properties:
- - `filename` [Path](#type-path)
- - `priority` integer
- - `size` integer
- - `type` string
- - `used` integer
+ - **`filename`** [Path](#type-path)
+ - **`priority`** integer
+ - **`size`** integer
+ - **`type`** string
+ - **`used`** integer
 
 ***
 
 
 ## type StatCpuTime
 Object with properties:
- - `guest` integer
- - `guestNice` integer
- - `idle` integer
- - `iowait` integer
- - `irq` integer
- - `nice` integer
- - `softirq` integer
- - `steal` integer
- - `system` integer
- - `user` integer
+ - **`guest`** integer
+ - **`guestNice`** integer
+ - **`idle`** integer
+ - **`iowait`** integer
+ - **`irq`** integer
+ - **`nice`** integer
+ - **`softirq`** integer
+ - **`steal`** integer
+ - **`system`** integer
+ - **`user`** integer
 
 ***
 
 
 ## type Stat
 Object with properties:
- - `bootTime` Date
- - `contextSwitches` integer
- - `cpuTime` Array\<[StatCpuTime](#type-statcputime)>
- - `interrupts` integer
- - `numberedInterrupts` Array\<integer>
- - `numberedSoftInterrupts` Array\<integer>
- - `processes` integer
- - `processesBlocking` integer
- - `processesRunning` integer
- - `softInterrupts` integer
- - `systemCpuTime` [StatCpuTime](#type-statcputime)
- - *optional* `pageIn` integer
- - *optional* `pageOut` integer
- - *optional* `swapIn` integer
- - *optional* `swapOut` integer
+ - **`bootTime`** Date
+ - **`contextSwitches`** integer
+ - **`cpuTime`** Array\<[StatCpuTime](#type-statcputime)>
+ - **`interrupts`** integer
+ - **`numberedInterrupts`** Array\<integer>
+ - **`numberedSoftInterrupts`** Array\<integer>
+ - **`processes`** integer
+ - **`processesBlocking`** integer
+ - **`processesRunning`** integer
+ - **`softInterrupts`** integer
+ - **`systemCpuTime`** [StatCpuTime](#type-statcputime)
+ - *optional* **`pageIn`** integer
+ - *optional* **`pageOut`** integer
+ - *optional* **`swapIn`** integer
+ - *optional* **`swapOut`** integer
 
 ***
 
 
 ## type Device
 Object with properties:
- - `group` string : Group name
- - `major` integer : Device ID major part
- - `type` string : `character` or `block`
+ - **`group`** string : Group name
+ - **`major`** integer : Device ID major part
+ - **`type`** string : `character` or `block`
 
 ***
 
 
 ## type Filesystem
 Object with properties:
- - `name` string
- - `requiresBlockDevice` boolean
+ - **`name`** string
+ - **`requiresBlockDevice`** boolean
 
 ***
 
 
 ## type Diskstat
 Object with properties:
- - `currentIoCount` integer
- - `ioTime` integer
- - `major` integer
- - `minor` integer
- - `name` string
- - `readTime` integer
- - `reads` integer
- - `readsMerged` integer
- - `sectorsRead` integer
- - `sectorsWriten` integer
- - `weightedIoTime` integer
- - `writeTime` integer
- - `writes` integer
- - `writesMerged` integer
+ - **`currentIoCount`** integer
+ - **`ioTime`** integer
+ - **`major`** integer
+ - **`minor`** integer
+ - **`name`** string
+ - **`readTime`** integer
+ - **`reads`** integer
+ - **`readsMerged`** integer
+ - **`sectorsRead`** integer
+ - **`sectorsWriten`** integer
+ - **`weightedIoTime`** integer
+ - **`writeTime`** integer
+ - **`writes`** integer
+ - **`writesMerged`** integer
 
 ***
 
 
 ## type Partition
 Object with properties:
- - `blocks` integer
- - `devId` [DevId](#type-devid)
- - `name` string
+ - **`blocks`** integer
+ - **`devId`** [DevId](#type-devid)
+ - **`name`** string
 
 ***
 
 
 ## type Meminfo
 Object with properties:
- - `active` integer
- - `anonHugePages` integer
- - `anonPages` integer
- - `available` integer
- - `bounceBuffers` integer
- - `buffers` integer
- - `cached` integer
- - `commitLimit` integer
- - `directMap1G` integer
- - `directMap2M` integer
- - `directMap4K` integer
- - `directMap4M` integer
- - `dirty` integer
- - `free` integer
- - `hardwareCorrupted` integer
- - `hugepageSize` integer
- - `hugepagesFree` integer
- - `hugepagesReserved` integer
- - `hugepagesSurplus` integer
- - `hugepagesTotal` integer
- - `inactive` integer
- - `kernelStack` integer
- - `mapped` integer
- - `pageTables` integer
- - `shmem` integer
- - `slab` integer
- - `slabReclaimable` integer
- - `slabUnreclaimable` integer
- - `swapCached` integer
- - `swapFree` integer
- - `swapTotal` integer
- - `total` integer
- - `vmallocTotal` integer
- - `writeback` integer
- - `writebackTmp` integer
- - *optional* `kernelReclaimable` integer : Available since Linux 4.20
- - *optional* `shmemHugePages` integer : Available since Linux 4.8 if the kernel is configured with `CONFIG_TRANSPARENT_HUGEPAGE`
- - *optional* `shmemPmdMapped` integer : Available since Linux 4.8 if the kernel is configured with `CONFIG_TRANSPARENT_HUGEPAGE`
+ - **`active`** integer
+ - **`anonHugePages`** integer
+ - **`anonPages`** integer
+ - **`available`** integer
+ - **`bounceBuffers`** integer
+ - **`buffers`** integer
+ - **`cached`** integer
+ - **`commitLimit`** integer
+ - **`directMap1G`** integer
+ - **`directMap2M`** integer
+ - **`directMap4K`** integer
+ - **`directMap4M`** integer
+ - **`dirty`** integer
+ - **`free`** integer
+ - **`hardwareCorrupted`** integer
+ - **`hugepageSize`** integer
+ - **`hugepagesFree`** integer
+ - **`hugepagesReserved`** integer
+ - **`hugepagesSurplus`** integer
+ - **`hugepagesTotal`** integer
+ - **`inactive`** integer
+ - **`kernelStack`** integer
+ - **`mapped`** integer
+ - **`pageTables`** integer
+ - **`shmem`** integer
+ - **`slab`** integer
+ - **`slabReclaimable`** integer
+ - **`slabUnreclaimable`** integer
+ - **`swapCached`** integer
+ - **`swapFree`** integer
+ - **`swapTotal`** integer
+ - **`total`** integer
+ - **`vmallocTotal`** integer
+ - **`writeback`** integer
+ - **`writebackTmp`** integer
+ - *optional* **`kernelReclaimable`** integer : Available since Linux 4.20
+ - *optional* **`shmemHugePages`** integer : Available since Linux 4.8 if the kernel is configured with `CONFIG_TRANSPARENT_HUGEPAGE`
+ - *optional* **`shmemPmdMapped`** integer : Available since Linux 4.8 if the kernel is configured with `CONFIG_TRANSPARENT_HUGEPAGE`
 
 ***
 
 
 ## type ProcessFdinfoEpollCounter
 Object with properties:
- - `data` string
- - `eventMask` integer
- - `fd` integer
+ - **`data`** string
+ - **`eventMask`** integer
+ - **`fd`** integer
 
 ***
 
 
 ## type ProcessFdinfoInotifyFile
 Object with properties:
- - `deviceId` integer
- - `ignoredMask` integer
- - `inode` integer
- - `mask` integer
- - `wd` integer
+ - **`deviceId`** integer
+ - **`ignoredMask`** integer
+ - **`inode`** integer
+ - **`mask`** integer
+ - **`wd`** integer
 
 ***
 
 
 ## type ProcessFdinfoFanotifyMark
 Object with properties:
- - `deviceId` integer
- - `flags` integer
- - `ignoredMask` integer
- - `inode` integer
- - `mask` integer
+ - **`deviceId`** integer
+ - **`flags`** integer
+ - **`ignoredMask`** integer
+ - **`inode`** integer
+ - **`mask`** integer
 
 ***
 
 
 ## type ProcessFdinfo
 Object with properties:
- - `flags` integer
- - `mntId` integer
- - `pos` integer
- - `type` string
- - *optional* `epollCounters` Array\<[ProcessFdinfoEpollCounter](#type-processfdinfoepollcounter)>
- - *optional* `eventfdCounter` integer
- - *optional* `fanotifyEventFlags` integer
- - *optional* `fanotifyFlags` integer
- - *optional* `fanotifyMarks` Array\<[ProcessFdinfoFanotifyMark](#type-processfdinfofanotifymark)>
- - *optional* `inotifyFiles` Array\<[ProcessFdinfoInotifyFile](#type-processfdinfoinotifyfile)>
- - *optional* `rtSignalMask` integer
- - *optional* `signalMask` integer
- - *optional* `timerClockId` integer
- - *optional* `timerInterval` Array\<integer>
- - *optional* `timerSettimeFlags` integer
- - *optional* `timerTicks` integer
- - *optional* `timerValue` Array\<integer>
+ - **`flags`** integer
+ - **`mntId`** integer
+ - **`pos`** integer
+ - **`type`** string
+ - *optional* **`epollCounters`** Array\<[ProcessFdinfoEpollCounter](#type-processfdinfoepollcounter)>
+ - *optional* **`eventfdCounter`** integer
+ - *optional* **`fanotifyEventFlags`** integer
+ - *optional* **`fanotifyFlags`** integer
+ - *optional* **`fanotifyMarks`** Array\<[ProcessFdinfoFanotifyMark](#type-processfdinfofanotifymark)>
+ - *optional* **`inotifyFiles`** Array\<[ProcessFdinfoInotifyFile](#type-processfdinfoinotifyfile)>
+ - *optional* **`rtSignalMask`** integer
+ - *optional* **`signalMask`** integer
+ - *optional* **`timerClockId`** integer
+ - *optional* **`timerInterval`** Array\<integer>
+ - *optional* **`timerSettimeFlags`** integer
+ - *optional* **`timerTicks`** integer
+ - *optional* **`timerValue`** Array\<integer>
 
 ***
 
 
 ## type ProcessExe
 Object with properties:
- - `deleted` boolean
- - `path` string
+ - **`deleted`** boolean
+ - **`path`** string
 
 ***
 
