@@ -31,14 +31,14 @@ module.exports = {
 		read: Joi.number().integer().required(),
 	}).required()),
 	processUidMap: asserter(Joi.array().items(Joi.object().keys({
-		sourceStart: Joi.number().integer().required(),
+		targetStart: Joi.number().integer().required(),
+		start: Joi.number().integer().required(),
 		length: Joi.number().integer().required(),
-		destinationStart: Joi.number().integer().required(),
 	})).min(0).required()),
 	processGidMap: asserter(Joi.array().items(Joi.object().keys({
-		sourceStart: Joi.number().integer().required(),
+		targetStart: Joi.number().integer().required(),
+		start: Joi.number().integer().required(),
 		length: Joi.number().integer().required(),
-		destinationStart: Joi.number().integer().required(),
 	})).min(0).required()),
 	processEnviron: asserter(Joi.any().required()),
 	processOomScore: asserter(Joi.number().integer().required()),

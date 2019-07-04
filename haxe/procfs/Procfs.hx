@@ -1,26 +1,26 @@
 package procfs;
 
 /**
-	Path string
+Path string
 **/
 typedef Path = String;
 
 /**
-	Device ID. Major and minor parts can be extracted using utility functions `procfs.devIdGetMinor`, `procfs.devIdGetMajor` and combined using `procfs.devIdFromMajorMinor`.
+Device ID. Major and minor parts can be extracted using utility functions `procfs.devIdGetMinor`, `procfs.devIdGetMajor` and combined using `procfs.devIdFromMajorMinor`.
 **/
 typedef DevId = Int;
 
 /**
-	@field mountId unique ID for the mount (may be reused after umount)
-	@field parentId ID of the parent mount (or of self for the root of  this  mount  namespace's mount tree)
-	@field devId value of st_dev for files on this filesystem
-	@field root pathname of the directory in the filesystem which forms the root of this mount
-	@field mountPoint pathname of the mount point relative to the process's root directory
-	@field mountOptions per-mount options
-	@field optionalFields zero or more fields of the form "tag[:value]"
-	@field type filesystem type in the form "type[.subtype]"
-	@field mountSource filesystem-specific information or "none"
-	@field superOptions per-superblock options
+@field mountId unique ID for the mount (may be reused after umount)
+@field parentId ID of the parent mount (or of self for the root of  this  mount  namespace's mount tree)
+@field devId value of st_dev for files on this filesystem
+@field root pathname of the directory in the filesystem which forms the root of this mount
+@field mountPoint pathname of the mount point relative to the process's root directory
+@field mountOptions per-mount options
+@field optionalFields zero or more fields of the form "tag[:value]"
+@field type filesystem type in the form "type[.subtype]"
+@field mountSource filesystem-specific information or "none"
+@field superOptions per-superblock options
 **/
 typedef ProcessMountinfo = {
 	mountId: Int,
@@ -35,13 +35,13 @@ typedef ProcessMountinfo = {
 	superOptions: Array<String>,
 };
 /**
-	@field read `rchar`, number of bytes read
-	@field write `wchar`, number of bytes written
-	@field readSyscalls `syscr`, number of read syscalls
-	@field writeSyscalls `syscw`, number of write syscalls
-	@field readReal `read_bytes`, number of bytes read which were really fetched from storage layer
-	@field writeReal `write_bytes`, number of bytes written which were really sent to storage layer
-	@field writeCancelled `cancelled_write_bytes`, number of bytes process caused to not be written
+@field read `rchar`, number of bytes read
+@field write `wchar`, number of bytes written
+@field readSyscalls `syscr`, number of read syscalls
+@field writeSyscalls `syscw`, number of write syscalls
+@field readReal `read_bytes`, number of bytes read which were really fetched from storage layer
+@field writeReal `write_bytes`, number of bytes written which were really sent to storage layer
+@field writeCancelled `cancelled_write_bytes`, number of bytes process caused to not be written
 **/
 typedef ProcessIo = {
 	read: Int,
@@ -53,9 +53,17 @@ typedef ProcessIo = {
 	writeCancelled: Int,
 };
 
+/**
+@field targetStart start of the range of IDs in the user namespace of the target process
+@field start start of the range of IDs to which the IDs do map
+   Interpretation depends on whether the process that opened and the target process pid are in the same user namespace.
+   If the two processes are in different user namespaces, it is the start of a range of IDs in the user namespace of the process that opened the file
+   If the two processes are in the same user namespace it is the start of the range of IDs in the parent user namespace of target process.
+@field length length of the range of IDs that is mapped between the two user namespaces
+**/
 typedef ProcessIdMapEntry = {
-	sourceStart: Int,
-	destinationStart: Int,
+	targetStart: Int,
+	start: Int,
 	length: Int,
 };
 
@@ -269,9 +277,9 @@ typedef Stat = {
 };
 
 /**
-	@field major Device ID major part
-	@field group Group name
-	@field type `character` or `block`
+@field major Device ID major part
+@field group Group name
+@field type `character` or `block`
 **/
 typedef Device = {
 	major: Int,
@@ -416,14 +424,12 @@ extern class Procfs{
 	/**
 		Parses contents of `/proc/<pid>/uid_map`
 		@param pid Process pid, self process if omitted
-		@unstable
 	**/
 	public static function processUidMap(?pid:Int): Array<ProcessIdMapEntry>;
 
 	/**
 		Parses contents of `/proc/<pid>/gid_map`
 		@param pid Process pid, self process if omitted
-		@unstable
 	**/
 	public static function processGidMap(?pid:Int): Array<ProcessIdMapEntry>;
 

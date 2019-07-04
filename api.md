@@ -354,9 +354,12 @@ Object with properties:
 
 ## type ProcessIdMapEntry
 Object with properties:
- - `destinationStart` integer
- - `length` integer
- - `sourceStart` integer
+ - `length` integer : length of the range of IDs that is mapped between the two user namespaces
+ - `start` integer : start of the range of IDs to which the IDs do map
+Interpretation depends on whether the process that opened and the target process pid are in the same user namespace.
+If the two processes are in different user namespaces, it is the start of a range of IDs in the user namespace of the process that opened the file
+If the two processes are in the same user namespace it is the start of the range of IDs in the parent user namespace of target process.
+ - `targetStart` integer : start of the range of IDs in the user namespace of the target process
 
 ***
 
