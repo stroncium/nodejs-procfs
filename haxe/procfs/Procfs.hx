@@ -34,6 +34,7 @@ typedef ProcessMountinfo = {
 	mountSource: String,
 	superOptions: Array<String>,
 };
+
 /**
 @field read `rchar`, number of bytes read
 @field write `wchar`, number of bytes written
@@ -92,7 +93,6 @@ typedef ProcessLimit = {
 	?hard: Int,
 	?units: String,
 };
-
 
 typedef ProcessStat = {
 	pid: Int,
@@ -443,23 +443,24 @@ extern class Procfs{
 	/**
 		Parses contents of `/proc/<pid>/oom_score`
 		@param pid Process pid, self process if omitted
-		@unstable
+		@returns current score that the kernel gives to this process for the purpose of selecting a process for the OOM-killer
 	**/
 	public static function processOomScore(?pid:Int): Int;
 
 	/**
 		Parses contents of `/proc/<pid>/timerslack_ns`
 		@param pid Process pid, self process if omitted
-		@unstable
+		@returns process's "current" timer slack value, in nanoseconds
 	**/
 	public static function processTimerslackNs(?pid:Int): Int;
 
 	/**
 		Parses contents of `/proc/<pid>/cmdline`
+		Complete list of command-line arguments for the process, unless the process is a zombie. In the latter case, `null`.
+		Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
 		@param pid Process pid, self process if omitted
-		@unstable
 	**/
-	public static function processCmdline(?pid:Int): Array<String>;
+	public static function processCmdline(?pid:Int): Null<Array<String>>;
 
 	/**
 		Parses contents of `/proc/<pid>/autogroup`
@@ -526,6 +527,7 @@ extern class Procfs{
 
 	/**
 		Parses contents of `/proc/<pid>/status`
+		Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
 		@param pid Process pid, self process if omitted
 		@unstable
 	**/
@@ -649,6 +651,7 @@ extern class Procfs{
 
 	/**
 		Parses list of `/proc/*` entries
+		Depending on `hidepid` option `procfs` was mounted with, may only contain user's own processes.
 		@returns pids of currently running processes
 	**/
 	public static function processes(): Array<Int>;

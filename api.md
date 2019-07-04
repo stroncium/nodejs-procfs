@@ -15,7 +15,6 @@ Parses contents of `/proc/<pid>/io`
 
 
 ### processUidMap ([pid])
-⚠️ **unstable**
 Parses contents of `/proc/<pid>/uid_map`
  - `pid` integer: Process pid, self process if omitted
  - returns Array\<[ProcessIdMapEntry](#type-processidmapentry)>
@@ -23,7 +22,6 @@ Parses contents of `/proc/<pid>/uid_map`
 
 
 ### processGidMap ([pid])
-⚠️ **unstable**
 Parses contents of `/proc/<pid>/gid_map`
  - `pid` integer: Process pid, self process if omitted
  - returns Array\<[ProcessIdMapEntry](#type-processidmapentry)>
@@ -39,24 +37,23 @@ Parses contents of `/proc/<pid>/environ`
 
 
 ### processOomScore ([pid])
-⚠️ **unstable**
 Parses contents of `/proc/<pid>/oom_score`
  - `pid` integer: Process pid, self process if omitted
- - returns integer
+ - returns integer: current score that the kernel gives to this process for the purpose of selecting a process for the OOM-killer
 ---
 
 
 ### processTimerslackNs ([pid])
-⚠️ **unstable**
 Parses contents of `/proc/<pid>/timerslack_ns`
  - `pid` integer: Process pid, self process if omitted
- - returns integer
+ - returns integer: process's "current" timer slack value, in nanoseconds
 ---
 
 
 ### processCmdline ([pid])
-⚠️ **unstable**
 Parses contents of `/proc/<pid>/cmdline`
+		Complete list of command-line arguments for the process, unless the process is a zombie. In the latter case, `null`.
+		Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
  - `pid` integer: Process pid, self process if omitted
  - returns Array\<string>
 ---
@@ -137,6 +134,7 @@ Parses contents of `/proc/<pid>/stat`
 ### processStatus ([pid])
 ⚠️ **unstable**
 Parses contents of `/proc/<pid>/status`
+		Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
  - `pid` integer: Process pid, self process if omitted
  - returns [ProcessStatus](#type-processstatus)
 ---
@@ -278,6 +276,7 @@ Parses contents of `/proc/meminfo`
 
 ### processes ()
 Parses list of `/proc/*` entries
+		Depending on `hidepid` option `procfs` was mounted with, may only contain user's own processes.
  - returns Array\<integer>: pids of currently running processes
 ---
 
