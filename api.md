@@ -60,7 +60,6 @@ Parses contents of `/proc/<pid>/cmdline`
 
 
 ### processAutogroup ([pid])
-⚠️ **unstable**
 Parses contents of `/proc/<pid>/autogroup`
  - `pid` integer: Process pid, self process if omitted
  - returns [ProcessAutogroup](#type-processautogroup)
@@ -76,18 +75,21 @@ Parses contents of `/proc/<pid>/statm`
 
 
 ### processComm ([pid])
-⚠️ **unstable**
 Parses contents of `/proc/<pid>/comm`
+		Note: different threads in the same process may have different comm values
  - `pid` integer: Process pid, self process if omitted
- - returns string
+ - returns string: the command name associated with the process
 ---
 
 
 ### processSetgroups ([pid])
 ⚠️ **unstable**
 Parses contents of `/proc/<pid>/setgroups`
+		Returns `"allow"` if processes in the user namespace that contains the target process are permitted to employ the `setgroups` system call, `"deny"` otherwise.
+		Note: regardless of the value, calls to `setgroups` are also not permitted if `/proc/[pid]/gid_map` has not yet been set.
  - `pid` integer: Process pid, self process if omitted
- - returns string
+ - returns string: `allow` or `deny`
+
 ---
 
 
@@ -100,18 +102,18 @@ Parses contents of `/proc/<pid>/cgroups`
 
 
 ### processPersonality ([pid])
-⚠️ **unstable**
 Parses contents of `/proc/<pid>/personality`
+		Process's execution domain, as set by `personality`.
+		Note: permission to access this file is governed by ptrace access mode `PTRACE_MODE_ATTACH_FSCREDS`
  - `pid` integer: Process pid, self process if omitted
  - returns integer
 ---
 
 
 ### processCpuset ([pid])
-⚠️ **unstable**
 Parses contents of `/proc/<pid>/cpuset`
  - `pid` integer: Process pid, self process if omitted
- - returns string
+ - returns string: path of the process's cpuset directory relative to the root of the cpuset filesystem
 ---
 
 
@@ -141,18 +143,16 @@ Parses contents of `/proc/<pid>/status`
 
 
 ### processFds ([pid])
-⚠️ **unstable**
-Lists process curent fds, `/proc/<pid>/fd/*`
+Parses list of `/proc/<pid>/fd/*` entries.
  - `pid` integer: Process pid, self process if omitted
- - returns Array\<integer>
+ - returns Array\<integer>: process's current open fds
 ---
 
 
 ### processThreads ([pid])
-⚠️ **unstable**
-Lists process curent threads, `/proc/<pid>/task/*`
+Parses list of `/proc/<pid>/task/*` entries.
  - `pid` integer: Process pid, self process if omitted
- - returns Array\<integer>
+ - returns Array\<integer>: process's current threads
 ---
 
 
@@ -183,10 +183,11 @@ Parses contents of `/proc/<pid>/exe`
 
 
 ### processCwd ([pid])
-⚠️ **unstable**
-Parses contents of `/proc/<pid>/cwd`
+Reads symlink at `/proc/<pid>/cwd`
+		Note: in a multithreaded process, it is not available if the main thread has already terminated.
+		Note: permission to read this file(symlink) is governed by ptrace access mode `PTRACE_MODE_READ_FSCREDS`.
  - `pid` integer: Process pid, self process if omitted
- - returns string
+ - returns [Path](#type-path): path to process `cwd`
 ---
 
 
@@ -198,30 +199,27 @@ Parses contents of `/proc/cpuinfo`
 
 
 ### loadavg ()
-⚠️ **unstable**
 Parses contents of `/proc/loadavg`
  - returns [Loadavg](#type-loadavg)
 ---
 
 
 ### uptime ()
-⚠️ **unstable**
 Parses contents of `/proc/uptime`
  - returns [Uptime](#type-uptime)
 ---
 
 
 ### version ()
-⚠️ **unstable**
 Parses contents of `/proc/version`
- - returns string
+		Note: includes the contents of `/proc/sys/kernel/ostype`, `/proc/sys/kernel/osrelease` and `/proc/sys/kernel/version`.
+ - returns string: identifies the kernel version that is currently running
 ---
 
 
 ### cmdline ()
-⚠️ **unstable**
 Parses contents of `/proc/cmdline`
- - returns string
+ - returns string: arguments passed to the Linux kernel at boot time
 ---
 
 
@@ -275,7 +273,7 @@ Parses contents of `/proc/meminfo`
 
 
 ### processes ()
-Parses list of `/proc/*` entries
+Parses list of `/proc/*` entries.
 		Depending on `hidepid` option `procfs` was mounted with, may only contain user's own processes.
  - returns Array\<integer>: pids of currently running processes
 ---
@@ -365,8 +363,8 @@ If the two processes are in the same user namespace it is the start of the range
 
 ## type ProcessAutogroup
 Object with properties:
- - `name` string
- - `nice` integer
+ - `name` string : autogroup name
+ - `nice` integer : autogroup nice value
 
 ***
 
@@ -532,20 +530,20 @@ Object with properties:
 
 ## type Loadavg
 Object with properties:
- - `existingEntities` Float
- - `jobsAvg15Min` Float
- - `jobsAvg1Min` Float
- - `jobsAvg5Min` Float
- - `mostRecentlyCreatedPid` Float
- - `runnableEntities` Float
+ - `existingEntities` Float : number of kernel scheduling entities that currently exist on the system
+ - `jobsAvg15Min` Float : number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 15 minutes
+ - `jobsAvg1Min` Float : number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 1 minute
+ - `jobsAvg5Min` Float : number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 5 minutes
+ - `mostRecentlyCreatedPid` Float : pid of the process that was most recently created on the system
+ - `runnableEntities` Float : number of currently runnable kernel scheduling entities
 
 ***
 
 
 ## type Uptime
 Object with properties:
- - `idle` Float
- - `time` Float
+ - `idle` Float : amount of time spent in the idle process, in seconds
+ - `time` Float : uptime of the system, including time spend in suspend, in seconds
 
 ***
 

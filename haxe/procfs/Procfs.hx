@@ -68,6 +68,10 @@ typedef ProcessIdMapEntry = {
 	length: Int,
 };
 
+/**
+@field name autogroup name
+@field nice autogroup nice value
+**/
 typedef ProcessAutogroup = {
 	name: String,
 	nice: Int,
@@ -223,6 +227,14 @@ typedef CpuCoreInfo = {
 	addressSizes: String,
 };
 
+/**
+	@field jobsAvg1Min number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 1 minute
+	@field jobsAvg5Min number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 5 minutes
+	@field jobsAvg15Min number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 15 minutes
+	@field runnableEntities number of currently runnable kernel scheduling entities
+	@field existingEntities number of kernel scheduling entities that currently exist on the system
+	@field mostRecentlyCreatedPid pid of the process that was most recently created on the system
+**/
 typedef Loadavg = {
 	jobsAvg1Min: Float,
 	jobsAvg5Min: Float,
@@ -232,6 +244,10 @@ typedef Loadavg = {
 	mostRecentlyCreatedPid: Float,
 };
 
+/**
+@field time uptime of the system, including time spend in suspend, in seconds
+@field idle amount of time spent in the idle process, in seconds
+**/
 typedef Uptime = {
 	idle: Float,
 	time: Float,
@@ -465,7 +481,6 @@ extern class Procfs{
 	/**
 		Parses contents of `/proc/<pid>/autogroup`
 		@param pid Process pid, self process if omitted
-		@unstable
 	**/
 	public static function processAutogroup(?pid:Int): ProcessAutogroup;
 
@@ -478,14 +493,20 @@ extern class Procfs{
 
 	/**
 		Parses contents of `/proc/<pid>/comm`
+		Note: different threads in the same process may have different comm values
+
 		@param pid Process pid, self process if omitted
-		@unstable
+		@returns the command name associated with the process
 	**/
 	public static function processComm(?pid:Int): String;
 
 	/**
 		Parses contents of `/proc/<pid>/setgroups`
+		Returns `"allow"` if processes in the user namespace that contains the target process are permitted to employ the `setgroups` system call, `"deny"` otherwise.
+		Note: regardless of the value, calls to `setgroups` are also not permitted if `/proc/[pid]/gid_map` has not yet been set.
+
 		@param pid Process pid, self process if omitted
+		@returns `allow` or `deny`
 		@unstable
 	**/
 	public static function processSetgroups(?pid:Int): String;
@@ -499,15 +520,17 @@ extern class Procfs{
 
 	/**
 		Parses contents of `/proc/<pid>/personality`
+		Process's execution domain, as set by `personality`.
+		Note: permission to access this file is governed by ptrace access mode `PTRACE_MODE_ATTACH_FSCREDS`
+
 		@param pid Process pid, self process if omitted
-		@unstable
 	**/
 	public static function processPersonality(?pid:Int): Int;
 
 	/**
 		Parses contents of `/proc/<pid>/cpuset`
 		@param pid Process pid, self process if omitted
-		@unstable
+		@returns path of the process's cpuset directory relative to the root of the cpuset filesystem
 	**/
 	public static function processCpuset(?pid:Int): String;
 
@@ -534,16 +557,16 @@ extern class Procfs{
 	public static function processStatus(?pid:Int): ProcessStatus;
 
 	/**
-		Lists process curent fds, `/proc/<pid>/fd/*`
+		Parses list of `/proc/<pid>/fd/*` entries.
 		@param pid Process pid, self process if omitted
-		@unstable
+		@return process's current open fds
 	**/
 	public static function processFds(?pid:Int): Array<Int>;
 
 	/**
-		Lists process curent threads, `/proc/<pid>/task/*`
+		Parses list of `/proc/<pid>/task/*` entries.
 		@param pid Process pid, self process if omitted
-		@unstable
+		@returns process's current threads
 	**/
 	public static function processThreads(?pid:Int): Array<Int>;
 
@@ -571,11 +594,14 @@ extern class Procfs{
 	public static function processExe(?pid:Int): ProcessExe;
 
 	/**
-		Parses contents of `/proc/<pid>/cwd`
+		Reads symlink at `/proc/<pid>/cwd`
+		Note: in a multithreaded process, it is not available if the main thread has already terminated.
+		Note: permission to read this file(symlink) is governed by ptrace access mode `PTRACE_MODE_READ_FSCREDS`.
+
 		@param pid Process pid, self process if omitted
-		@unstable
+		@returns path to process `cwd`
 	**/
-	public static function processCwd(?pid:Int): String;
+	public static function processCwd(?pid:Int): Path;
 
 	/**
 		Parses contents of `/proc/cpuinfo`
@@ -585,25 +611,24 @@ extern class Procfs{
 
 	/**
 		Parses contents of `/proc/loadavg`
-		@unstable
 	**/
 	public static function loadavg(): Loadavg;
 
 	/**
 		Parses contents of `/proc/uptime`
-		@unstable
 	**/
 	public static function uptime(): Uptime;
 
 	/**
 		Parses contents of `/proc/version`
-		@unstable
+		Note: includes the contents of `/proc/sys/kernel/ostype`, `/proc/sys/kernel/osrelease` and `/proc/sys/kernel/version`.
+		@returns identifies the kernel version that is currently running
 	**/
 	public static function version(): String;
 
 	/**
 		Parses contents of `/proc/cmdline`
-		@unstable
+		@returns arguments passed to the Linux kernel at boot time
 	**/
 	public static function cmdline(): String;
 
@@ -650,7 +675,7 @@ extern class Procfs{
 	public static function meminfo(): Meminfo;
 
 	/**
-		Parses list of `/proc/*` entries
+		Parses list of `/proc/*` entries.
 		Depending on `hidepid` option `procfs` was mounted with, may only contain user's own processes.
 		@returns pids of currently running processes
 	**/
