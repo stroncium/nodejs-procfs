@@ -62,7 +62,7 @@ typedef ProcessIo = {
    If the two processes are in the same user namespace it is the start of the range of IDs in the parent user namespace of target process.
 @field length length of the range of IDs that is mapped between the two user namespaces
 **/
-typedef ProcessIdMapEntry = {
+typedef ProcessIdMapRange = {
 	targetStart: Int,
 	start: Int,
 	length: Int,
@@ -91,6 +91,12 @@ typedef ProcessCgroup = {
 	group: String,
 };
 
+/**
+@field name `Limit`, resource limit name
+@field soft `Soft Limit`, soft limit, `undefined` if unlimited
+@field hard `Hard Limit`, hard limit, `undefined` if unlimited
+@field units `Units`, units limit is measured in, `undefined` if scalar
+**/
 typedef ProcessLimit = {
 	name: String,
 	?soft: Int,
@@ -253,6 +259,13 @@ typedef Uptime = {
 	time: Float,
 };
 
+/**
+@field filename `Filename`
+@field type `Type`
+@field size `Size`
+@field used `Used`
+@field priority `Priority`
+**/
 typedef Swap = {
 	filename: Path,
 	type: String,
@@ -303,6 +316,10 @@ typedef Device = {
 	type: String,
 };
 
+/**
+	@field name filesystem name
+	@field requiresBlockDevice if filesystem requires a block device to be mounted (unlike e.g., virtual filesystem, network filesystem)
+**/
 typedef Filesystem = {
 	requiresBlockDevice: Bool,
 	name: String,
@@ -325,6 +342,11 @@ typedef Diskstat = {
 	weightedIoTime: Int,
 };
 
+/**
+@field devId major and minor numbers of device
+@field blocks number of 1024-byte blocks on partition
+@field name partition name
+**/
 typedef Partition = {
 	devId: DevId,
 	blocks: Int,
@@ -419,6 +441,10 @@ typedef ProcessFdinfo = {
 	?timerInterval: Array<Int>,
 };
 
+/**
+	@field path actual path of executed command
+	@field deleted if path have been unlinked
+**/
 typedef ProcessExe = {
 	path: String,
 	deleted: Bool,
@@ -427,45 +453,45 @@ typedef ProcessExe = {
 extern class Procfs{
 	/**
 		Parses contents of `/proc/<pid>/mountinfo`
-		@param pid Process pid, self process if omitted
+		@param pid process pid, `self` process if undefined
 	**/
 	public static function processMountinfo(?pid:Int): Array<ProcessMountinfo>;
 
 	/**
 		Parses contents of `/proc/<pid>/io`
-		@param pid Process pid, self process if omitted
+		@param pid process pid, `self` process if undefined
 	**/
 	public static function processIo(?pid:Int): ProcessIo;
 
 	/**
 		Parses contents of `/proc/<pid>/uid_map`
-		@param pid Process pid, self process if omitted
+		@param pid process pid, `self` process if undefined
 	**/
-	public static function processUidMap(?pid:Int): Array<ProcessIdMapEntry>;
+	public static function processUidMap(?pid:Int): Array<ProcessIdMapRange>;
 
 	/**
 		Parses contents of `/proc/<pid>/gid_map`
-		@param pid Process pid, self process if omitted
+		@param pid process pid, `self` process if undefined
 	**/
-	public static function processGidMap(?pid:Int): Array<ProcessIdMapEntry>;
+	public static function processGidMap(?pid:Int): Array<ProcessIdMapRange>;
 
 	/**
 		Parses contents of `/proc/<pid>/environ`
-		@param pid Process pid, self process if omitted
+		@param pid process pid, `self` process if undefined
 		@unstable
 	**/
 	public static function processEnviron(?pid:Int): Dynamic;
 
 	/**
 		Parses contents of `/proc/<pid>/oom_score`
-		@param pid Process pid, self process if omitted
+		@param pid process pid, `self` process if undefined
 		@returns current score that the kernel gives to this process for the purpose of selecting a process for the OOM-killer
 	**/
 	public static function processOomScore(?pid:Int): Int;
 
 	/**
 		Parses contents of `/proc/<pid>/timerslack_ns`
-		@param pid Process pid, self process if omitted
+		@param pid process pid, `self` process if undefined
 		@returns process's "current" timer slack value, in nanoseconds
 	**/
 	public static function processTimerslackNs(?pid:Int): Int;
@@ -474,19 +500,19 @@ extern class Procfs{
 		Parses contents of `/proc/<pid>/cmdline`
 		Complete list of command-line arguments for the process, unless the process is a zombie. In the latter case, `null`.
 		Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
-		@param pid Process pid, self process if omitted
+		@param pid process pid, `self` process if undefined
 	**/
 	public static function processCmdline(?pid:Int): Null<Array<String>>;
 
 	/**
 		Parses contents of `/proc/<pid>/autogroup`
-		@param pid Process pid, self process if omitted
+		@param pid process pid, `self` process if undefined
 	**/
 	public static function processAutogroup(?pid:Int): ProcessAutogroup;
 
 	/**
 		Parses contents of `/proc/<pid>/statm`
-		@param pid Process pid, self process if omitted
+		@param pid process pid, `self` process if undefined
 		@unstable
 	**/
 	public static function processStatm(?pid:Int): ProcessStatm;
@@ -495,7 +521,7 @@ extern class Procfs{
 		Parses contents of `/proc/<pid>/comm`
 		Note: different threads in the same process may have different comm values
 
-		@param pid Process pid, self process if omitted
+		@param pid process pid, `self` process if undefined
 		@returns the command name associated with the process
 	**/
 	public static function processComm(?pid:Int): String;
@@ -505,7 +531,7 @@ extern class Procfs{
 		Returns `"allow"` if processes in the user namespace that contains the target process are permitted to employ the `setgroups` system call, `"deny"` otherwise.
 		Note: regardless of the value, calls to `setgroups` are also not permitted if `/proc/[pid]/gid_map` has not yet been set.
 
-		@param pid Process pid, self process if omitted
+		@param pid process pid, `self` process if undefined
 		@returns `allow` or `deny`
 		@unstable
 	**/
@@ -513,7 +539,7 @@ extern class Procfs{
 
 	/**
 		Parses contents of `/proc/<pid>/cgroups`
-		@param pid Process pid, self process if omitted
+		@param pid process pid, `self` process if undefined
 		@unstable
 	**/
 	public static function processCgroups(?pid:Int): Array<ProcessCgroup>;
@@ -523,27 +549,27 @@ extern class Procfs{
 		Process's execution domain, as set by `personality`.
 		Note: permission to access this file is governed by ptrace access mode `PTRACE_MODE_ATTACH_FSCREDS`
 
-		@param pid Process pid, self process if omitted
+		@param pid process pid, `self` process if undefined
 	**/
 	public static function processPersonality(?pid:Int): Int;
 
 	/**
 		Parses contents of `/proc/<pid>/cpuset`
-		@param pid Process pid, self process if omitted
+		@param pid process pid, `self` process if undefined
 		@returns path of the process's cpuset directory relative to the root of the cpuset filesystem
 	**/
 	public static function processCpuset(?pid:Int): String;
 
 	/**
 		Parses contents of `/proc/<pid>/limits`
-		@param pid Process pid, self process if omitted
-		@unstable
+		@param pid process pid, `self` process if undefined
+		@returns process's resource limits
 	**/
 	public static function processLimits(?pid:Int): Array<ProcessLimit>;
 
 	/**
 		Parses contents of `/proc/<pid>/stat`
-		@param pid Process pid, self process if omitted
+		@param pid process pid, `self` process if undefined
 		@unstable
 	**/
 	public static function processStat(?pid:Int): ProcessStat;
@@ -551,28 +577,28 @@ extern class Procfs{
 	/**
 		Parses contents of `/proc/<pid>/status`
 		Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
-		@param pid Process pid, self process if omitted
+		@param pid process pid, `self` process if undefined
 		@unstable
 	**/
 	public static function processStatus(?pid:Int): ProcessStatus;
 
 	/**
 		Parses list of `/proc/<pid>/fd/*` entries.
-		@param pid Process pid, self process if omitted
+		@param pid process pid, `self` process if undefined
 		@return process's current open fds
 	**/
 	public static function processFds(?pid:Int): Array<Int>;
 
 	/**
 		Parses list of `/proc/<pid>/task/*` entries.
-		@param pid Process pid, self process if omitted
+		@param pid process pid, `self` process if undefined
 		@returns process's current threads
 	**/
 	public static function processThreads(?pid:Int): Array<Int>;
 
 	/**
 		Parses contents of `/proc/<pid>/fdinfo/<fd>`
-		@param pid Process pid, self process if omitted
+		@param pid process pid, `self` process if undefined
 		@param fd fd in question
 		@unstable
 	**/
@@ -580,16 +606,15 @@ extern class Procfs{
 
 	/**
 		Parses contents of `/proc/<pid>/fd/<fd>`
-		@param pid Process pid, self process if omitted
+		@param pid process pid, `self` process if undefined
 		@param fd fd in question
 		@unstable
 	**/
 	public static function processFd(fd:Int, ?pid:Int): String;
 
 	/**
-		Parses contents of `/proc/<pid>/exe`
-		@param pid Process pid, self process if omitted
-		@unstable
+		Reads symlink at `/proc/<pid>/exe`
+		@param pid process pid, `self` process if undefined
 	**/
 	public static function processExe(?pid:Int): ProcessExe;
 
@@ -598,7 +623,7 @@ extern class Procfs{
 		Note: in a multithreaded process, it is not available if the main thread has already terminated.
 		Note: permission to read this file(symlink) is governed by ptrace access mode `PTRACE_MODE_READ_FSCREDS`.
 
-		@param pid Process pid, self process if omitted
+		@param pid process pid, `self` process if undefined
 		@returns path to process `cwd`
 	**/
 	public static function processCwd(?pid:Int): Path;
@@ -634,6 +659,7 @@ extern class Procfs{
 
 	/**
 		Parses contents of `/proc/swaps`
+		@returns swap areas in use
 		@unstable
 	**/
 	public static function swaps(): Array<Swap>;
@@ -652,7 +678,7 @@ extern class Procfs{
 
 	/**
 		Parses contents of `/proc/filesystems`
-		@unstable
+		@returns filesystems which are supported by the kernel(which were compiled into the kernel or whose kernel modules are currently loaded)
 	**/
 	public static function filesystems(): Array<Filesystem>;
 
@@ -664,7 +690,7 @@ extern class Procfs{
 
 	/**
 		Parses contents of `/proc/partitions`
-		@unstable
+		@returns partitions in system
 	**/
 	public static function partitions(): Array<Partition>;
 
