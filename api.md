@@ -1,7 +1,6 @@
 ## procfs
 
 ### processMountinfo ([pid])
-⚠️ **unstable**
 Parses contents of `/proc/<pid>/mountinfo`
  - `pid` integer: Process pid, self process if omitted
  - returns Array\<[ProcessMountinfo](#type-processmountinfo)>
@@ -327,16 +326,16 @@ Type: integer
 
 ## type ProcessMountinfo
 Object with properties:
- - `devId` [DevId](#type-devid)
- - `mountId` integer
- - `mountOptions` Array\<string>
- - `mountPoint` [Path](#type-path)
- - `mountSource` string
- - `optionalFields` Array\<string>
- - `parentId` integer
- - `root` string
- - `superOptions` Array\<string>
- - `type` string
+ - `devId` [DevId](#type-devid) : value of st_dev for files on this filesystem
+ - `mountId` integer : unique ID for the mount (may be reused after umount)
+ - `mountOptions` Array\<string> : per-mount options
+ - `mountPoint` [Path](#type-path) : pathname of the mount point relative to the process's root directory
+ - `mountSource` string : filesystem-specific information or "none"
+ - `optionalFields` Array\<string> : zero or more fields of the form "tag[:value]"
+ - `parentId` integer : ID of the parent mount (or of self for the root of  this  mount  namespace's mount tree)
+ - `root` string : pathname of the directory in the filesystem which forms the root of this mount
+ - `superOptions` Array\<string> : per-superblock options
+ - `type` string : filesystem type in the form "type[.subtype]"
 
 ***
 

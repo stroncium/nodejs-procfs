@@ -1,15 +1,27 @@
 package procfs;
 
 /**
-Path string
+	Path string
 **/
 typedef Path = String;
 
 /**
-Device ID. Major and minor parts can be extracted using utility functions `procfs.devIdGetMinor`, `procfs.devIdGetMajor` and combined using `procfs.devIdFromMajorMinor`.
+	Device ID. Major and minor parts can be extracted using utility functions `procfs.devIdGetMinor`, `procfs.devIdGetMajor` and combined using `procfs.devIdFromMajorMinor`.
 **/
 typedef DevId = Int;
 
+/**
+	@field mountId unique ID for the mount (may be reused after umount)
+	@field parentId ID of the parent mount (or of self for the root of  this  mount  namespace's mount tree)
+	@field devId value of st_dev for files on this filesystem
+	@field root pathname of the directory in the filesystem which forms the root of this mount
+	@field mountPoint pathname of the mount point relative to the process's root directory
+	@field mountOptions per-mount options
+	@field optionalFields zero or more fields of the form "tag[:value]"
+	@field type filesystem type in the form "type[.subtype]"
+	@field mountSource filesystem-specific information or "none"
+	@field superOptions per-superblock options
+**/
 typedef ProcessMountinfo = {
 	mountId: Int,
 	parentId: Int,
@@ -384,7 +396,6 @@ extern class Procfs{
 	/**
 		Parses contents of `/proc/<pid>/mountinfo`
 		@param pid Process pid, self process if omitted
-		@unstable
 	**/
 	public static function processMountinfo(?pid:Int): Array<ProcessMountinfo>;
 
