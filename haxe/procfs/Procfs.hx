@@ -34,15 +34,23 @@ typedef ProcessMountinfo = {
 	mountSource: String,
 	superOptions: Array<String>,
 };
-
+/**
+	@field read `rchar`, number of bytes read
+	@field write `wchar`, number of bytes written
+	@field readSyscalls `syscr`, number of read syscalls
+	@field writeSyscalls `syscw`, number of write syscalls
+	@field readReal `read_bytes`, number of bytes read which were really fetched from storage layer
+	@field writeReal `write_bytes`, number of bytes written which were really sent to storage layer
+	@field writeCancelled `cancelled_write_bytes`, number of bytes process caused to not be written
+**/
 typedef ProcessIo = {
 	read: Int,
 	write: Int,
+	readReal: Int,
+	writeReal: Int,
 	readSyscalls: Int,
 	writeSyscalls: Int,
-	realRead: Int,
-	realWrite: Int,
-	cancelledWrite: Int,
+	writeCancelled: Int,
 };
 
 typedef ProcessIdMapEntry = {
@@ -402,7 +410,6 @@ extern class Procfs{
 	/**
 		Parses contents of `/proc/<pid>/io`
 		@param pid Process pid, self process if omitted
-		@unstable
 	**/
 	public static function processIo(?pid:Int): ProcessIo;
 

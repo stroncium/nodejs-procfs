@@ -23,12 +23,12 @@ module.exports = {
 	})).min(0).required()),
 	processIo: asserter(Joi.object().keys({
 		writeSyscalls: Joi.number().integer().required(),
+		writeReal: Joi.number().integer().required(),
+		writeCancelled: Joi.number().integer().required(),
 		write: Joi.number().integer().required(),
-		realWrite: Joi.number().integer().required(),
-		realRead: Joi.number().integer().required(),
 		readSyscalls: Joi.number().integer().required(),
+		readReal: Joi.number().integer().required(),
 		read: Joi.number().integer().required(),
-		cancelledWrite: Joi.number().integer().required(),
 	}).required()),
 	processUidMap: asserter(Joi.array().items(Joi.object().keys({
 		sourceStart: Joi.number().integer().required(),

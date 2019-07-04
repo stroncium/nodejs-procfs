@@ -8,7 +8,6 @@ Parses contents of `/proc/<pid>/mountinfo`
 
 
 ### processIo ([pid])
-⚠️ **unstable**
 Parses contents of `/proc/<pid>/io`
  - `pid` integer: Process pid, self process if omitted
  - returns [ProcessIo](#type-processio)
@@ -342,13 +341,13 @@ Object with properties:
 
 ## type ProcessIo
 Object with properties:
- - `cancelledWrite` integer
- - `read` integer
- - `readSyscalls` integer
- - `realRead` integer
- - `realWrite` integer
- - `write` integer
- - `writeSyscalls` integer
+ - `read` integer : `rchar`, number of bytes read
+ - `readReal` integer : `read_bytes`, number of bytes read which were really fetched from storage layer
+ - `readSyscalls` integer : `syscr`, number of read syscalls
+ - `write` integer : `wchar`, number of bytes written
+ - `writeCancelled` integer : `cancelled_write_bytes`, number of bytes process caused to not be written
+ - `writeReal` integer : `write_bytes`, number of bytes written which were really sent to storage layer
+ - `writeSyscalls` integer : `syscw`, number of write syscalls
 
 ***
 

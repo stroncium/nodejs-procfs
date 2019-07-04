@@ -3,7 +3,7 @@ module.exports = {
 	write: 5947,
 	readSyscalls: 44,
 	writeSyscalls: 3,
-	realRead: 0,
-	realWrite: 8192,
-	cancelledWrite: 0,
+	readReal: 0,
+	writeReal: 8192,
+	writeCancelled: 0,
 };
