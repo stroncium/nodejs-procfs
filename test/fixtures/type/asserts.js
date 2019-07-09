@@ -233,9 +233,9 @@ module.exports = {
 	loadavg: asserter(Joi.object().keys({
 		runnableEntities: Joi.number().unsafe().required(),
 		mostRecentlyCreatedPid: Joi.number().unsafe().required(),
-		jobsAvg5Min: Joi.number().unsafe().required(),
-		jobsAvg1Min: Joi.number().unsafe().required(),
-		jobsAvg15Min: Joi.number().unsafe().required(),
+		jobsAverage5Minutes: Joi.number().unsafe().required(),
+		jobsAverage1Minute: Joi.number().unsafe().required(),
+		jobsAverage15Minutes: Joi.number().unsafe().required(),
 		existingEntities: Joi.number().unsafe().required(),
 	}).required()),
 	uptime: asserter(Joi.object().keys({

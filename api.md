@@ -189,7 +189,8 @@ Reads symlink at `/proc/<pid>/cwd`
 
 
 ### cpuinfo ()
-⚠️ **unstable**
+⚠️ **unstable**: documentation on that is hard to find, need to get at least a list of fields which are present on all systems or just remove this method from the library
+
 Parses contents of `/proc/cpuinfo`
  - returns Array\<[CpuCoreInfo](#type-cpucoreinfo)>
 ***
@@ -539,9 +540,9 @@ Object with properties:
 ## type Loadavg
 Object with properties:
  - **`existingEntities`** Float : number of kernel scheduling entities that currently exist on the system
- - **`jobsAvg15Min`** Float : number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 15 minutes
- - **`jobsAvg1Min`** Float : number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 1 minute
- - **`jobsAvg5Min`** Float : number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 5 minutes
+ - **`jobsAverage15Minutes`** Float : number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 15 minutes
+ - **`jobsAverage1Minute`** Float : number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 1 minute
+ - **`jobsAverage5Minutes`** Float : number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 5 minutes
  - **`mostRecentlyCreatedPid`** Float : pid of the process that was most recently created on the system
  - **`runnableEntities`** Float : number of currently runnable kernel scheduling entities
 

@@ -252,17 +252,17 @@ typedef CpuCoreInfo = {
 };
 
 /**
-	@field jobsAvg1Min number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 1 minute
-	@field jobsAvg5Min number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 5 minutes
-	@field jobsAvg15Min number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 15 minutes
+	@field jobsAverage1Minute number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 1 minute
+	@field jobsAverage5Minutes number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 5 minutes
+	@field jobsAverage15Minutes number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 15 minutes
 	@field runnableEntities number of currently runnable kernel scheduling entities
 	@field existingEntities number of kernel scheduling entities that currently exist on the system
 	@field mostRecentlyCreatedPid pid of the process that was most recently created on the system
 **/
 typedef Loadavg = {
-	jobsAvg1Min: Float,
-	jobsAvg5Min: Float,
-	jobsAvg15Min: Float,
+	jobsAverage1Minute: Float,
+	jobsAverage5Minutes: Float,
+	jobsAverage15Minutes: Float,
 	runnableEntities: Float,
 	existingEntities: Float,
 	mostRecentlyCreatedPid: Float,
@@ -660,7 +660,7 @@ extern class Procfs{
 
 	/**
 		Parses contents of `/proc/cpuinfo`
-		@unstable
+		@unstable documentation on that is hard to find, need to get at least a list of fields which are present on all systems or just remove this method from the library
 	**/
 	public static function cpuinfo(): Array<CpuCoreInfo>;
 

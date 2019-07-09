@@ -1,8 +1,8 @@
 module.exports = {
+	jobsAverage1Minute: 0.28,
+	jobsAverage5Minutes: 0.22,
+	jobsAverage15Minutes: 0.19,
 	existingEntities: 926,
-	jobsAvg15Min: 0.19,
-	jobsAvg1Min: 0.28,
-	jobsAvg5Min: 0.22,
-	mostRecentlyCreatedPid: 6212,
 	runnableEntities: 1,
+	mostRecentlyCreatedPid: 6212,
 };
