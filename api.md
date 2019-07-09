@@ -61,9 +61,9 @@ Parses contents of `/proc/<pid>/timerslack_ns`
 ### processCmdline ([pid])
 Parses contents of `/proc/<pid>/cmdline`
 
-		Complete list of command-line arguments for the process, unless the process is a zombie. In the latter case, `null`.
+Complete list of command-line arguments for the process, unless the process is a zombie. In the latter case, `null`.
 
-		Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
+Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
 
  - **`pid`** integer: process pid, `self` process if undefined
  - returns Array\<string>
@@ -91,7 +91,7 @@ Parses contents of `/proc/<pid>/statm`
 ### processComm ([pid])
 Parses contents of `/proc/<pid>/comm`
 
-		Note: different threads in the same process may have different comm values
+Note: different threads in the same process may have different comm values
 
  - **`pid`** integer: process pid, `self` process if undefined
  - returns string: the command name associated with the process
@@ -103,9 +103,9 @@ Parses contents of `/proc/<pid>/comm`
 
 Parses contents of `/proc/<pid>/setgroups`
 
-		Returns `"allow"` if processes in the user namespace that contains the target process are permitted to employ the `setgroups` system call, `"deny"` otherwise.
+Returns `"allow"` if processes in the user namespace that contains the target process are permitted to employ the `setgroups` system call, `"deny"` otherwise.
 
-		Note: regardless of the value, calls to `setgroups` are also not permitted if `/proc/[pid]/gid_map` has not yet been set.
+Note: regardless of the value, calls to `setgroups` are also not permitted if `/proc/[pid]/gid_map` has not yet been set.
 
  - **`pid`** integer: process pid, `self` process if undefined
  - returns string: `allow` or `deny`
@@ -124,9 +124,9 @@ Parses contents of `/proc/<pid>/cgroups`
 ### processPersonality ([pid])
 Parses contents of `/proc/<pid>/personality`
 
-		Process's execution domain, as set by `personality`.
+Process's execution domain, as set by `personality`.
 
-		Note: permission to access this file is governed by ptrace access mode `PTRACE_MODE_ATTACH_FSCREDS`
+Note: permission to access this file is governed by ptrace access mode `PTRACE_MODE_ATTACH_FSCREDS`
 
  - **`pid`** integer: process pid, `self` process if undefined
  - returns integer
@@ -162,7 +162,7 @@ Parses contents of `/proc/<pid>/stat`
 
 Parses contents of `/proc/<pid>/status`
 
-		Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
+Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
 
  - **`pid`** integer: process pid, `self` process if undefined
  - returns [ProcessStatus](#type-processstatus)
@@ -218,9 +218,9 @@ Reads symlink at `/proc/<pid>/exe`
 ### processCwd ([pid])
 Reads symlink at `/proc/<pid>/cwd`
 
-		Note: in a multithreaded process, it is not available if the main thread has already terminated.
+Note: in a multithreaded process, it is not available if the main thread has already terminated.
 
-		Note: permission to read this file(symlink) is governed by ptrace access mode `PTRACE_MODE_READ_FSCREDS`.
+Note: permission to read this file(symlink) is governed by ptrace access mode `PTRACE_MODE_READ_FSCREDS`.
 
  - **`pid`** integer: process pid, `self` process if undefined
  - returns [Path](#type-path): path to process `cwd`
@@ -253,7 +253,7 @@ Parses contents of `/proc/uptime`
 ### version ()
 Parses contents of `/proc/version`
 
-		Note: includes the contents of `/proc/sys/kernel/ostype`, `/proc/sys/kernel/osrelease` and `/proc/sys/kernel/version`.
+Note: includes the contents of `/proc/sys/kernel/ostype`, `/proc/sys/kernel/osrelease` and `/proc/sys/kernel/version`.
 
  - returns string: identifies the kernel version that is currently running
 ***
@@ -318,7 +318,7 @@ Parses contents of `/proc/meminfo`
 ### processes ()
 Parses list of `/proc/*` entries.
 
-		Depending on `hidepid` option `procfs` was mounted with, may only contain user's own processes.
+Depending on `hidepid` option `procfs` was mounted with, may only contain user's own processes.
 
  - returns Array\<integer>: pids of currently running processes
 ***

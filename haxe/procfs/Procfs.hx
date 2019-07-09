@@ -577,286 +577,286 @@ typedef ProcessExe = {
 };
 
 extern class Procfs{
-	/**
-		Parses contents of `/proc/<pid>/mountinfo`
-		@param pid process pid, `self` process if undefined
-	**/
+/**
+Parses contents of `/proc/<pid>/mountinfo`
+@param pid process pid, `self` process if undefined
+**/
 	public static function processMountinfo(?pid:Int): Array<ProcessMountinfo>;
 
-	/**
-		Parses contents of `/proc/<pid>/io`
-		@param pid process pid, `self` process if undefined
-	**/
+/**
+Parses contents of `/proc/<pid>/io`
+@param pid process pid, `self` process if undefined
+**/
 	public static function processIo(?pid:Int): ProcessIo;
 
-	/**
-		Parses contents of `/proc/<pid>/uid_map`
-		@param pid process pid, `self` process if undefined
-	**/
+/**
+Parses contents of `/proc/<pid>/uid_map`
+@param pid process pid, `self` process if undefined
+**/
 	public static function processUidMap(?pid:Int): Array<ProcessIdMapRange>;
 
-	/**
-		Parses contents of `/proc/<pid>/gid_map`
-		@param pid process pid, `self` process if undefined
-	**/
+/**
+Parses contents of `/proc/<pid>/gid_map`
+@param pid process pid, `self` process if undefined
+**/
 	public static function processGidMap(?pid:Int): Array<ProcessIdMapRange>;
 
-	/**
-		Parses contents of `/proc/<pid>/environ`
-		@param pid process pid, `self` process if undefined
-		@unstable
-	**/
+/**
+Parses contents of `/proc/<pid>/environ`
+@param pid process pid, `self` process if undefined
+@unstable
+**/
 	public static function processEnviron(?pid:Int): Dynamic;
 
-	/**
-		Parses contents of `/proc/<pid>/oom_score`
-		@param pid process pid, `self` process if undefined
-		@returns current score that the kernel gives to this process for the purpose of selecting a process for the OOM-killer
-	**/
+/**
+Parses contents of `/proc/<pid>/oom_score`
+@param pid process pid, `self` process if undefined
+@returns current score that the kernel gives to this process for the purpose of selecting a process for the OOM-killer
+**/
 	public static function processOomScore(?pid:Int): Int;
 
-	/**
-		Parses contents of `/proc/<pid>/timerslack_ns`
-		@param pid process pid, `self` process if undefined
-		@returns process's "current" timer slack value, in nanoseconds
-	**/
+/**
+Parses contents of `/proc/<pid>/timerslack_ns`
+@param pid process pid, `self` process if undefined
+@returns process's "current" timer slack value, in nanoseconds
+**/
 	public static function processTimerslackNs(?pid:Int): Int;
 
-	/**
-		Parses contents of `/proc/<pid>/cmdline`
-		Complete list of command-line arguments for the process, unless the process is a zombie. In the latter case, `null`.
-		Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
-		@param pid process pid, `self` process if undefined
-	**/
+/**
+Parses contents of `/proc/<pid>/cmdline`
+Complete list of command-line arguments for the process, unless the process is a zombie. In the latter case, `null`.
+Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
+@param pid process pid, `self` process if undefined
+**/
 	public static function processCmdline(?pid:Int): Null<Array<String>>;
 
-	/**
-		Parses contents of `/proc/<pid>/autogroup`
-		@param pid process pid, `self` process if undefined
-	**/
+/**
+Parses contents of `/proc/<pid>/autogroup`
+@param pid process pid, `self` process if undefined
+**/
 	public static function processAutogroup(?pid:Int): ProcessAutogroup;
 
-	/**
-		Parses contents of `/proc/<pid>/statm`
-		@param pid process pid, `self` process if undefined
-		@unstable
-	**/
+/**
+Parses contents of `/proc/<pid>/statm`
+@param pid process pid, `self` process if undefined
+@unstable
+**/
 	public static function processStatm(?pid:Int): ProcessStatm;
 
-	/**
-		Parses contents of `/proc/<pid>/comm`
-		Note: different threads in the same process may have different comm values
+/**
+Parses contents of `/proc/<pid>/comm`
+Note: different threads in the same process may have different comm values
 
-		@param pid process pid, `self` process if undefined
-		@returns the command name associated with the process
-	**/
+@param pid process pid, `self` process if undefined
+@returns the command name associated with the process
+**/
 	public static function processComm(?pid:Int): String;
 
-	/**
-		Parses contents of `/proc/<pid>/setgroups`
-		Returns `"allow"` if processes in the user namespace that contains the target process are permitted to employ the `setgroups` system call, `"deny"` otherwise.
-		Note: regardless of the value, calls to `setgroups` are also not permitted if `/proc/[pid]/gid_map` has not yet been set.
+/**
+Parses contents of `/proc/<pid>/setgroups`
+Returns `"allow"` if processes in the user namespace that contains the target process are permitted to employ the `setgroups` system call, `"deny"` otherwise.
+Note: regardless of the value, calls to `setgroups` are also not permitted if `/proc/[pid]/gid_map` has not yet been set.
 
-		@param pid process pid, `self` process if undefined
-		@returns `allow` or `deny`
-		@unstable will be changed to return boolean
-	**/
+@param pid process pid, `self` process if undefined
+@returns `allow` or `deny`
+@unstable will be changed to return boolean
+**/
 	public static function processSetgroups(?pid:Int): String;
 
-	/**
-		Parses contents of `/proc/<pid>/cgroups`
-		@param pid process pid, `self` process if undefined
-		@returns control groups to which the process belongs
-	**/
+/**
+Parses contents of `/proc/<pid>/cgroups`
+@param pid process pid, `self` process if undefined
+@returns control groups to which the process belongs
+**/
 	public static function processCgroups(?pid:Int): Array<ProcessCgroup>;
 
-	/**
-		Parses contents of `/proc/<pid>/personality`
-		Process's execution domain, as set by `personality`.
-		Note: permission to access this file is governed by ptrace access mode `PTRACE_MODE_ATTACH_FSCREDS`
+/**
+Parses contents of `/proc/<pid>/personality`
+Process's execution domain, as set by `personality`.
+Note: permission to access this file is governed by ptrace access mode `PTRACE_MODE_ATTACH_FSCREDS`
 
-		@param pid process pid, `self` process if undefined
-	**/
+@param pid process pid, `self` process if undefined
+**/
 	public static function processPersonality(?pid:Int): Int;
 
-	/**
-		Parses contents of `/proc/<pid>/cpuset`
-		@param pid process pid, `self` process if undefined
-		@returns path of the process's cpuset directory relative to the root of the cpuset filesystem
-	**/
+/**
+Parses contents of `/proc/<pid>/cpuset`
+@param pid process pid, `self` process if undefined
+@returns path of the process's cpuset directory relative to the root of the cpuset filesystem
+**/
 	public static function processCpuset(?pid:Int): String;
 
-	/**
-		Parses contents of `/proc/<pid>/limits`
-		@param pid process pid, `self` process if undefined
-		@returns process's resource limits
-	**/
+/**
+Parses contents of `/proc/<pid>/limits`
+@param pid process pid, `self` process if undefined
+@returns process's resource limits
+**/
 	public static function processLimits(?pid:Int): Array<ProcessLimit>;
 
-	/**
-		Parses contents of `/proc/<pid>/stat`
-		@param pid process pid, `self` process if undefined
-		@returns status information about the process(used by `ps`)
-	**/
+/**
+Parses contents of `/proc/<pid>/stat`
+@param pid process pid, `self` process if undefined
+@returns status information about the process(used by `ps`)
+**/
 	public static function processStat(?pid:Int): ProcessStat;
 
-	/**
-		Parses contents of `/proc/<pid>/status`
-		Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
-		@param pid process pid, `self` process if undefined
-		@unstable
-	**/
+/**
+Parses contents of `/proc/<pid>/status`
+Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
+@param pid process pid, `self` process if undefined
+@unstable
+**/
 	public static function processStatus(?pid:Int): ProcessStatus;
 
-	/**
-		Parses list of `/proc/<pid>/fd/*` entries.
-		@param pid process pid, `self` process if undefined
-		@return process's current open fds
-	**/
+/**
+Parses list of `/proc/<pid>/fd/*` entries.
+@param pid process pid, `self` process if undefined
+@return process's current open fds
+**/
 	public static function processFds(?pid:Int): Array<Int>;
 
-	/**
-		Parses list of `/proc/<pid>/task/*` entries.
-		@param pid process pid, `self` process if undefined
-		@returns process's current threads
-	**/
+/**
+Parses list of `/proc/<pid>/task/*` entries.
+@param pid process pid, `self` process if undefined
+@returns process's current threads
+**/
 	public static function processThreads(?pid:Int): Array<Int>;
 
-	/**
-		Parses contents of `/proc/<pid>/fdinfo/<fd>`
-		@param pid process pid, `self` process if undefined
-		@param fd fd in question
-		@unstable
-	**/
+/**
+Parses contents of `/proc/<pid>/fdinfo/<fd>`
+@param pid process pid, `self` process if undefined
+@param fd fd in question
+@unstable
+**/
 	public static function processFdinfo(fd:Int, ?pid:Int): ProcessFdinfo;
 
-	/**
-		Parses contents of `/proc/<pid>/fd/<fd>`
-		@param pid process pid, `self` process if undefined
-		@param fd fd in question
-		@unstable
-	**/
+/**
+Parses contents of `/proc/<pid>/fd/<fd>`
+@param pid process pid, `self` process if undefined
+@param fd fd in question
+@unstable
+**/
 	public static function processFd(fd:Int, ?pid:Int): String;
 
-	/**
-		Reads symlink at `/proc/<pid>/exe`
-		@param pid process pid, `self` process if undefined
-	**/
+/**
+Reads symlink at `/proc/<pid>/exe`
+@param pid process pid, `self` process if undefined
+**/
 	public static function processExe(?pid:Int): ProcessExe;
 
-	/**
-		Reads symlink at `/proc/<pid>/cwd`
-		Note: in a multithreaded process, it is not available if the main thread has already terminated.
-		Note: permission to read this file(symlink) is governed by ptrace access mode `PTRACE_MODE_READ_FSCREDS`.
+/**
+Reads symlink at `/proc/<pid>/cwd`
+Note: in a multithreaded process, it is not available if the main thread has already terminated.
+Note: permission to read this file(symlink) is governed by ptrace access mode `PTRACE_MODE_READ_FSCREDS`.
 
-		@param pid process pid, `self` process if undefined
-		@returns path to process `cwd`
-	**/
+@param pid process pid, `self` process if undefined
+@returns path to process `cwd`
+**/
 	public static function processCwd(?pid:Int): Path;
 
-	/**
-		Parses contents of `/proc/cpuinfo`
-		@unstable documentation on that is hard to find, need to get at least a list of fields which are present on all systems or just remove this method from the library
-	**/
+/**
+Parses contents of `/proc/cpuinfo`
+@unstable documentation on that is hard to find, need to get at least a list of fields which are present on all systems or just remove this method from the library
+**/
 	public static function cpuinfo(): Array<CpuCoreInfo>;
 
-	/**
-		Parses contents of `/proc/loadavg`
-	**/
+/**
+Parses contents of `/proc/loadavg`
+**/
 	public static function loadavg(): Loadavg;
 
-	/**
-		Parses contents of `/proc/uptime`
-	**/
+/**
+Parses contents of `/proc/uptime`
+**/
 	public static function uptime(): Uptime;
 
-	/**
-		Parses contents of `/proc/version`
-		Note: includes the contents of `/proc/sys/kernel/ostype`, `/proc/sys/kernel/osrelease` and `/proc/sys/kernel/version`.
-		@returns identifies the kernel version that is currently running
-	**/
+/**
+Parses contents of `/proc/version`
+Note: includes the contents of `/proc/sys/kernel/ostype`, `/proc/sys/kernel/osrelease` and `/proc/sys/kernel/version`.
+@returns identifies the kernel version that is currently running
+**/
 	public static function version(): String;
 
-	/**
-		Parses contents of `/proc/cmdline`
-		@returns arguments passed to the Linux kernel at boot time
-	**/
+/**
+Parses contents of `/proc/cmdline`
+@returns arguments passed to the Linux kernel at boot time
+**/
 	public static function cmdline(): String;
 
-	/**
-		Parses contents of `/proc/swaps`
-		@returns swap areas in use
-	**/
+/**
+Parses contents of `/proc/swaps`
+@returns swap areas in use
+**/
 	public static function swaps(): Array<Swap>;
 
-	/**
-		Parses contents of `/proc/stat`
-		@returns kernel/system statistics
-	**/
+/**
+Parses contents of `/proc/stat`
+@returns kernel/system statistics
+**/
 	public static function stat(): Stat;
 
-	/**
-		Parses contents of `/proc/devices`
-		@returns major numbers and device groups.
-	**/
+/**
+Parses contents of `/proc/devices`
+@returns major numbers and device groups.
+**/
 	public static function devices(): Array<Device>;
 
-	/**
-		Parses contents of `/proc/filesystems`
-		@returns filesystems which are supported by the kernel(which were compiled into the kernel or whose kernel modules are currently loaded)
-	**/
+/**
+Parses contents of `/proc/filesystems`
+@returns filesystems which are supported by the kernel(which were compiled into the kernel or whose kernel modules are currently loaded)
+**/
 	public static function filesystems(): Array<Filesystem>;
 
-	/**
-		Parses contents of `/proc/diskstats`
-		@returns I/O statistics for each disk device
-	**/
+/**
+Parses contents of `/proc/diskstats`
+@returns I/O statistics for each disk device
+**/
 	public static function diskstats(): Array<Diskstat>;
 
-	/**
-		Parses contents of `/proc/partitions`
-		@returns partitions in system
-	**/
+/**
+Parses contents of `/proc/partitions`
+@returns partitions in system
+**/
 	public static function partitions(): Array<Partition>;
 
-	/**
-		Parses contents of `/proc/meminfo`
-		@returns statistics about memory usage on the system
-	**/
+/**
+Parses contents of `/proc/meminfo`
+@returns statistics about memory usage on the system
+**/
 	public static function meminfo(): Meminfo;
 
-	/**
-		Parses list of `/proc/*` entries.
-		Depending on `hidepid` option `procfs` was mounted with, may only contain user's own processes.
-		@returns pids of currently running processes
-	**/
+/**
+Parses list of `/proc/*` entries.
+Depending on `hidepid` option `procfs` was mounted with, may only contain user's own processes.
+@returns pids of currently running processes
+**/
 	public static function processes(): Array<Int>;
 
-	/**
-		Available if the kernel is configured with `CONFIG_IKCONFIG_PROC`
-		@returns gunziped content of `/proc/config.gz`
-	**/
+/**
+Available if the kernel is configured with `CONFIG_IKCONFIG_PROC`
+@returns gunziped content of `/proc/config.gz`
+**/
 	public static function config(): String;
 
-	/**
-		@returns controllers that are compiled into the kernel
-	**/
+/**
+@returns controllers that are compiled into the kernel
+**/
 	public static function cgroups(): Array<CgroupController>;
 
-	/**
-		@returns minor part of devId
-	**/
+/**
+@returns minor part of devId
+**/
 	public static function devIdGetMinor(devId:DevId):Int;
 
-	/**
-		@returns major part of devId
-	**/
+/**
+@returns major part of devId
+**/
 	public static function devIdGetMajor(devId:DevId):Int;
 
-	/**
-		@param major major part of DevId
-		@param minor minor part of DevId
-		@returns id combined from major and minor parts
-	**/
+/**
+@param major major part of DevId
+@param minor minor part of DevId
+@returns id combined from major and minor parts
+**/
 	public static function devIdFromMajorMinor(major:Int, minor:Int):DevId;
 }
