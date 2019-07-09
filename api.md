@@ -433,9 +433,9 @@ Object with properties:
 
 ## type ProcessCgroup
 Object with properties:
- - **`hierarchyId`** integer : `hierarchy-ID`, for cgroups version 1 hierarchies, this field contains a unique hierarchy ID number that can be matched to a hierarchy ID in /proc/cgroups. For the cgroups version 2 hierarchy, this field contains the value 0.
- - **`path`** string : `cgroup-path`, pathname of the control group in the hierarchy to which the process belongs. This pathname is relative to the mount point of the hierarchy.
- - *optional* **`controllers`** Array\<string> : `controller-list`. For cgroups version 1 hierarchies, this field contains a comma-separated list of the controllers bound to the hierarchy. For the cgroups version 2 hierarchy, this field is `undefined`.
+ - **`hierarchyId`** integer : `hierarchy-ID` For cgroups version 1 hierarchies, this field contains a unique hierarchy ID number that can be matched to a hierarchy ID in /proc/cgroups. For the cgroups version 2 hierarchy, this field contains the value 0.
+ - **`path`** string : `cgroup-path` Pathname of the control group in the hierarchy to which the process belongs. This pathname is relative to the mount point of the hierarchy.
+ - *optional* **`controllers`** Array\<string> : `controller-list` For cgroups version 1 hierarchies, this field contains a comma-separated list of the controllers bound to the hierarchy. For the cgroups version 2 hierarchy, this field is `undefined`.
 
 ***
 
