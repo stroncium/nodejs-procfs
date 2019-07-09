@@ -3,7 +3,7 @@
 ### processMountinfo ([pid])
 Parses contents of `/proc/<pid>/mountinfo`
 
- - **`pid`** integer: process pid, `self` process if undefined
+ - **`pid`** integer: process PID, `self` process if undefined
  - returns Array\<[ProcessMountinfo](#type-processmountinfo)>
 ***
 
@@ -11,7 +11,7 @@ Parses contents of `/proc/<pid>/mountinfo`
 ### processIo ([pid])
 Parses contents of `/proc/<pid>/io`
 
- - **`pid`** integer: process pid, `self` process if undefined
+ - **`pid`** integer: process PID, `self` process if undefined
  - returns [ProcessIo](#type-processio)
 ***
 
@@ -19,7 +19,7 @@ Parses contents of `/proc/<pid>/io`
 ### processUidMap ([pid])
 Parses contents of `/proc/<pid>/uid_map`
 
- - **`pid`** integer: process pid, `self` process if undefined
+ - **`pid`** integer: process PID, `self` process if undefined
  - returns Array\<[ProcessIdMapRange](#type-processidmaprange)>
 ***
 
@@ -27,7 +27,7 @@ Parses contents of `/proc/<pid>/uid_map`
 ### processGidMap ([pid])
 Parses contents of `/proc/<pid>/gid_map`
 
- - **`pid`** integer: process pid, `self` process if undefined
+ - **`pid`** integer: process PID, `self` process if undefined
  - returns Array\<[ProcessIdMapRange](#type-processidmaprange)>
 ***
 
@@ -37,7 +37,7 @@ Parses contents of `/proc/<pid>/gid_map`
 
 Parses contents of `/proc/<pid>/environ`
 
- - **`pid`** integer: process pid, `self` process if undefined
+ - **`pid`** integer: process PID, `self` process if undefined
  - returns object
 ***
 
@@ -45,7 +45,7 @@ Parses contents of `/proc/<pid>/environ`
 ### processOomScore ([pid])
 Parses contents of `/proc/<pid>/oom_score`
 
- - **`pid`** integer: process pid, `self` process if undefined
+ - **`pid`** integer: process PID, `self` process if undefined
  - returns integer: current score that the kernel gives to this process for the purpose of selecting a process for the OOM-killer
 ***
 
@@ -53,7 +53,7 @@ Parses contents of `/proc/<pid>/oom_score`
 ### processTimerslackNs ([pid])
 Parses contents of `/proc/<pid>/timerslack_ns`
 
- - **`pid`** integer: process pid, `self` process if undefined
+ - **`pid`** integer: process PID, `self` process if undefined
  - returns integer: process's "current" timer slack value, in nanoseconds
 ***
 
@@ -65,7 +65,7 @@ Complete list of command-line arguments for the process, unless the process is a
 
 Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
 
- - **`pid`** integer: process pid, `self` process if undefined
+ - **`pid`** integer: process PID, `self` process if undefined
  - returns Array\<string>
 ***
 
@@ -73,18 +73,16 @@ Depending on `hidepid` option `procfs` was mounted with, may not be accessible b
 ### processAutogroup ([pid])
 Parses contents of `/proc/<pid>/autogroup`
 
- - **`pid`** integer: process pid, `self` process if undefined
+ - **`pid`** integer: process PID, `self` process if undefined
  - returns [ProcessAutogroup](#type-processautogroup)
 ***
 
 
 ### processStatm ([pid])
-	⚠️ Unstable
-
 Parses contents of `/proc/<pid>/statm`
 
- - **`pid`** integer: process pid, `self` process if undefined
- - returns [ProcessStatm](#type-processstatm)
+ - **`pid`** integer: process PID, `self` process if undefined
+ - returns [ProcessStatm](#type-processstatm): information about process memory usage
 ***
 
 
@@ -93,7 +91,7 @@ Parses contents of `/proc/<pid>/comm`
 
 Note: different threads in the same process may have different comm values
 
- - **`pid`** integer: process pid, `self` process if undefined
+ - **`pid`** integer: process PID, `self` process if undefined
  - returns string: the command name associated with the process
 ***
 
@@ -107,7 +105,7 @@ Returns `"allow"` if processes in the user namespace that contains the target pr
 
 Note: regardless of the value, calls to `setgroups` are also not permitted if `/proc/[pid]/gid_map` has not yet been set.
 
- - **`pid`** integer: process pid, `self` process if undefined
+ - **`pid`** integer: process PID, `self` process if undefined
  - returns string: `allow` or `deny`
 
 ***
@@ -116,7 +114,7 @@ Note: regardless of the value, calls to `setgroups` are also not permitted if `/
 ### processCgroups ([pid])
 Parses contents of `/proc/<pid>/cgroups`
 
- - **`pid`** integer: process pid, `self` process if undefined
+ - **`pid`** integer: process PID, `self` process if undefined
  - returns Array\<[ProcessCgroup](#type-processcgroup)>: control groups to which the process belongs
 ***
 
@@ -128,7 +126,7 @@ Process's execution domain, as set by `personality`.
 
 Note: permission to access this file is governed by ptrace access mode `PTRACE_MODE_ATTACH_FSCREDS`
 
- - **`pid`** integer: process pid, `self` process if undefined
+ - **`pid`** integer: process PID, `self` process if undefined
  - returns integer
 ***
 
@@ -136,7 +134,7 @@ Note: permission to access this file is governed by ptrace access mode `PTRACE_M
 ### processCpuset ([pid])
 Parses contents of `/proc/<pid>/cpuset`
 
- - **`pid`** integer: process pid, `self` process if undefined
+ - **`pid`** integer: process PID, `self` process if undefined
  - returns string: path of the process's cpuset directory relative to the root of the cpuset filesystem
 ***
 
@@ -144,7 +142,7 @@ Parses contents of `/proc/<pid>/cpuset`
 ### processLimits ([pid])
 Parses contents of `/proc/<pid>/limits`
 
- - **`pid`** integer: process pid, `self` process if undefined
+ - **`pid`** integer: process PID, `self` process if undefined
  - returns Array\<[ProcessLimit](#type-processlimit)>: process's resource limits
 ***
 
@@ -152,7 +150,7 @@ Parses contents of `/proc/<pid>/limits`
 ### processStat ([pid])
 Parses contents of `/proc/<pid>/stat`
 
- - **`pid`** integer: process pid, `self` process if undefined
+ - **`pid`** integer: process PID, `self` process if undefined
  - returns [ProcessStat](#type-processstat): status information about the process(used by `ps`)
 ***
 
@@ -164,7 +162,7 @@ Parses contents of `/proc/<pid>/status`
 
 Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
 
- - **`pid`** integer: process pid, `self` process if undefined
+ - **`pid`** integer: process PID, `self` process if undefined
  - returns [ProcessStatus](#type-processstatus)
 ***
 
@@ -172,7 +170,7 @@ Depending on `hidepid` option `procfs` was mounted with, may not be accessible b
 ### processFds ([pid])
 Parses list of `/proc/<pid>/fd/*` entries.
 
- - **`pid`** integer: process pid, `self` process if undefined
+ - **`pid`** integer: process PID, `self` process if undefined
  - returns Array\<integer>: process's current open fds
 ***
 
@@ -180,7 +178,7 @@ Parses list of `/proc/<pid>/fd/*` entries.
 ### processThreads ([pid])
 Parses list of `/proc/<pid>/task/*` entries.
 
- - **`pid`** integer: process pid, `self` process if undefined
+ - **`pid`** integer: process PID, `self` process if undefined
  - returns Array\<integer>: process's current threads
 ***
 
@@ -191,7 +189,7 @@ Parses list of `/proc/<pid>/task/*` entries.
 Parses contents of `/proc/<pid>/fdinfo/<fd>`
 
  - **`fd`** integer: fd in question
- - **`pid`** integer: process pid, `self` process if undefined
+ - **`pid`** integer: process PID, `self` process if undefined
  - returns [ProcessFdinfo](#type-processfdinfo)
 ***
 
@@ -202,7 +200,7 @@ Parses contents of `/proc/<pid>/fdinfo/<fd>`
 Parses contents of `/proc/<pid>/fd/<fd>`
 
  - **`fd`** integer: fd in question
- - **`pid`** integer: process pid, `self` process if undefined
+ - **`pid`** integer: process PID, `self` process if undefined
  - returns string
 ***
 
@@ -210,7 +208,7 @@ Parses contents of `/proc/<pid>/fd/<fd>`
 ### processExe ([pid])
 Reads symlink at `/proc/<pid>/exe`
 
- - **`pid`** integer: process pid, `self` process if undefined
+ - **`pid`** integer: process PID, `self` process if undefined
  - returns [ProcessExe](#type-processexe)
 ***
 
@@ -222,7 +220,7 @@ Note: in a multithreaded process, it is not available if the main thread has alr
 
 Note: permission to read this file(symlink) is governed by ptrace access mode `PTRACE_MODE_READ_FSCREDS`.
 
- - **`pid`** integer: process pid, `self` process if undefined
+ - **`pid`** integer: process PID, `self` process if undefined
  - returns [Path](#type-path): path to process `cwd`
 ***
 
@@ -422,11 +420,11 @@ Object with properties:
 
 ## type ProcessStatm
 Object with properties:
- - **`data`** integer
- - **`resident`** integer
- - **`shared`** integer
- - **`size`** integer
- - **`text`** integer
+ - **`data`** integer : data + stack, in pages
+ - **`resident`** integer : resident set size(same as VmRSS in `/proc/<pid>/status`), in pages
+ - **`shared`** integer : number of resident shared pages(same as RssFile + RssShmem in `/proc/<pid>/status`), in pages
+ - **`size`** integer : total program size(same as VmSize in `/proc/<pid>/status`), in pages
+ - **`text`** integer : text (code), in pages
 
 ***
 

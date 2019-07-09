@@ -77,6 +77,13 @@ typedef ProcessAutogroup = {
 	nice: Int,
 };
 
+/**
+@field size total program size(same as VmSize in `/proc/<pid>/status`), in pages
+@field resident resident set size(same as VmRSS in `/proc/<pid>/status`), in pages
+@field shared number of resident shared pages(same as RssFile + RssShmem in `/proc/<pid>/status`), in pages
+@field text text (code), in pages
+@field data data + stack, in pages
+**/
 typedef ProcessStatm = {
 	size: Int,
 	resident: Int,
@@ -579,45 +586,45 @@ typedef ProcessExe = {
 extern class Procfs{
 /**
 Parses contents of `/proc/<pid>/mountinfo`
-@param pid process pid, `self` process if undefined
+@param pid process PID, `self` process if undefined
 **/
 	public static function processMountinfo(?pid:Int): Array<ProcessMountinfo>;
 
 /**
 Parses contents of `/proc/<pid>/io`
-@param pid process pid, `self` process if undefined
+@param pid process PID, `self` process if undefined
 **/
 	public static function processIo(?pid:Int): ProcessIo;
 
 /**
 Parses contents of `/proc/<pid>/uid_map`
-@param pid process pid, `self` process if undefined
+@param pid process PID, `self` process if undefined
 **/
 	public static function processUidMap(?pid:Int): Array<ProcessIdMapRange>;
 
 /**
 Parses contents of `/proc/<pid>/gid_map`
-@param pid process pid, `self` process if undefined
+@param pid process PID, `self` process if undefined
 **/
 	public static function processGidMap(?pid:Int): Array<ProcessIdMapRange>;
 
 /**
 Parses contents of `/proc/<pid>/environ`
-@param pid process pid, `self` process if undefined
+@param pid process PID, `self` process if undefined
 @unstable
 **/
 	public static function processEnviron(?pid:Int): Dynamic;
 
 /**
 Parses contents of `/proc/<pid>/oom_score`
-@param pid process pid, `self` process if undefined
+@param pid process PID, `self` process if undefined
 @returns current score that the kernel gives to this process for the purpose of selecting a process for the OOM-killer
 **/
 	public static function processOomScore(?pid:Int): Int;
 
 /**
 Parses contents of `/proc/<pid>/timerslack_ns`
-@param pid process pid, `self` process if undefined
+@param pid process PID, `self` process if undefined
 @returns process's "current" timer slack value, in nanoseconds
 **/
 	public static function processTimerslackNs(?pid:Int): Int;
@@ -626,20 +633,20 @@ Parses contents of `/proc/<pid>/timerslack_ns`
 Parses contents of `/proc/<pid>/cmdline`
 Complete list of command-line arguments for the process, unless the process is a zombie. In the latter case, `null`.
 Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
-@param pid process pid, `self` process if undefined
+@param pid process PID, `self` process if undefined
 **/
 	public static function processCmdline(?pid:Int): Null<Array<String>>;
 
 /**
 Parses contents of `/proc/<pid>/autogroup`
-@param pid process pid, `self` process if undefined
+@param pid process PID, `self` process if undefined
 **/
 	public static function processAutogroup(?pid:Int): ProcessAutogroup;
 
 /**
 Parses contents of `/proc/<pid>/statm`
-@param pid process pid, `self` process if undefined
-@unstable
+@param pid process PID, `self` process if undefined
+@returns information about process memory usage
 **/
 	public static function processStatm(?pid:Int): ProcessStatm;
 
@@ -647,7 +654,7 @@ Parses contents of `/proc/<pid>/statm`
 Parses contents of `/proc/<pid>/comm`
 Note: different threads in the same process may have different comm values
 
-@param pid process pid, `self` process if undefined
+@param pid process PID, `self` process if undefined
 @returns the command name associated with the process
 **/
 	public static function processComm(?pid:Int): String;
@@ -657,7 +664,7 @@ Parses contents of `/proc/<pid>/setgroups`
 Returns `"allow"` if processes in the user namespace that contains the target process are permitted to employ the `setgroups` system call, `"deny"` otherwise.
 Note: regardless of the value, calls to `setgroups` are also not permitted if `/proc/[pid]/gid_map` has not yet been set.
 
-@param pid process pid, `self` process if undefined
+@param pid process PID, `self` process if undefined
 @returns `allow` or `deny`
 @unstable will be changed to return boolean
 **/
@@ -665,7 +672,7 @@ Note: regardless of the value, calls to `setgroups` are also not permitted if `/
 
 /**
 Parses contents of `/proc/<pid>/cgroups`
-@param pid process pid, `self` process if undefined
+@param pid process PID, `self` process if undefined
 @returns control groups to which the process belongs
 **/
 	public static function processCgroups(?pid:Int): Array<ProcessCgroup>;
@@ -675,27 +682,27 @@ Parses contents of `/proc/<pid>/personality`
 Process's execution domain, as set by `personality`.
 Note: permission to access this file is governed by ptrace access mode `PTRACE_MODE_ATTACH_FSCREDS`
 
-@param pid process pid, `self` process if undefined
+@param pid process PID, `self` process if undefined
 **/
 	public static function processPersonality(?pid:Int): Int;
 
 /**
 Parses contents of `/proc/<pid>/cpuset`
-@param pid process pid, `self` process if undefined
+@param pid process PID, `self` process if undefined
 @returns path of the process's cpuset directory relative to the root of the cpuset filesystem
 **/
 	public static function processCpuset(?pid:Int): String;
 
 /**
 Parses contents of `/proc/<pid>/limits`
-@param pid process pid, `self` process if undefined
+@param pid process PID, `self` process if undefined
 @returns process's resource limits
 **/
 	public static function processLimits(?pid:Int): Array<ProcessLimit>;
 
 /**
 Parses contents of `/proc/<pid>/stat`
-@param pid process pid, `self` process if undefined
+@param pid process PID, `self` process if undefined
 @returns status information about the process(used by `ps`)
 **/
 	public static function processStat(?pid:Int): ProcessStat;
@@ -703,28 +710,28 @@ Parses contents of `/proc/<pid>/stat`
 /**
 Parses contents of `/proc/<pid>/status`
 Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
-@param pid process pid, `self` process if undefined
+@param pid process PID, `self` process if undefined
 @unstable
 **/
 	public static function processStatus(?pid:Int): ProcessStatus;
 
 /**
 Parses list of `/proc/<pid>/fd/*` entries.
-@param pid process pid, `self` process if undefined
+@param pid process PID, `self` process if undefined
 @return process's current open fds
 **/
 	public static function processFds(?pid:Int): Array<Int>;
 
 /**
 Parses list of `/proc/<pid>/task/*` entries.
-@param pid process pid, `self` process if undefined
+@param pid process PID, `self` process if undefined
 @returns process's current threads
 **/
 	public static function processThreads(?pid:Int): Array<Int>;
 
 /**
 Parses contents of `/proc/<pid>/fdinfo/<fd>`
-@param pid process pid, `self` process if undefined
+@param pid process PID, `self` process if undefined
 @param fd fd in question
 @unstable
 **/
@@ -732,7 +739,7 @@ Parses contents of `/proc/<pid>/fdinfo/<fd>`
 
 /**
 Parses contents of `/proc/<pid>/fd/<fd>`
-@param pid process pid, `self` process if undefined
+@param pid process PID, `self` process if undefined
 @param fd fd in question
 @unstable
 **/
@@ -740,7 +747,7 @@ Parses contents of `/proc/<pid>/fd/<fd>`
 
 /**
 Reads symlink at `/proc/<pid>/exe`
-@param pid process pid, `self` process if undefined
+@param pid process PID, `self` process if undefined
 **/
 	public static function processExe(?pid:Int): ProcessExe;
 
@@ -749,7 +756,7 @@ Reads symlink at `/proc/<pid>/cwd`
 Note: in a multithreaded process, it is not available if the main thread has already terminated.
 Note: permission to read this file(symlink) is governed by ptrace access mode `PTRACE_MODE_READ_FSCREDS`.
 
-@param pid process pid, `self` process if undefined
+@param pid process PID, `self` process if undefined
 @returns path to process `cwd`
 **/
 	public static function processCwd(?pid:Int): Path;
