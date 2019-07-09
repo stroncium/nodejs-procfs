@@ -51,10 +51,10 @@ class Md{
 					if(unstableTag.text != null) {
 						md+= '⚠️ **unstable**: ${unstableTag.text}\n\n';
 					} else {
-						md+= '⚠️ **unstable**\n';
+						md+= '⚠️ **unstable**\n\n';
 					}
 				}
-				if(doc.text != null) md+= doc.text+'\n';
+				if(doc.text != null) md+= doc.text.split('\n').join('\n\n')+'\n\n';
 				for(a in args) {
 					md+= ' - **`${a.name}`** ${typeName(a.t)}';
 					if(doc.params[a.name] != null) md+= ': ' + doc.params[a.name];
