@@ -49,9 +49,9 @@ class Md{
 				var md = '### ${f.name} ($argsText)\n';
 				if(unstableTag != null) {
 					if(unstableTag.text != null) {
-						md+= '\t⚠️ **unstable**: ${unstableTag.text}\n\n';
+						md+= '\t⚠️ Unstable: ${unstableTag.text}\n\n';
 					} else {
-						md+= '\t⚠️ **unstable**\n\n';
+						md+= '\t⚠️ Unstable\n\n';
 					}
 				}
 				if(doc.text != null) md+= doc.text.split('\n').join('\n\n')+'\n\n';
