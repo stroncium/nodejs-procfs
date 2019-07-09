@@ -178,6 +178,7 @@ for (let name of [
 	'diskstats',
 	'partitions',
 	'meminfo',
+	'cgroups',
 ]) {
 	procfs[name] = () => {
 		try {

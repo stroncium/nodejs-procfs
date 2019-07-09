@@ -94,10 +94,9 @@ Parses contents of `/proc/<pid>/setgroups`
 
 
 ### processCgroups ([pid])
-⚠️ **unstable**
 Parses contents of `/proc/<pid>/cgroups`
  - **`pid`** integer: process pid, `self` process if undefined
- - returns Array\<[ProcessCgroup](#type-processcgroup)>
+ - returns Array\<[ProcessCgroup](#type-processcgroup)>: control groups to which the process belongs
 ---
 
 
@@ -282,6 +281,11 @@ Available if the kernel is configured with `CONFIG_IKCONFIG_PROC`
 ---
 
 
+### cgroups ()
+ - returns Array\<[CgroupController](#type-cgroupcontroller)>: controllers that are compiled into the kernel
+---
+
+
 ### devIdGetMinor (devId)
  - **`devId`** [DevId](#type-devid)
  - returns integer: minor part of devId
@@ -325,7 +329,7 @@ Object with properties:
  - **`mountPoint`** [Path](#type-path) : pathname of the mount point relative to the process's root directory
  - **`mountSource`** string : filesystem-specific information or "none"
  - **`optionalFields`** Array\<string> : zero or more fields of the form "tag[:value]"
- - **`parentId`** integer : ID of the parent mount (or of self for the root of  this  mount  namespace's mount tree)
+ - **`parentId`** integer : ID of the parent mount (or of self for the root of this mount namespace's mount tree)
  - **`root`** string : pathname of the directory in the filesystem which forms the root of this mount
  - **`superOptions`** Array\<string> : per-superblock options
  - **`type`** string : filesystem type in the form "type[.subtype]"
@@ -379,9 +383,19 @@ Object with properties:
 
 ## type ProcessCgroup
 Object with properties:
- - **`group`** string
- - **`id`** integer
- - **`subsystems`** Array\<string>
+ - **`hierarchyId`** integer : `hierarchy-ID`, for cgroups version 1 hierarchies, this field contains a unique hierarchy ID number that can be matched to a hierarchy ID in /proc/cgroups. For the cgroups version 2 hierarchy, this field contains the value 0.
+ - **`path`** string : `cgroup-path`, pathname of the control group in the hierarchy to which the process belongs. This pathname is relative to the mount point of the hierarchy.
+ - *optional* **`controllers`** Array\<string> : `controller-list`. For cgroups version 1 hierarchies, this field contains a comma-separated list of the controllers bound to the hierarchy. For the cgroups version 2 hierarchy, this field is `undefined`.
+
+***
+
+
+## type CgroupController
+Object with properties:
+ - **`cgroupsNumber`** integer : `num_cgroups`, number of control groups in this hierarchy using this controller
+ - **`enabled`** boolean : `enabled`
+ - **`hierarchyId`** integer : `hierarchy`, unique ID of the cgroup hierarchy on which this controller is mounted. The value in this field will be 0 if the controller is not mounted on a cgroups v1 hierarchy, if the controller is bound to the cgroups v2 single unified hierarchy or if the controller is disabled.
+ - **`name`** string : `subsys_name`, name of the controller
 
 ***
 

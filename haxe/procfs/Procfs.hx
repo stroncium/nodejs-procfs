@@ -12,7 +12,7 @@ typedef DevId = Int;
 
 /**
 @field mountId unique ID for the mount (may be reused after umount)
-@field parentId ID of the parent mount (or of self for the root of  this  mount  namespace's mount tree)
+@field parentId ID of the parent mount (or of self for the root of this mount namespace's mount tree)
 @field devId value of st_dev for files on this filesystem
 @field root pathname of the directory in the filesystem which forms the root of this mount
 @field mountPoint pathname of the mount point relative to the process's root directory
@@ -85,10 +85,28 @@ typedef ProcessStatm = {
 	data: Int,
 };
 
+/**
+@field hierarchyId `hierarchy-ID`, for cgroups version 1 hierarchies, this field contains a unique hierarchy ID number that can be matched to a hierarchy ID in /proc/cgroups. For the cgroups version 2 hierarchy, this field contains the value 0.
+@field controllers `controller-list`. For cgroups version 1 hierarchies, this field contains a comma-separated list of the controllers bound to the hierarchy. For the cgroups version 2 hierarchy, this field is `undefined`.
+@field path `cgroup-path`, pathname of the control group in the hierarchy to which the process belongs. This pathname is relative to the mount point of the hierarchy.
+**/
 typedef ProcessCgroup = {
-	id: Int,
-	subsystems: Array<String>,
-	group: String,
+	hierarchyId: Int,
+	?controllers: Array<String>,
+	path: String,
+};
+
+/**
+@field name `subsys_name`, name of the controller
+@field hierarchyId `hierarchy`, unique ID of the cgroup hierarchy on which this controller is mounted. The value in this field will be 0 if the controller is not mounted on a cgroups v1 hierarchy, if the controller is bound to the cgroups v2 single unified hierarchy or if the controller is disabled.
+@field cgroupsNumber `num_cgroups`, number of control groups in this hierarchy using this controller
+@field enabled `enabled`
+**/
+typedef CgroupController = {
+	name: String,
+	hierarchyId: Int,
+	cgroupsNumber: Int,
+	enabled: Bool,
 };
 
 /**
@@ -540,7 +558,7 @@ extern class Procfs{
 	/**
 		Parses contents of `/proc/<pid>/cgroups`
 		@param pid process pid, `self` process if undefined
-		@unstable
+		@returns control groups to which the process belongs
 	**/
 	public static function processCgroups(?pid:Int): Array<ProcessCgroup>;
 
@@ -712,6 +730,11 @@ extern class Procfs{
 		@returns gunziped content of `/proc/config.gz`
 	**/
 	public static function config(): String;
+
+	/**
+		@returns controllers that are compiled into the kernel
+	**/
+	public static function cgroups(): Array<CgroupController>;
 
 	/**
 		@returns minor part of devId

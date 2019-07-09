@@ -4,7 +4,7 @@ Zero dependency library for reading and parsing various files from `procfs` for 
 
 Linux implements `procfs` filesystem mounted at `/proc`(usually). This filesystem is virtual, and can be used to extract various information about kernel state and running processes.
 
-Compatible with releases of Linux since 4.4 SLTS. Attempts to support new features from all the following releases. Features which are deprecated/discontinued in latest releases are not supported. Some features aren't expected to be used from Node.js and so were not implemented, if you need to use some of them, please open an feature request.
+Compatible with releases of Linux since 4.4 SLTS. Attempts to support new features from all the following releases. Features which are deprecated/discontinued in latest releases are not supported. Some features aren't expected to be used from Node.js and so were not implemented, if you need to use some of them, please open a feature request.
 
 ## Example
 

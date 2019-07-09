@@ -63,6 +63,7 @@ for (let [parserName, fixtures] of [
 	['diskstats', 'diskstats'],
 	['partitions', 'partitions'],
 	['meminfo', 'meminfo,meminfo-synthetic'],
+	['cgroups', 'cgroups'],
 ]) {
 	for (let fixture of fixtures.split(',')) {
 		let dumpPath = `${FIXTURES}/${fixture}`;

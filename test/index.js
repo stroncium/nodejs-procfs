@@ -42,6 +42,7 @@ for (let {name, pided} of [
 	{name: 'diskstats'},
 	{name: 'partitions'},
 	{name: 'meminfo'},
+	{name: 'cgroups'},
 ]) {
 	let assertType = typeAsserts[name];
 

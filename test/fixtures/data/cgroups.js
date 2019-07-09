@@ -1,0 +1,15 @@
+module.exports = [
+	{name: 'cpuset', hierarchyId: 10, cgroupsNumber: 1, enabled: true},
+	{name: 'cpu', hierarchyId: 2, cgroupsNumber: 34, enabled: true},
+	{name: 'cpuacct', hierarchyId: 2, cgroupsNumber: 34, enabled: true},
+	{name: 'blkio', hierarchyId: 9, cgroupsNumber: 34, enabled: true},
+	{name: 'memory', hierarchyId: 12, cgroupsNumber: 75, enabled: true},
+	{name: 'devices', hierarchyId: 5, cgroupsNumber: 34, enabled: true},
+	{name: 'freezer', hierarchyId: 4, cgroupsNumber: 1, enabled: true},
+	{name: 'net_cls', hierarchyId: 8, cgroupsNumber: 1, enabled: true},
+	{name: 'perf_event', hierarchyId: 3, cgroupsNumber: 1, enabled: true},
+	{name: 'net_prio', hierarchyId: 8, cgroupsNumber: 1, enabled: true},
+	{name: 'hugetlb', hierarchyId: 6, cgroupsNumber: 1, enabled: true},
+	{name: 'pids', hierarchyId: 11, cgroupsNumber: 38, enabled: true},
+	{name: 'rdma', hierarchyId: 7, cgroupsNumber: 1, enabled: true},
+];
