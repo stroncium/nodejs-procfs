@@ -278,14 +278,14 @@ typedef Uptime = {
 };
 
 /**
-@field filename `Filename`
+@field path `Filename`
 @field type `Type`
-@field size `Size`
-@field used `Used`
+@field size `Size` size, in blocks
+@field used `Used` used, in blocks
 @field priority `Priority`
 **/
 typedef Swap = {
-	filename: Path,
+	path: Path,
 	type: String,
 	size: Int,
 	used: Int,
@@ -678,7 +678,6 @@ extern class Procfs{
 	/**
 		Parses contents of `/proc/swaps`
 		@returns swap areas in use
-		@unstable
 	**/
 	public static function swaps(): Array<Swap>;
 

@@ -221,10 +221,8 @@ Parses contents of `/proc/cmdline`
 
 
 ### swaps ()
-⚠️ **unstable**
 Parses contents of `/proc/swaps`
  - returns Array\<[Swap](#type-swap)>: swap areas in use
-
 ---
 
 
@@ -561,11 +559,11 @@ Object with properties:
 
 ## type Swap
 Object with properties:
- - **`filename`** [Path](#type-path) : `Filename`
+ - **`path`** [Path](#type-path) : `Filename`
  - **`priority`** integer : `Priority`
- - **`size`** integer : `Size`
+ - **`size`** integer : `Size` size, in blocks
  - **`type`** string : `Type`
- - **`used`** integer : `Used`
+ - **`used`** integer : `Used` used, in blocks
 
 ***
 

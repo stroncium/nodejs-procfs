@@ -249,7 +249,7 @@ module.exports = {
 		type: Joi.string().required(),
 		size: Joi.number().integer().required(),
 		priority: Joi.number().integer().required(),
-		filename: Joi.string().required(),
+		path: Joi.string().required(),
 	})).min(0).required()),
 	stat: asserter(Joi.object().keys({
 		systemCpuTime: Joi.object().keys({

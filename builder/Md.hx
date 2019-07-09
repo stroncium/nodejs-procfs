@@ -34,20 +34,26 @@ class Md{
 		}
 	}
 
-	static function isUnstable(doc:DocInfos) {
-		for(tag in doc.unknownTags) if(tag.name == 'unstable') return true;
-		return false;
+	static function getUnstableTag(doc:DocInfos) {
+		for(tag in doc.unknownTags) if(tag.name == 'unstable') return tag;
+		return null;
 	}
 
 	function addField(f:ClassField) {
 		text.push(switch(f.type) {
 			case CFunction(args, ret):
 				var doc = JavadocHandler.parse(f.doc);
-				var unstable = isUnstable(doc);
+				var unstableTag = getUnstableTag(doc);
 				var argsText = [for(a in args) a.opt ? '[${a.name}]' : '${a.name}'].join(', ');
 
 				var md = '### ${f.name} ($argsText)\n';
-				if(unstable) md+= '⚠️ **unstable**\n';
+				if(unstableTag != null) {
+					if(unstableTag.text != null) {
+						md+= '⚠️ **unstable**: ${unstableTag.text}\n\n';
+					} else {
+						md+= '⚠️ **unstable**\n';
+					}
+				}
 				if(doc.text != null) md+= doc.text+'\n';
 				for(a in args) {
 					md+= ' - **`${a.name}`** ${typeName(a.t)}';
