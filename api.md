@@ -258,9 +258,8 @@ Parses contents of `/proc/partitions`
 
 
 ### meminfo ()
-⚠️ **unstable**
 Parses contents of `/proc/meminfo`
- - returns [Meminfo](#type-meminfo)
+ - returns [Meminfo](#type-meminfo): statistics about memory usage on the system
 ***
 
 
@@ -647,45 +646,47 @@ Object with properties:
 
 
 ## type Meminfo
+Memory amounts are expressed in KiB.
+
 Object with properties:
- - **`active`** integer
- - **`anonHugePages`** integer
- - **`anonPages`** integer
- - **`available`** integer
- - **`bounceBuffers`** integer
- - **`buffers`** integer
- - **`cached`** integer
- - **`commitLimit`** integer
- - **`directMap1G`** integer
- - **`directMap2M`** integer
- - **`directMap4K`** integer
- - **`directMap4M`** integer
- - **`dirty`** integer
- - **`free`** integer
- - **`hardwareCorrupted`** integer
- - **`hugepageSize`** integer
- - **`hugepagesFree`** integer
- - **`hugepagesReserved`** integer
- - **`hugepagesSurplus`** integer
- - **`hugepagesTotal`** integer
- - **`inactive`** integer
- - **`kernelStack`** integer
- - **`mapped`** integer
- - **`pageTables`** integer
- - **`shmem`** integer
- - **`slab`** integer
- - **`slabReclaimable`** integer
- - **`slabUnreclaimable`** integer
- - **`swapCached`** integer
- - **`swapFree`** integer
- - **`swapTotal`** integer
- - **`total`** integer
- - **`vmallocTotal`** integer
- - **`writeback`** integer
- - **`writebackTmp`** integer
- - *optional* **`kernelReclaimable`** integer : Available since Linux 4.20
- - *optional* **`shmemHugePages`** integer : Available since Linux 4.8 if the kernel is configured with `CONFIG_TRANSPARENT_HUGEPAGE`
- - *optional* **`shmemPmdMapped`** integer : Available since Linux 4.8 if the kernel is configured with `CONFIG_TRANSPARENT_HUGEPAGE`
+ - **`active`** integer : `Active` Memory that has been used more recently and usually not reclaimed unless absolutely necessary.
+ - **`anonHugePages`** integer : `AnonHugePages` Non-file backed huge pages mapped into userspace page tables. Available if the kernel is configured with `CONFIG_TRANSPARENT_HUGEPAGE`.
+ - **`anonPages`** integer : `AnonPages` Non-file backed pages mapped into user-space page tables.
+ - **`available`** integer : `MemAvailable` An estimate of how much memory is available for starting new applications, without swapping
+ - **`bounceBuffers`** integer : `Bounce` Memory used for block device "bounce buffers".
+ - **`buffers`** integer : `Buffers` Relatively temporary storage for raw disk blocks that shouldn't get tremendously large
+ - **`cached`** integer : `Cached` In-memory cache for files read from the disk (the page cache). Doesn't include Swap‐Cached.
+ - **`commitLimit`** integer : `CommitLimit` Total amount of memory currently available to be allocated on the system.
+ - **`directMap1G`** integer : `DirectMap1G` Number of bytes of RAM linearly mapped by kernel in 1GB pages.
+ - **`directMap2M`** integer : `DirectMap2M` Number of bytes of RAM linearly mapped by kernel in 2MB pages.
+ - **`directMap4K`** integer : `DirectMap4k` Number of bytes of RAM linearly mapped by kernel in 4kB pages
+ - **`directMap4M`** integer : `DirectMap4M` Number of bytes of RAM linearly mapped by kernel in 4MB pages.
+ - **`dirty`** integer : `Dirty` Memory which is waiting to get written back to the disk.
+ - **`free`** integer : `MemFree` Amount of free RAM
+ - **`inactive`** integer : `Inactive` Memory which has been less recently used. It is more eligible to be reclaimed for other purposes.
+ - **`kernelStack`** integer : `KernelStack` Amount of memory allocated to kernel stacks.
+ - **`mapped`** integer : `Mapped` Files which have been mapped into memory (with mmap), such as libraries.
+ - **`pageTables`** integer : `PageTables` Amount of memory dedicated to the lowest level of page tables.
+ - **`shmem`** integer : `Shmem` Amount of memory consumed in tmpfs filesystems.
+ - **`slab`** integer : `Slab` In-kernel data structures cache.
+ - **`slabReclaimable`** integer : `SReclaimable` Part of Slab, that might be reclaimed, such as caches.
+ - **`slabUnreclaimable`** integer : `SUnreclaim` Part of Slab, that cannot be reclaimed on memory pressure.
+ - **`swapCached`** integer : `SwapCached` Memory that once was swapped out, is swapped back in but still also is in the swap file. (If memory pressure is high, these pages don't need to be swapped out again because they are already in the swap file. This saves I/O.)
+ - **`swapFree`** integer : `SwapFree` Amount of swap space that is currently unused.
+ - **`swapTotal`** integer : `SwapTotal` Total amount of swap space available.
+ - **`total`** integer : `MemTotal` Total usable RAM
+ - **`vmallocTotal`** integer : `VmallocTotal` Total size of vmalloc memory area.
+ - **`writeback`** integer : `Writeback` Memory which is actively being written back to the disk.
+ - **`writebackTmp`** integer : `WritebackTmp` Memory used by FUSE for temporary writeback buffers.
+ - *optional* **`hardwareCorrupted`** integer : `HardwareCorrupted` Available if the kernel is configured with `CONFIG_MEMORY_FAILURE`.
+ - *optional* **`hugepageSize`** integer : `Hugepagesize` The size of huge pages. Available if the kernel is configured with `CONFIG_HUGETLB_PAGE`.
+ - *optional* **`hugepagesFree`** integer : `HugePages_Free` The number of huge pages in the pool that are not yet allocated. Available if the kernel is configured with `CONFIG_HUGETLB_PAGE`.
+ - *optional* **`hugepagesReserved`** integer : `HugePages_Rsvd` This is the number of huge pages for which a commitment to allocate from the pool has been made, but no allocation has yet been made. These reserved huge pages guarantee that an application will be able to allocate a huge page from the pool of huge pages at fault time. Available if the kernel is configured with `CONFIG_HUGETLB_PAGE`.
+ - *optional* **`hugepagesSurplus`** integer : `HugePages_Surp` This is the number of huge pages in the pool above the value in `/proc/sys/vm/nr_hugepages`. The maximum number of surplus huge pages is controlled by `/proc/sys/vm/nr_overcommit_hugepages`. Available if the kernel is configured with `CONFIG_HUGETLB_PAGE`.
+ - *optional* **`hugepagesTotal`** integer : `HugePages_Total` The size of the pool of huge pages. Available if the kernel is configured with `CONFIG_HUGETLB_PAGE`.
+ - *optional* **`kernelReclaimable`** integer : `KReclaimable` Kernel allocations that the kernel will attempt to reclaim under memory pressure. Includes `SReclaimable` and other direct allocations with a shrinker. Available since Linux 4.20.
+ - *optional* **`shmemHugePages`** integer : `ShmemHugePages` Memory used by shared memory and tmpfs allocated with huge pages. Available since Linux 4.8 if the kernel is configured with `CONFIG_TRANSPARENT_HUGEPAGE`.
+ - *optional* **`shmemPmdMapped`** integer : `ShmemPmdMapped` Shared memory mapped into user space with huge pages. Available since Linux 4.8 if the kernel is configured with `CONFIG_TRANSPARENT_HUGEPAGE`.
 
 ***
 

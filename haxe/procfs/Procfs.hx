@@ -407,9 +407,46 @@ typedef Partition = {
 };
 
 /**
-@field shmemPmdMapped Available since Linux 4.8 if the kernel is configured with `CONFIG_TRANSPARENT_HUGEPAGE`
-@field shmemHugePages Available since Linux 4.8 if the kernel is configured with `CONFIG_TRANSPARENT_HUGEPAGE`
-@field kernelReclaimable Available since Linux 4.20
+Memory amounts are expressed in KiB.
+
+@field total `MemTotal` Total usable RAM
+@field free `MemFree` Amount of free RAM
+@field available `MemAvailable` An estimate of how much memory is available for starting new applications, without swapping
+@field buffers `Buffers` Relatively temporary storage for raw disk blocks that shouldn't get tremendously large
+@field cached `Cached` In-memory cache for files read from the disk (the page cache). Doesn't include Swap‐Cached.
+@field swapCached `SwapCached` Memory that once was swapped out, is swapped back in but still also is in the swap file. (If memory pressure is high, these pages don't need to be swapped out again because they are already in the swap file. This saves I/O.)
+@field active `Active` Memory that has been used more recently and usually not reclaimed unless absolutely necessary.
+@field inactive `Inactive` Memory which has been less recently used. It is more eligible to be reclaimed for other purposes.
+@field swapTotal `SwapTotal` Total amount of swap space available.
+@field swapFree `SwapFree` Amount of swap space that is currently unused.
+@field dirty `Dirty` Memory which is waiting to get written back to the disk.
+@field writeback `Writeback` Memory which is actively being written back to the disk.
+@field anonPages `AnonPages` Non-file backed pages mapped into user-space page tables.
+@field mapped `Mapped` Files which have been mapped into memory (with mmap), such as libraries.
+@field shmem `Shmem` Amount of memory consumed in tmpfs filesystems.
+@field kernelReclaimable `KReclaimable` Kernel allocations that the kernel will attempt to reclaim under memory pressure. Includes `SReclaimable` and other direct allocations with a shrinker. Available since Linux 4.20.
+@field slab `Slab` In-kernel data structures cache.
+@field slabReclaimable `SReclaimable` Part of Slab, that might be reclaimed, such as caches.
+@field slabUnreclaimable `SUnreclaim` Part of Slab, that cannot be reclaimed on memory pressure.
+@field kernelStack `KernelStack` Amount of memory allocated to kernel stacks.
+@field pageTables `PageTables` Amount of memory dedicated to the lowest level of page tables.
+@field bounceBuffers `Bounce` Memory used for block device "bounce buffers".
+@field writebackTmp `WritebackTmp` Memory used by FUSE for temporary writeback buffers.
+@field commitLimit `CommitLimit` Total amount of memory currently available to be allocated on the system.
+@field vmallocTotal `VmallocTotal` Total size of vmalloc memory area.
+@field hardwareCorrupted `HardwareCorrupted` Available if the kernel is configured with `CONFIG_MEMORY_FAILURE`.
+@field anonHugePages `AnonHugePages` Non-file backed huge pages mapped into userspace page tables. Available if the kernel is configured with `CONFIG_TRANSPARENT_HUGEPAGE`.
+@field shmemHugePages `ShmemHugePages` Memory used by shared memory and tmpfs allocated with huge pages. Available since Linux 4.8 if the kernel is configured with `CONFIG_TRANSPARENT_HUGEPAGE`.
+@field shmemPmdMapped `ShmemPmdMapped` Shared memory mapped into user space with huge pages. Available since Linux 4.8 if the kernel is configured with `CONFIG_TRANSPARENT_HUGEPAGE`.
+@field hugepagesTotal `HugePages_Total` The size of the pool of huge pages. Available if the kernel is configured with `CONFIG_HUGETLB_PAGE`.
+@field hugepagesFree `HugePages_Free` The number of huge pages in the pool that are not yet allocated. Available if the kernel is configured with `CONFIG_HUGETLB_PAGE`.
+@field hugepagesReserved `HugePages_Rsvd` This is the number of huge pages for which a commitment to allocate from the pool has been made, but no allocation has yet been made. These reserved huge pages guarantee that an application will be able to allocate a huge page from the pool of huge pages at fault time. Available if the kernel is configured with `CONFIG_HUGETLB_PAGE`.
+@field hugepagesSurplus `HugePages_Surp` This is the number of huge pages in the pool above the value in `/proc/sys/vm/nr_hugepages`. The maximum number of surplus huge pages is controlled by `/proc/sys/vm/nr_overcommit_hugepages`. Available if the kernel is configured with `CONFIG_HUGETLB_PAGE`.
+@field hugepageSize `Hugepagesize` The size of huge pages. Available if the kernel is configured with `CONFIG_HUGETLB_PAGE`.
+@field directMap4K `DirectMap4k` Number of bytes of RAM linearly mapped by kernel in 4kB pages
+@field directMap2M `DirectMap2M` Number of bytes of RAM linearly mapped by kernel in 2MB pages.
+@field directMap4M `DirectMap4M` Number of bytes of RAM linearly mapped by kernel in 4MB pages.
+@field directMap1G `DirectMap1G` Number of bytes of RAM linearly mapped by kernel in 1GB pages.
 **/
 typedef Meminfo = {
 	total: Int,
@@ -437,15 +474,15 @@ typedef Meminfo = {
 	writebackTmp: Int,
 	commitLimit: Int,
 	vmallocTotal: Int,
-	hardwareCorrupted: Int,
+	?hardwareCorrupted: Int,
 	anonHugePages: Int,
 	?shmemHugePages: Int,
 	?shmemPmdMapped: Int,
-	hugepagesTotal: Int,
-	hugepagesFree: Int,
-	hugepagesReserved: Int,
-	hugepagesSurplus: Int,
-	hugepageSize: Int,
+	?hugepagesTotal: Int,
+	?hugepagesFree: Int,
+	?hugepagesReserved: Int,
+	?hugepagesSurplus: Int,
+	?hugepageSize: Int,
 	directMap4K: Int,
 	directMap2M: Int,
 	directMap4M: Int,
@@ -748,7 +785,7 @@ extern class Procfs{
 
 	/**
 		Parses contents of `/proc/meminfo`
-		@unstable
+		@returns statistics about memory usage on the system
 	**/
 	public static function meminfo(): Meminfo;
 
