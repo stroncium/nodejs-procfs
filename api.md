@@ -334,13 +334,13 @@ Object with properties:
 
 ## type ProcessIo
 Object with properties:
- - **`read`** integer : `rchar`, number of bytes read
- - **`readReal`** integer : `read_bytes`, number of bytes read which were really fetched from storage layer
- - **`readSyscalls`** integer : `syscr`, number of read syscalls
- - **`write`** integer : `wchar`, number of bytes written
- - **`writeCancelled`** integer : `cancelled_write_bytes`, number of bytes process caused to not be written
- - **`writeReal`** integer : `write_bytes`, number of bytes written which were really sent to storage layer
- - **`writeSyscalls`** integer : `syscw`, number of write syscalls
+ - **`read`** integer : `rchar` number of bytes read
+ - **`readReal`** integer : `read_bytes` number of bytes read which were really fetched from storage layer
+ - **`readSyscalls`** integer : `syscr` number of read syscalls
+ - **`write`** integer : `wchar` number of bytes written
+ - **`writeCancelled`** integer : `cancelled_write_bytes` number of bytes process caused to not be written
+ - **`writeReal`** integer : `write_bytes` number of bytes written which were really sent to storage layer
+ - **`writeSyscalls`** integer : `syscw` number of write syscalls
 
 ***
 
@@ -387,20 +387,20 @@ Object with properties:
 
 ## type CgroupController
 Object with properties:
- - **`cgroupsNumber`** integer : `num_cgroups`, number of control groups in this hierarchy using this controller
+ - **`cgroupsNumber`** integer : `num_cgroups` number of control groups in this hierarchy using this controller
  - **`enabled`** boolean : `enabled`
- - **`hierarchyId`** integer : `hierarchy`, unique ID of the cgroup hierarchy on which this controller is mounted. The value in this field will be 0 if the controller is not mounted on a cgroups v1 hierarchy, if the controller is bound to the cgroups v2 single unified hierarchy or if the controller is disabled.
- - **`name`** string : `subsys_name`, name of the controller
+ - **`hierarchyId`** integer : `hierarchy` unique ID of the cgroup hierarchy on which this controller is mounted. The value in this field will be 0 if the controller is not mounted on a cgroups v1 hierarchy, if the controller is bound to the cgroups v2 single unified hierarchy or if the controller is disabled.
+ - **`name`** string : `subsys_name` name of the controller
 
 ***
 
 
 ## type ProcessLimit
 Object with properties:
- - **`name`** string : `Limit`, resource limit name
- - *optional* **`hard`** integer : `Hard Limit`, hard limit, `undefined` if unlimited
- - *optional* **`soft`** integer : `Soft Limit`, soft limit, `undefined` if unlimited
- - *optional* **`units`** string : `Units`, units limit is measured in, `undefined` if scalar
+ - **`name`** string : `Limit` resource limit name
+ - *optional* **`hard`** integer : `Hard Limit` hard limit, `undefined` if unlimited
+ - *optional* **`soft`** integer : `Soft Limit` soft limit, `undefined` if unlimited
+ - *optional* **`units`** string : `Units` units limit is measured in, `undefined` if scalar
 
 ***
 
@@ -569,16 +569,16 @@ Object with properties:
 Note: amounts are in units of USER_HZ(a.k.a. ticks) which are 1/100ths of a second on most architectures, use sysconf(_SC_CLK_TCK) to obtain the right value)
 
 Object with properties:
- - **`guest`** integer : `guest`, time spent running a virtual CPU for guest operating systems under the control of the Linux kernel, in ticks
- - **`guestNice`** integer : `guest_nice`, time spent running a niced guest (virtual CPU for guest operating systems under the control of the Linux kernel), in ticks
+ - **`guest`** integer : `guest` time spent running a virtual CPU for guest operating systems under the control of the Linux kernel, in ticks
+ - **`guestNice`** integer : `guest_nice` time spent running a niced guest (virtual CPU for guest operating systems under the control of the Linux kernel), in ticks
  - **`idle`** integer : `idle` time spent in the idle task, in ticks
- - **`iowait`** integer : `iowait`, time waiting for I/O to complete, value is not reliable, in ticks
- - **`irq`** integer : `irq`, time servicing interrupts, in ticks
- - **`nice`** integer : `nice`, time spent in user mode with low priority, in ticks
- - **`softirq`** integer : `softirq`, time servicing softirqs, in ticks
- - **`steal`** integer : `steal`, stolen time, which is the time spent in other operating systems when running in a virtualized environment, in ticks
- - **`system`** integer : `system`, time spent in system mode, in ticks
- - **`user`** integer : `user`, time spent in user mode, in ticks
+ - **`iowait`** integer : `iowait` time waiting for I/O to complete, value is not reliable, in ticks
+ - **`irq`** integer : `irq` time servicing interrupts, in ticks
+ - **`nice`** integer : `nice` time spent in user mode with low priority, in ticks
+ - **`softirq`** integer : `softirq` time servicing softirqs, in ticks
+ - **`steal`** integer : `steal` stolen time, which is the time spent in other operating systems when running in a virtualized environment, in ticks
+ - **`system`** integer : `system` time spent in system mode, in ticks
+ - **`user`** integer : `user` time spent in user mode, in ticks
 
 ***
 

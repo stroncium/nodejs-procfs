@@ -36,13 +36,13 @@ typedef ProcessMountinfo = {
 };
 
 /**
-@field read `rchar`, number of bytes read
-@field write `wchar`, number of bytes written
-@field readSyscalls `syscr`, number of read syscalls
-@field writeSyscalls `syscw`, number of write syscalls
-@field readReal `read_bytes`, number of bytes read which were really fetched from storage layer
-@field writeReal `write_bytes`, number of bytes written which were really sent to storage layer
-@field writeCancelled `cancelled_write_bytes`, number of bytes process caused to not be written
+@field read `rchar` number of bytes read
+@field write `wchar` number of bytes written
+@field readSyscalls `syscr` number of read syscalls
+@field writeSyscalls `syscw` number of write syscalls
+@field readReal `read_bytes` number of bytes read which were really fetched from storage layer
+@field writeReal `write_bytes` number of bytes written which were really sent to storage layer
+@field writeCancelled `cancelled_write_bytes` number of bytes process caused to not be written
 **/
 typedef ProcessIo = {
 	read: Int,
@@ -97,9 +97,9 @@ typedef ProcessCgroup = {
 };
 
 /**
-@field name `subsys_name`, name of the controller
-@field hierarchyId `hierarchy`, unique ID of the cgroup hierarchy on which this controller is mounted. The value in this field will be 0 if the controller is not mounted on a cgroups v1 hierarchy, if the controller is bound to the cgroups v2 single unified hierarchy or if the controller is disabled.
-@field cgroupsNumber `num_cgroups`, number of control groups in this hierarchy using this controller
+@field name `subsys_name` name of the controller
+@field hierarchyId `hierarchy` unique ID of the cgroup hierarchy on which this controller is mounted. The value in this field will be 0 if the controller is not mounted on a cgroups v1 hierarchy, if the controller is bound to the cgroups v2 single unified hierarchy or if the controller is disabled.
+@field cgroupsNumber `num_cgroups` number of control groups in this hierarchy using this controller
 @field enabled `enabled`
 **/
 typedef CgroupController = {
@@ -110,10 +110,10 @@ typedef CgroupController = {
 };
 
 /**
-@field name `Limit`, resource limit name
-@field soft `Soft Limit`, soft limit, `undefined` if unlimited
-@field hard `Hard Limit`, hard limit, `undefined` if unlimited
-@field units `Units`, units limit is measured in, `undefined` if scalar
+@field name `Limit` resource limit name
+@field soft `Soft Limit` soft limit, `undefined` if unlimited
+@field hard `Hard Limit` hard limit, `undefined` if unlimited
+@field units `Units` units limit is measured in, `undefined` if scalar
 **/
 typedef ProcessLimit = {
 	name: String,
@@ -295,16 +295,16 @@ typedef Swap = {
 /**
 Note: amounts are in units of USER_HZ(a.k.a. ticks) which are 1/100ths of a second on most architectures, use sysconf(_SC_CLK_TCK) to obtain the right value)
 
-@field user `user`, time spent in user mode, in ticks
-@field nice `nice`, time spent in user mode with low priority, in ticks
-@field system `system`, time spent in system mode, in ticks
+@field user `user` time spent in user mode, in ticks
+@field nice `nice` time spent in user mode with low priority, in ticks
+@field system `system` time spent in system mode, in ticks
 @field idle `idle` time spent in the idle task, in ticks
-@field iowait `iowait`, time waiting for I/O to complete, value is not reliable, in ticks
-@field irq `irq`, time servicing interrupts, in ticks
-@field softirq `softirq`, time servicing softirqs, in ticks
-@field steal `steal`, stolen time, which is the time spent in other operating systems when running in a virtualized environment, in ticks
-@field guest `guest`, time spent running a virtual CPU for guest operating systems under the control of the Linux kernel, in ticks
-@field guestNice `guest_nice`, time spent running a niced guest (virtual CPU for guest operating systems under the control of the Linux kernel), in ticks
+@field iowait `iowait` time waiting for I/O to complete, value is not reliable, in ticks
+@field irq `irq` time servicing interrupts, in ticks
+@field softirq `softirq` time servicing softirqs, in ticks
+@field steal `steal` stolen time, which is the time spent in other operating systems when running in a virtualized environment, in ticks
+@field guest `guest` time spent running a virtual CPU for guest operating systems under the control of the Linux kernel, in ticks
+@field guestNice `guest_nice` time spent running a niced guest (virtual CPU for guest operating systems under the control of the Linux kernel), in ticks
 **/
 typedef StatCpuTime = {
 	user: Int,
