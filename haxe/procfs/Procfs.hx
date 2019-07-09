@@ -122,6 +122,42 @@ typedef ProcessLimit = {
 	?units: String,
 };
 
+
+
+/**
+Only (arguably) most valuable fields included so far.
+@field pid `pid` The process PID
+@field comm `comm` The filename of the executable. Visible whether or not the executable is swapped out.
+@field state `state` One of the following characters, indicating process state: `R`(running), `S`(sleeping in an interruptible wait), `D`(waiting in uninterruptible disk sleep), `Z`(Zombie), `T`(stopped or trace stopped), `t`(tracing stop), `X`(dead).
+@field parent `ppid` The PID of the parent of the process.
+@field processGroup `pgrp` The process group ID of the process.
+@field session `session` The session ID of the process.
+@field tty `tty_nr` The controlling terminal of the process.
+@field terminalProcessGroup `tpgid` The ID of the foreground process group of the controlling terminal of the process.
+@field flags `flags` The kernel flags word of the process.
+@field minorFaults `minflt` The number of minor faults the process has made which have not required loading a memory page from disk.
+@field childMinorFaults `cminflt` The number of minor faults that the process's waited-for children have made.
+@field majorFaults `majflt` The number of major faults the process has made which have required loading a memory page from disk.
+@field childMajorFaults `cmajflt` The number of major faults that the process's waited-for children have made.
+@field userTicks `utime` Amount of time that this process has been scheduled in user mode(includes guest time), in ticks.
+@field kernelTicks `stime` Amount of time that this process has been scheduled in kernel mode, in ticks.
+@field childUserTicks `cutime` Amount of time that this process's waited-for children have been scheduled in user mode, in ticks.
+@field childKernelTicks `cstime` Amount of time that this process's waited-for children have been scheduled in kernel mode, in ticks.
+@field priority `priority` For processes running a real-time scheduling policy (policy below), this is the negated scheduling priority, minus one; that is, a number in the range -2 to -100, corresponding to real-time priorities 1 to 99. For processes running under a non-real-time scheduling policy, this is the raw nice value (setpriority(2)) as represented in the kernel. The kernel stores nice values as numbers in the range 0 (high) to 39 (low), corresponding to the user-visible nice range of -20 to 19.
+@field nice `nice` The nice value, a value in the range 19(low priority) to -20(high priority).
+@field threads `num_threads` Number of threads in this process.
+@field startTicks `starttime` The time the process started after system boot, in ticks.
+@field vsize `vsize` Virtual memory size in bytes.
+@field rss `rss` Resident Set Size, number of pages the process has in real memory. This is just the pages which count toward text, data, or stack space. This does not include pages which have not been demand-loaded in, or which are swapped out.
+@field rssSoftLimit `rsslim` Current soft limit in bytes on the rss of the process.
+@field exitSignal `exit_signal` Signal to be sent to parent when we die
+@field lastCpu `processor` CPU number last executed on.
+@field realtimePriority `rt_priority` Real-time scheduling priority, a number in the range 1 to 99 for processes scheduled under a real-time policy, or 0, for non-real-time processes.
+@field schedulingPolicy `policy` Scheduling policy.
+@field blockIoTicks `delayacct_blkio_ticks` Aggregated block I/O delays, in ticks.
+@field guestTicks Guest time of the process (time spent running a virtual CPU for a guest operating system), in ticks.
+@field childGuestTicks Guest time of the process's children, in ticks.
+**/
 typedef ProcessStat = {
 	pid: Int,
 	comm: String,
@@ -137,7 +173,7 @@ typedef ProcessStat = {
 	majorFaults: Int,
 	childMajorFaults: Int,
 	userTicks: Int,
-	kernelTicks: Int, //TODO systemTicks
+	kernelTicks: Int,
 	childUserTicks: Int,
 	childKernelTicks: Int,
 	priority: Int,
@@ -660,7 +696,7 @@ extern class Procfs{
 	/**
 		Parses contents of `/proc/<pid>/stat`
 		@param pid process pid, `self` process if undefined
-		@unstable
+		@returns status information about the process(used by `ps`)
 	**/
 	public static function processStat(?pid:Int): ProcessStat;
 

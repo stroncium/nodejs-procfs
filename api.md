@@ -125,10 +125,9 @@ Parses contents of `/proc/<pid>/limits`
 
 
 ### processStat ([pid])
-⚠️ **unstable**
 Parses contents of `/proc/<pid>/stat`
  - **`pid`** integer: process pid, `self` process if undefined
- - returns [ProcessStat](#type-processstat)
+ - returns [ProcessStat](#type-processstat): status information about the process(used by `ps`)
 ***
 
 
@@ -407,38 +406,40 @@ Object with properties:
 
 
 ## type ProcessStat
+Only (arguably) most valuable fields included so far.
+
 Object with properties:
- - **`blockIoTicks`** integer
- - **`childGuestTicks`** integer
- - **`childKernelTicks`** integer
- - **`childMajorFaults`** integer
- - **`childMinorFaults`** integer
- - **`childUserTicks`** integer
- - **`comm`** string
- - **`exitSignal`** integer
- - **`flags`** integer
- - **`guestTicks`** integer
- - **`kernelTicks`** integer
- - **`lastCpu`** integer
- - **`majorFaults`** integer
- - **`minorFaults`** integer
- - **`nice`** integer
- - **`parent`** integer
- - **`pid`** integer
- - **`priority`** integer
- - **`processGroup`** integer
- - **`realtimePriority`** integer
- - **`rss`** integer
- - **`rssSoftLimit`** Float
- - **`schedulingPolicy`** integer
- - **`session`** integer
- - **`startTicks`** integer
- - **`state`** string
- - **`terminalProcessGroup`** integer
- - **`threads`** integer
- - **`tty`** integer
- - **`userTicks`** integer
- - **`vsize`** integer
+ - **`blockIoTicks`** integer : `delayacct_blkio_ticks` Aggregated block I/O delays, in ticks.
+ - **`childGuestTicks`** integer : Guest time of the process's children, in ticks.
+ - **`childKernelTicks`** integer : `cstime` Amount of time that this process's waited-for children have been scheduled in kernel mode, in ticks.
+ - **`childMajorFaults`** integer : `cmajflt` The number of major faults that the process's waited-for children have made.
+ - **`childMinorFaults`** integer : `cminflt` The number of minor faults that the process's waited-for children have made.
+ - **`childUserTicks`** integer : `cutime` Amount of time that this process's waited-for children have been scheduled in user mode, in ticks.
+ - **`comm`** string : `comm` The filename of the executable. Visible whether or not the executable is swapped out.
+ - **`exitSignal`** integer : `exit_signal` Signal to be sent to parent when we die
+ - **`flags`** integer : `flags` The kernel flags word of the process.
+ - **`guestTicks`** integer : Guest time of the process (time spent running a virtual CPU for a guest operating system), in ticks.
+ - **`kernelTicks`** integer : `stime` Amount of time that this process has been scheduled in kernel mode, in ticks.
+ - **`lastCpu`** integer : `processor` CPU number last executed on.
+ - **`majorFaults`** integer : `majflt` The number of major faults the process has made which have required loading a memory page from disk.
+ - **`minorFaults`** integer : `minflt` The number of minor faults the process has made which have not required loading a memory page from disk.
+ - **`nice`** integer : `nice` The nice value, a value in the range 19(low priority) to -20(high priority).
+ - **`parent`** integer : `ppid` The PID of the parent of the process.
+ - **`pid`** integer : `pid` The process PID
+ - **`priority`** integer : `priority` For processes running a real-time scheduling policy (policy below), this is the negated scheduling priority, minus one; that is, a number in the range -2 to -100, corresponding to real-time priorities 1 to 99. For processes running under a non-real-time scheduling policy, this is the raw nice value (setpriority(2)) as represented in the kernel. The kernel stores nice values as numbers in the range 0 (high) to 39 (low), corresponding to the user-visible nice range of -20 to 19.
+ - **`processGroup`** integer : `pgrp` The process group ID of the process.
+ - **`realtimePriority`** integer : `rt_priority` Real-time scheduling priority, a number in the range 1 to 99 for processes scheduled under a real-time policy, or 0, for non-real-time processes.
+ - **`rss`** integer : `rss` Resident Set Size, number of pages the process has in real memory. This is just the pages which count toward text, data, or stack space. This does not include pages which have not been demand-loaded in, or which are swapped out.
+ - **`rssSoftLimit`** Float : `rsslim` Current soft limit in bytes on the rss of the process.
+ - **`schedulingPolicy`** integer : `policy` Scheduling policy.
+ - **`session`** integer : `session` The session ID of the process.
+ - **`startTicks`** integer : `starttime` The time the process started after system boot, in ticks.
+ - **`state`** string : `state` One of the following characters, indicating process state: `R`(running), `S`(sleeping in an interruptible wait), `D`(waiting in uninterruptible disk sleep), `Z`(Zombie), `T`(stopped or trace stopped), `t`(tracing stop), `X`(dead).
+ - **`terminalProcessGroup`** integer : `tpgid` The ID of the foreground process group of the controlling terminal of the process.
+ - **`threads`** integer : `num_threads` Number of threads in this process.
+ - **`tty`** integer : `tty_nr` The controlling terminal of the process.
+ - **`userTicks`** integer : `utime` Amount of time that this process has been scheduled in user mode(includes guest time), in ticks.
+ - **`vsize`** integer : `vsize` Virtual memory size in bytes.
 
 ***
 
