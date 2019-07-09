@@ -292,6 +292,20 @@ typedef Swap = {
 	priority: Int,
 };
 
+/**
+Note: amounts are in units of USER_HZ(a.k.a. ticks) which are 1/100ths of a second on most architectures, use sysconf(_SC_CLK_TCK) to obtain the right value)
+
+@field user `user`, time spent in user mode, in ticks
+@field nice `nice`, time spent in user mode with low priority, in ticks
+@field system `system`, time spent in system mode, in ticks
+@field idle `idle` time spent in the idle task, in ticks
+@field iowait `iowait`, time waiting for I/O to complete, value is not reliable, in ticks
+@field irq `irq`, time servicing interrupts, in ticks
+@field softirq `softirq`, time servicing softirqs, in ticks
+@field steal `steal`, stolen time, which is the time spent in other operating systems when running in a virtualized environment, in ticks
+@field guest `guest`, time spent running a virtual CPU for guest operating systems under the control of the Linux kernel, in ticks
+@field guestNice `guest_nice`, time spent running a niced guest (virtual CPU for guest operating systems under the control of the Linux kernel), in ticks
+**/
 typedef StatCpuTime = {
 	user: Int,
 	nice: Int,
@@ -305,6 +319,19 @@ typedef StatCpuTime = {
 	guestNice: Int,
 };
 
+/**
+@field cpuTime time spent in various states, for each CPU
+@field systemCpuTime time system spent in various states
+@field interrupts total number of all interrupts serviced including unnumbered architecture specific interrupts
+@field numberedInterrupts number of interrupts serviced for each numbered interrupt
+@field contextSwitches number of context switches that the system underwent
+@field bootTime boot time, in seconds since the Epoch, 1970-01-01 00:00:00 +0000 (UTC)
+@field forks number of forks since boot
+@field processesRunning number of processes in runnable state
+@field processesBlocked number of processes blocked waiting for I/O to complete
+@field softInterrupts total number of soft interrupts serviced
+@field numberedSoftInterrupts number of soft interrupts serviced for each softirq
+**/
 typedef Stat = {
 	cpuTime: Array<StatCpuTime>,
 	systemCpuTime: StatCpuTime,
@@ -312,15 +339,11 @@ typedef Stat = {
 	numberedInterrupts: Array<Int>,
 	contextSwitches: Int,
 	bootTime: Date,
-	processes: Int,
+	forks: Int,
 	processesRunning: Int,
-	processesBlocking: Int,
+	processesBlocked: Int,
 	softInterrupts: Int,
 	numberedSoftInterrupts: Array<Int>,
-	?pageIn: Int,
-	?pageOut: Int,
-	?swapIn: Int,
-	?swapOut: Int,
 };
 
 /**
@@ -695,13 +718,13 @@ extern class Procfs{
 
 	/**
 		Parses contents of `/proc/stat`
-		@unstable
+		@returns kernel/system statistics
 	**/
 	public static function stat(): Stat;
 
 	/**
 		Parses contents of `/proc/devices`
-		@unstable
+		@returns major numbers and device groups.
 	**/
 	public static function devices(): Array<Device>;
 

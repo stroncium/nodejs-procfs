@@ -57,7 +57,7 @@ for (let [parserName, fixtures] of [
 	['version', 'version'],
 	['cmdline', 'cmdline'],
 	['swaps', 'swaps'],
-	['stat', 'stat,stat-synthetic'],
+	['stat', 'stat'],
 	['devices', 'devices'],
 	['filesystems', 'filesystems'],
 	['diskstats', 'diskstats'],

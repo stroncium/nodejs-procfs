@@ -228,16 +228,14 @@ Parses contents of `/proc/swaps`
 
 
 ### stat ()
-⚠️ **unstable**
 Parses contents of `/proc/stat`
- - returns [Stat](#type-stat)
+ - returns [Stat](#type-stat): kernel/system statistics
 ***
 
 
 ### devices ()
-⚠️ **unstable**
 Parses contents of `/proc/devices`
- - returns Array\<[Device](#type-device)>
+ - returns Array\<[Device](#type-device)>: major numbers and device groups.
 ***
 
 
@@ -569,38 +567,36 @@ Object with properties:
 
 
 ## type StatCpuTime
+Note: amounts are in units of USER_HZ(a.k.a. ticks) which are 1/100ths of a second on most architectures, use sysconf(_SC_CLK_TCK) to obtain the right value)
+
 Object with properties:
- - **`guest`** integer
- - **`guestNice`** integer
- - **`idle`** integer
- - **`iowait`** integer
- - **`irq`** integer
- - **`nice`** integer
- - **`softirq`** integer
- - **`steal`** integer
- - **`system`** integer
- - **`user`** integer
+ - **`guest`** integer : `guest`, time spent running a virtual CPU for guest operating systems under the control of the Linux kernel, in ticks
+ - **`guestNice`** integer : `guest_nice`, time spent running a niced guest (virtual CPU for guest operating systems under the control of the Linux kernel), in ticks
+ - **`idle`** integer : `idle` time spent in the idle task, in ticks
+ - **`iowait`** integer : `iowait`, time waiting for I/O to complete, value is not reliable, in ticks
+ - **`irq`** integer : `irq`, time servicing interrupts, in ticks
+ - **`nice`** integer : `nice`, time spent in user mode with low priority, in ticks
+ - **`softirq`** integer : `softirq`, time servicing softirqs, in ticks
+ - **`steal`** integer : `steal`, stolen time, which is the time spent in other operating systems when running in a virtualized environment, in ticks
+ - **`system`** integer : `system`, time spent in system mode, in ticks
+ - **`user`** integer : `user`, time spent in user mode, in ticks
 
 ***
 
 
 ## type Stat
 Object with properties:
- - **`bootTime`** Date
- - **`contextSwitches`** integer
- - **`cpuTime`** Array\<[StatCpuTime](#type-statcputime)>
- - **`interrupts`** integer
- - **`numberedInterrupts`** Array\<integer>
- - **`numberedSoftInterrupts`** Array\<integer>
- - **`processes`** integer
- - **`processesBlocking`** integer
- - **`processesRunning`** integer
- - **`softInterrupts`** integer
- - **`systemCpuTime`** [StatCpuTime](#type-statcputime)
- - *optional* **`pageIn`** integer
- - *optional* **`pageOut`** integer
- - *optional* **`swapIn`** integer
- - *optional* **`swapOut`** integer
+ - **`bootTime`** Date : boot time, in seconds since the Epoch, 1970-01-01 00:00:00 +0000 (UTC)
+ - **`contextSwitches`** integer : number of context switches that the system underwent
+ - **`cpuTime`** Array\<[StatCpuTime](#type-statcputime)> : time spent in various states, for each CPU
+ - **`forks`** integer : number of forks since boot
+ - **`interrupts`** integer : total number of all interrupts serviced including unnumbered architecture specific interrupts
+ - **`numberedInterrupts`** Array\<integer> : number of interrupts serviced for each numbered interrupt
+ - **`numberedSoftInterrupts`** Array\<integer> : number of soft interrupts serviced for each softirq
+ - **`processesBlocked`** integer : number of processes blocked waiting for I/O to complete
+ - **`processesRunning`** integer : number of processes in runnable state
+ - **`softInterrupts`** integer : total number of soft interrupts serviced
+ - **`systemCpuTime`** [StatCpuTime](#type-statcputime) : time system spent in various states
 
 ***
 
