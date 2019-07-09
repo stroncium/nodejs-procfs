@@ -33,7 +33,7 @@ Parses contents of `/proc/<pid>/gid_map`
 
 
 ### processEnviron ([pid])
-⚠️ **unstable**
+	⚠️ **unstable**
 
 Parses contents of `/proc/<pid>/environ`
 
@@ -79,7 +79,7 @@ Parses contents of `/proc/<pid>/autogroup`
 
 
 ### processStatm ([pid])
-⚠️ **unstable**
+	⚠️ **unstable**
 
 Parses contents of `/proc/<pid>/statm`
 
@@ -99,7 +99,7 @@ Note: different threads in the same process may have different comm values
 
 
 ### processSetgroups ([pid])
-⚠️ **unstable**: will be changed to return boolean
+	⚠️ **unstable**: will be changed to return boolean
 
 Parses contents of `/proc/<pid>/setgroups`
 
@@ -158,7 +158,7 @@ Parses contents of `/proc/<pid>/stat`
 
 
 ### processStatus ([pid])
-⚠️ **unstable**
+	⚠️ **unstable**
 
 Parses contents of `/proc/<pid>/status`
 
@@ -186,7 +186,7 @@ Parses list of `/proc/<pid>/task/*` entries.
 
 
 ### processFdinfo (fd, [pid])
-⚠️ **unstable**
+	⚠️ **unstable**
 
 Parses contents of `/proc/<pid>/fdinfo/<fd>`
 
@@ -197,7 +197,7 @@ Parses contents of `/proc/<pid>/fdinfo/<fd>`
 
 
 ### processFd (fd, [pid])
-⚠️ **unstable**
+	⚠️ **unstable**
 
 Parses contents of `/proc/<pid>/fd/<fd>`
 
@@ -228,7 +228,7 @@ Note: permission to read this file(symlink) is governed by ptrace access mode `P
 
 
 ### cpuinfo ()
-⚠️ **unstable**: documentation on that is hard to find, need to get at least a list of fields which are present on all systems or just remove this method from the library
+	⚠️ **unstable**: documentation on that is hard to find, need to get at least a list of fields which are present on all systems or just remove this method from the library
 
 Parses contents of `/proc/cpuinfo`
 
