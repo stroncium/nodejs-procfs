@@ -623,7 +623,7 @@ extern class Procfs{
 
 		@param pid process pid, `self` process if undefined
 		@returns `allow` or `deny`
-		@unstable
+		@unstable will be changed to return boolean
 	**/
 	public static function processSetgroups(?pid:Int): String;
 

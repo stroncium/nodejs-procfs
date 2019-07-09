@@ -83,7 +83,8 @@ Parses contents of `/proc/<pid>/comm`
 
 
 ### processSetgroups ([pid])
-⚠️ **unstable**
+⚠️ **unstable**: will be changed to return boolean
+
 Parses contents of `/proc/<pid>/setgroups`
 		Returns `"allow"` if processes in the user namespace that contains the target process are permitted to employ the `setgroups` system call, `"deny"` otherwise.
 		Note: regardless of the value, calls to `setgroups` are also not permitted if `/proc/[pid]/gid_map` has not yet been set.
