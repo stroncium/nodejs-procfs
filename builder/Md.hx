@@ -66,7 +66,7 @@ class Md{
 				md+= '\n';
 
 
-				md+= '---\n';
+				md+= '***\n';
 				md;
 			case _: throw 'unexpected field '+f;
 		});

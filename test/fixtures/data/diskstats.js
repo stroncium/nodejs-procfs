@@ -1,7 +1,6 @@
 module.exports = [
 	{
-		major: 259,
-		minor: 0,
+		devId: 768,
 		name: 'nvme0n1',
 		reads: 36197912,
 		readsMerged: 4314367,
@@ -16,8 +15,7 @@ module.exports = [
 		weightedIoTime: 3788647480,
 	},
 	{
-		major: 259,
-		minor: 1,
+		devId: 769,
 		name: 'nvme0n1p1',
 		reads: 704,
 		readsMerged: 0,
@@ -32,8 +30,7 @@ module.exports = [
 		weightedIoTime: 2957,
 	},
 	{
-		major: 259,
-		minor: 2,
+		devId: 770,
 		name: 'nvme0n1p2',
 		reads: 21576836,
 		readsMerged: 4313033,
@@ -48,8 +45,7 @@ module.exports = [
 		weightedIoTime: 97444644,
 	},
 	{
-		major: 259,
-		minor: 3,
+		devId: 771,
 		name: 'nvme0n1p3',
 		reads: 14620241,
 		readsMerged: 1334,

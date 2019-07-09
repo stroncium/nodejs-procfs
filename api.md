@@ -4,28 +4,28 @@
 Parses contents of `/proc/<pid>/mountinfo`
  - **`pid`** integer: process pid, `self` process if undefined
  - returns Array\<[ProcessMountinfo](#type-processmountinfo)>
----
+***
 
 
 ### processIo ([pid])
 Parses contents of `/proc/<pid>/io`
  - **`pid`** integer: process pid, `self` process if undefined
  - returns [ProcessIo](#type-processio)
----
+***
 
 
 ### processUidMap ([pid])
 Parses contents of `/proc/<pid>/uid_map`
  - **`pid`** integer: process pid, `self` process if undefined
  - returns Array\<[ProcessIdMapRange](#type-processidmaprange)>
----
+***
 
 
 ### processGidMap ([pid])
 Parses contents of `/proc/<pid>/gid_map`
  - **`pid`** integer: process pid, `self` process if undefined
  - returns Array\<[ProcessIdMapRange](#type-processidmaprange)>
----
+***
 
 
 ### processEnviron ([pid])
@@ -33,21 +33,21 @@ Parses contents of `/proc/<pid>/gid_map`
 Parses contents of `/proc/<pid>/environ`
  - **`pid`** integer: process pid, `self` process if undefined
  - returns object
----
+***
 
 
 ### processOomScore ([pid])
 Parses contents of `/proc/<pid>/oom_score`
  - **`pid`** integer: process pid, `self` process if undefined
  - returns integer: current score that the kernel gives to this process for the purpose of selecting a process for the OOM-killer
----
+***
 
 
 ### processTimerslackNs ([pid])
 Parses contents of `/proc/<pid>/timerslack_ns`
  - **`pid`** integer: process pid, `self` process if undefined
  - returns integer: process's "current" timer slack value, in nanoseconds
----
+***
 
 
 ### processCmdline ([pid])
@@ -56,14 +56,14 @@ Parses contents of `/proc/<pid>/cmdline`
 		Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
  - **`pid`** integer: process pid, `self` process if undefined
  - returns Array\<string>
----
+***
 
 
 ### processAutogroup ([pid])
 Parses contents of `/proc/<pid>/autogroup`
  - **`pid`** integer: process pid, `self` process if undefined
  - returns [ProcessAutogroup](#type-processautogroup)
----
+***
 
 
 ### processStatm ([pid])
@@ -71,7 +71,7 @@ Parses contents of `/proc/<pid>/autogroup`
 Parses contents of `/proc/<pid>/statm`
  - **`pid`** integer: process pid, `self` process if undefined
  - returns [ProcessStatm](#type-processstatm)
----
+***
 
 
 ### processComm ([pid])
@@ -79,7 +79,7 @@ Parses contents of `/proc/<pid>/comm`
 		Note: different threads in the same process may have different comm values
  - **`pid`** integer: process pid, `self` process if undefined
  - returns string: the command name associated with the process
----
+***
 
 
 ### processSetgroups ([pid])
@@ -90,14 +90,14 @@ Parses contents of `/proc/<pid>/setgroups`
  - **`pid`** integer: process pid, `self` process if undefined
  - returns string: `allow` or `deny`
 
----
+***
 
 
 ### processCgroups ([pid])
 Parses contents of `/proc/<pid>/cgroups`
  - **`pid`** integer: process pid, `self` process if undefined
  - returns Array\<[ProcessCgroup](#type-processcgroup)>: control groups to which the process belongs
----
+***
 
 
 ### processPersonality ([pid])
@@ -106,21 +106,21 @@ Parses contents of `/proc/<pid>/personality`
 		Note: permission to access this file is governed by ptrace access mode `PTRACE_MODE_ATTACH_FSCREDS`
  - **`pid`** integer: process pid, `self` process if undefined
  - returns integer
----
+***
 
 
 ### processCpuset ([pid])
 Parses contents of `/proc/<pid>/cpuset`
  - **`pid`** integer: process pid, `self` process if undefined
  - returns string: path of the process's cpuset directory relative to the root of the cpuset filesystem
----
+***
 
 
 ### processLimits ([pid])
 Parses contents of `/proc/<pid>/limits`
  - **`pid`** integer: process pid, `self` process if undefined
  - returns Array\<[ProcessLimit](#type-processlimit)>: process's resource limits
----
+***
 
 
 ### processStat ([pid])
@@ -128,7 +128,7 @@ Parses contents of `/proc/<pid>/limits`
 Parses contents of `/proc/<pid>/stat`
  - **`pid`** integer: process pid, `self` process if undefined
  - returns [ProcessStat](#type-processstat)
----
+***
 
 
 ### processStatus ([pid])
@@ -137,21 +137,21 @@ Parses contents of `/proc/<pid>/status`
 		Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
  - **`pid`** integer: process pid, `self` process if undefined
  - returns [ProcessStatus](#type-processstatus)
----
+***
 
 
 ### processFds ([pid])
 Parses list of `/proc/<pid>/fd/*` entries.
  - **`pid`** integer: process pid, `self` process if undefined
  - returns Array\<integer>: process's current open fds
----
+***
 
 
 ### processThreads ([pid])
 Parses list of `/proc/<pid>/task/*` entries.
  - **`pid`** integer: process pid, `self` process if undefined
  - returns Array\<integer>: process's current threads
----
+***
 
 
 ### processFdinfo (fd, [pid])
@@ -160,7 +160,7 @@ Parses contents of `/proc/<pid>/fdinfo/<fd>`
  - **`fd`** integer: fd in question
  - **`pid`** integer: process pid, `self` process if undefined
  - returns [ProcessFdinfo](#type-processfdinfo)
----
+***
 
 
 ### processFd (fd, [pid])
@@ -169,14 +169,14 @@ Parses contents of `/proc/<pid>/fd/<fd>`
  - **`fd`** integer: fd in question
  - **`pid`** integer: process pid, `self` process if undefined
  - returns string
----
+***
 
 
 ### processExe ([pid])
 Reads symlink at `/proc/<pid>/exe`
  - **`pid`** integer: process pid, `self` process if undefined
  - returns [ProcessExe](#type-processexe)
----
+***
 
 
 ### processCwd ([pid])
@@ -185,122 +185,121 @@ Reads symlink at `/proc/<pid>/cwd`
 		Note: permission to read this file(symlink) is governed by ptrace access mode `PTRACE_MODE_READ_FSCREDS`.
  - **`pid`** integer: process pid, `self` process if undefined
  - returns [Path](#type-path): path to process `cwd`
----
+***
 
 
 ### cpuinfo ()
 ⚠️ **unstable**
 Parses contents of `/proc/cpuinfo`
  - returns Array\<[CpuCoreInfo](#type-cpucoreinfo)>
----
+***
 
 
 ### loadavg ()
 Parses contents of `/proc/loadavg`
  - returns [Loadavg](#type-loadavg)
----
+***
 
 
 ### uptime ()
 Parses contents of `/proc/uptime`
  - returns [Uptime](#type-uptime)
----
+***
 
 
 ### version ()
 Parses contents of `/proc/version`
 		Note: includes the contents of `/proc/sys/kernel/ostype`, `/proc/sys/kernel/osrelease` and `/proc/sys/kernel/version`.
  - returns string: identifies the kernel version that is currently running
----
+***
 
 
 ### cmdline ()
 Parses contents of `/proc/cmdline`
  - returns string: arguments passed to the Linux kernel at boot time
----
+***
 
 
 ### swaps ()
 Parses contents of `/proc/swaps`
  - returns Array\<[Swap](#type-swap)>: swap areas in use
----
+***
 
 
 ### stat ()
 ⚠️ **unstable**
 Parses contents of `/proc/stat`
  - returns [Stat](#type-stat)
----
+***
 
 
 ### devices ()
 ⚠️ **unstable**
 Parses contents of `/proc/devices`
  - returns Array\<[Device](#type-device)>
----
+***
 
 
 ### filesystems ()
 Parses contents of `/proc/filesystems`
  - returns Array\<[Filesystem](#type-filesystem)>: filesystems which are supported by the kernel(which were compiled into the kernel or whose kernel modules are currently loaded)
----
+***
 
 
 ### diskstats ()
-⚠️ **unstable**
 Parses contents of `/proc/diskstats`
- - returns Array\<[Diskstat](#type-diskstat)>
----
+ - returns Array\<[Diskstat](#type-diskstat)>: I/O statistics for each disk device
+***
 
 
 ### partitions ()
 Parses contents of `/proc/partitions`
  - returns Array\<[Partition](#type-partition)>: partitions in system
----
+***
 
 
 ### meminfo ()
 ⚠️ **unstable**
 Parses contents of `/proc/meminfo`
  - returns [Meminfo](#type-meminfo)
----
+***
 
 
 ### processes ()
 Parses list of `/proc/*` entries.
 		Depending on `hidepid` option `procfs` was mounted with, may only contain user's own processes.
  - returns Array\<integer>: pids of currently running processes
----
+***
 
 
 ### config ()
 Available if the kernel is configured with `CONFIG_IKCONFIG_PROC`
  - returns string: gunziped content of `/proc/config.gz`
----
+***
 
 
 ### cgroups ()
  - returns Array\<[CgroupController](#type-cgroupcontroller)>: controllers that are compiled into the kernel
----
+***
 
 
 ### devIdGetMinor (devId)
  - **`devId`** [DevId](#type-devid)
  - returns integer: minor part of devId
----
+***
 
 
 ### devIdGetMajor (devId)
  - **`devId`** [DevId](#type-devid)
  - returns integer: major part of devId
----
+***
 
 
 ### devIdFromMajorMinor (major, minor)
  - **`major`** integer: major part of DevId
  - **`minor`** integer: minor part of DevId
  - returns [DevId](#type-devid): id combined from major and minor parts
----
+***
 
 
 ## type Path
@@ -624,20 +623,19 @@ Object with properties:
 
 ## type Diskstat
 Object with properties:
- - **`currentIoCount`** integer
- - **`ioTime`** integer
- - **`major`** integer
- - **`minor`** integer
+ - **`currentIoCount`** integer : number of of IOs currently in progress
+ - **`devId`** [DevId](#type-devid)
+ - **`ioTime`** integer : milliseconds spent doing IO
  - **`name`** string
- - **`readTime`** integer
- - **`reads`** integer
- - **`readsMerged`** integer
+ - **`readTime`** integer : milliseconds spent reading
+ - **`reads`** integer : total number of reads
+ - **`readsMerged`** integer : number of reads merged
  - **`sectorsRead`** integer
- - **`sectorsWriten`** integer
- - **`weightedIoTime`** integer
- - **`writeTime`** integer
- - **`writes`** integer
- - **`writesMerged`** integer
+ - **`sectorsWriten`** integer : total number of sectors written
+ - **`weightedIoTime`** integer : weighted milliseconds spent doing I/Os. This field is incremented at each I/O start, I/O completion, I/O merge, or read of these stats by the number of I/Os in progress times the number of milliseconds spent doing I/O since the last update of this field.  This can provide an easy measure of both I/O completion time and the backlog that may be accumulating.
+ - **`writeTime`** integer : milliseconds spent writing
+ - **`writes`** integer : total number of writes
+ - **`writesMerged`** integer : number of writes merged
 
 ***
 

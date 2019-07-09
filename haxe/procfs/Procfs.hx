@@ -343,9 +343,21 @@ typedef Filesystem = {
 	name: String,
 };
 
+/**
+@field reads total number of reads
+@field readsMerged number of reads merged
+@field sectoresRead total number of sectors read
+@field readTime milliseconds spent reading
+@field writes total number of writes
+@field writesMerged number of writes merged
+@field sectorsWriten total number of sectors written
+@field writeTime milliseconds spent writing
+@field currentIoCount number of of IOs currently in progress
+@field ioTime milliseconds spent doing IO
+@field weightedIoTime weighted milliseconds spent doing I/Os. This field is incremented at each I/O start, I/O completion, I/O merge, or read of these stats by the number of I/Os in progress times the number of milliseconds spent doing I/O since the last update of this field.  This can provide an easy measure of both I/O completion time and the backlog that may be accumulating.
+**/
 typedef Diskstat = {
-	major: Int,
-	minor: Int,
+	devId: DevId,
 	name: String,
 	reads: Int,
 	readsMerged: Int,
@@ -701,7 +713,7 @@ extern class Procfs{
 
 	/**
 		Parses contents of `/proc/diskstats`
-		@unstable
+		@returns I/O statistics for each disk device
 	**/
 	public static function diskstats(): Array<Diskstat>;
 

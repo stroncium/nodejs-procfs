@@ -310,9 +310,8 @@ module.exports = {
 		reads: Joi.number().integer().required(),
 		readTime: Joi.number().integer().required(),
 		name: Joi.string().required(),
-		minor: Joi.number().integer().required(),
-		major: Joi.number().integer().required(),
 		ioTime: Joi.number().integer().required(),
+		devId: Joi.number().integer().required(),
 		currentIoCount: Joi.number().integer().required(),
 	})).min(0).required()),
 	partitions: asserter(Joi.array().items(Joi.object().keys({
