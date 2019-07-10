@@ -1,1 +1,1 @@
-module.exports = 'allow';
+module.exports = true;

@@ -97,17 +97,12 @@ Note: different threads in the same process may have different comm values
 
 
 ### processSetgroups ([pid])
-	⚠️ Unstable: will be changed to return boolean
-
 Parses contents of `/proc/<pid>/setgroups`
-
-Returns `"allow"` if processes in the user namespace that contains the target process are permitted to employ the `setgroups` system call, `"deny"` otherwise.
 
 Note: regardless of the value, calls to `setgroups` are also not permitted if `/proc/[pid]/gid_map` has not yet been set.
 
  - **`pid`** integer: process PID, `self` process if undefined
- - returns string: `allow` or `deny`
-
+ - returns boolean: if processes in the user namespace that contains the target process are permitted to employ the `setgroups` system call
 ***
 
 

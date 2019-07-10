@@ -674,14 +674,11 @@ Note: different threads in the same process may have different comm values
 
 /**
 Parses contents of `/proc/<pid>/setgroups`
-Returns `"allow"` if processes in the user namespace that contains the target process are permitted to employ the `setgroups` system call, `"deny"` otherwise.
 Note: regardless of the value, calls to `setgroups` are also not permitted if `/proc/[pid]/gid_map` has not yet been set.
-
 @param pid process PID, `self` process if undefined
-@returns `allow` or `deny`
-@unstable will be changed to return boolean
+@returns if processes in the user namespace that contains the target process are permitted to employ the `setgroups` system call
 **/
-	public static function processSetgroups(?pid:Int): String;
+	public static function processSetgroups(?pid:Int): Bool;
 
 /**
 Parses contents of `/proc/<pid>/cgroups`

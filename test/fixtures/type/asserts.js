@@ -56,7 +56,7 @@ module.exports = {
 		data: Joi.number().integer().required(),
 	}).required()),
 	processComm: asserter(Joi.string().required()),
-	processSetgroups: asserter(Joi.string().required()),
+	processSetgroups: asserter(Joi.boolean().required()),
 	processCgroups: asserter(Joi.array().items(Joi.object().keys({
 		path: Joi.string().required(),
 		hierarchyId: Joi.number().integer().required(),
