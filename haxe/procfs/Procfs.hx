@@ -744,30 +744,30 @@ Parses list of `/proc/<pid>/task/*` entries.
 	public static function processThreads(?pid:Int): Array<Int>;
 
 /**
-Parses symlink at `/proc/<pid>/fdinfo/<fd>`
-@param pid process PID, `self` process if undefined
+Parses contents of `/proc/<pid>/fdinfo/<fd>`
 @param fd target fd
+@param pid process PID, `self` process if undefined
 @returns information about target file descriptor
 **/
 	public static function processFdinfo(fd:Int, ?pid:Int): ProcessFdinfo;
 
 /**
-Parses contents of `/proc/<pid>/fd/<fd>`
+Parses symlink at `/proc/<pid>/fd/<fd>`
 Note: Permission to read this is governed by a ptrace access mode `PTRACE_MODE_READ_FSCREDS` check.
-@param pid process PID, `self` process if undefined
 @param fd target fd
-@unstable
+@param pid process PID, `self` process if undefined
+@returns information about target file descriptor
 **/
 	public static function processFd(fd:Int, ?pid:Int): ProcessFd;
 
 /**
-Reads symlink at `/proc/<pid>/exe`
+Parses symlink at `/proc/<pid>/exe`
 @param pid process PID, `self` process if undefined
 **/
 	public static function processExe(?pid:Int): ProcessExe;
 
 /**
-Reads symlink at `/proc/<pid>/cwd`
+Parses symlink at `/proc/<pid>/cwd`
 Note: in a multithreaded process, it is not available if the main thread has already terminated.
 Note: permission to read this file(symlink) is governed by ptrace access mode `PTRACE_MODE_READ_FSCREDS`.
 

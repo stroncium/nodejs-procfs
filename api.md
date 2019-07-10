@@ -186,7 +186,7 @@ Parses list of `/proc/<pid>/task/*` entries.
 
 
 ### processFdinfo (fd, [pid])
-Parses symlink at `/proc/<pid>/fdinfo/<fd>`
+Parses contents of `/proc/<pid>/fdinfo/<fd>`
 
  - **`fd`** integer: target fd
  - **`pid`** integer: process PID, `self` process if undefined
@@ -195,20 +195,18 @@ Parses symlink at `/proc/<pid>/fdinfo/<fd>`
 
 
 ### processFd (fd, [pid])
-	⚠️ Unstable
-
-Parses contents of `/proc/<pid>/fd/<fd>`
+Parses symlink at `/proc/<pid>/fd/<fd>`
 
 Note: Permission to read this is governed by a ptrace access mode `PTRACE_MODE_READ_FSCREDS` check.
 
  - **`fd`** integer: target fd
  - **`pid`** integer: process PID, `self` process if undefined
- - returns [ProcessFd](#type-processfd)
+ - returns [ProcessFd](#type-processfd): information about target file descriptor
 ***
 
 
 ### processExe ([pid])
-Reads symlink at `/proc/<pid>/exe`
+Parses symlink at `/proc/<pid>/exe`
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns [ProcessExe](#type-processexe)
@@ -216,7 +214,7 @@ Reads symlink at `/proc/<pid>/exe`
 
 
 ### processCwd ([pid])
-Reads symlink at `/proc/<pid>/cwd`
+Parses symlink at `/proc/<pid>/cwd`
 
 Note: in a multithreaded process, it is not available if the main thread has already terminated.
 
