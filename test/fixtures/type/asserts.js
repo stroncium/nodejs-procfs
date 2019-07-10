@@ -197,7 +197,12 @@ module.exports = {
 			data: Joi.string().required(),
 		})).min(0),
 	}).required()),
-	processFd: asserter(Joi.string().required()),
+	processFd: asserter(Joi.object().keys({
+		type: Joi.string().required(),
+		path: Joi.string(),
+		inode: Joi.number().integer(),
+		anonInodeType: Joi.string(),
+	}).required()),
 	processExe: asserter(Joi.object().keys({
 		path: Joi.string().required(),
 		deleted: Joi.boolean().required(),

@@ -170,6 +170,8 @@ Depending on `hidepid` option `procfs` was mounted with, may not be accessible b
 ### processFds ([pid])
 Parses list of `/proc/<pid>/fd/*` entries.
 
+Note: In a multithreaded process, the contents of this directory are not available if the main thread has already terminated (typically by calling pthread_exit).
+
  - **`pid`** integer: process PID, `self` process if undefined
  - returns Array\<integer>: process's current open fds
 ***
@@ -184,13 +186,11 @@ Parses list of `/proc/<pid>/task/*` entries.
 
 
 ### processFdinfo (fd, [pid])
-	⚠️ Unstable
+Parses symlink at `/proc/<pid>/fdinfo/<fd>`
 
-Parses contents of `/proc/<pid>/fdinfo/<fd>`
-
- - **`fd`** integer: fd in question
+ - **`fd`** integer: target fd
  - **`pid`** integer: process PID, `self` process if undefined
- - returns [ProcessFdinfo](#type-processfdinfo)
+ - returns [ProcessFdinfo](#type-processfdinfo): information about target file descriptor
 ***
 
 
@@ -199,9 +199,11 @@ Parses contents of `/proc/<pid>/fdinfo/<fd>`
 
 Parses contents of `/proc/<pid>/fd/<fd>`
 
- - **`fd`** integer: fd in question
+Note: Permission to read this is governed by a ptrace access mode `PTRACE_MODE_READ_FSCREDS` check.
+
+ - **`fd`** integer: target fd
  - **`pid`** integer: process PID, `self` process if undefined
- - returns string
+ - returns [ProcessFd](#type-processfd)
 ***
 
 
@@ -796,6 +798,16 @@ Object with properties:
  - *optional* **`timerSettimeFlags`** integer
  - *optional* **`timerTicks`** integer
  - *optional* **`timerValue`** Array\<integer>
+
+***
+
+
+## type ProcessFd
+Object with properties:
+ - **`type`** string : `pipe`, `socket`, `file` or `anon-inode`
+ - *optional* **`anonInodeType`** string : for `type` `anon-inode`, the file type, like `eventfd`, `eventpoll`
+ - *optional* **`inode`** integer : for `type`s `pipe` and `socket`, the inode of this pipe or socket
+ - *optional* **`path`** string : for `type` `file`, the file path
 
 ***
 

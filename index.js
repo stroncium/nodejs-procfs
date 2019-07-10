@@ -81,7 +81,7 @@ const processFd = (fd, pid) => {
 		throw new TypeError('fd');
 	}
 	try {
-		return readLink(((pid === undefined) ? '/proc/self/fd/' : `/proc/${pid}/fd/`) + fd);
+		return parsers.processFd(readLink(((pid === undefined) ? '/proc/self/fd/' : `/proc/${pid}/fd/`) + fd));
 	} catch (error) {
 		return handleGenericError(error);
 	}

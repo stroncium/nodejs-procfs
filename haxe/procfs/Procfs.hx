@@ -575,6 +575,19 @@ typedef ProcessFdinfo = {
 };
 
 /**
+@field type `pipe`, `socket`, `file` or `anon-inode`
+@field inode for `type`s `pipe` and `socket`, the inode of this pipe or socket
+@field anonInodeType for `type` `anon-inode`, the file type, like `eventfd`, `eventpoll`
+@field path for `type` `file`, the file path
+**/
+typedef ProcessFd = {
+	type: String,
+	?inode: Int,
+	?anonInodeType: String,
+	?path: String,
+};
+
+/**
 	@field path actual path of executed command
 	@field deleted if path have been unlinked
 **/
@@ -717,6 +730,7 @@ Depending on `hidepid` option `procfs` was mounted with, may not be accessible b
 
 /**
 Parses list of `/proc/<pid>/fd/*` entries.
+Note: In a multithreaded process, the contents of this directory are not available if the main thread has already terminated (typically by calling pthread_exit).
 @param pid process PID, `self` process if undefined
 @return process's current open fds
 **/
@@ -730,20 +744,21 @@ Parses list of `/proc/<pid>/task/*` entries.
 	public static function processThreads(?pid:Int): Array<Int>;
 
 /**
-Parses contents of `/proc/<pid>/fdinfo/<fd>`
+Parses symlink at `/proc/<pid>/fdinfo/<fd>`
 @param pid process PID, `self` process if undefined
-@param fd fd in question
-@unstable
+@param fd target fd
+@returns information about target file descriptor
 **/
 	public static function processFdinfo(fd:Int, ?pid:Int): ProcessFdinfo;
 
 /**
 Parses contents of `/proc/<pid>/fd/<fd>`
+Note: Permission to read this is governed by a ptrace access mode `PTRACE_MODE_READ_FSCREDS` check.
 @param pid process PID, `self` process if undefined
-@param fd fd in question
+@param fd target fd
 @unstable
 **/
-	public static function processFd(fd:Int, ?pid:Int): String;
+	public static function processFd(fd:Int, ?pid:Int): ProcessFd;
 
 /**
 Reads symlink at `/proc/<pid>/exe`

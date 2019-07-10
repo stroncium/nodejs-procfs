@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 const test = require('ava');
-const {read, readIdList} = require('../lib/utils');
+const {read, readIdList, readLink} = require('../lib/utils');
 const parsers = require('../lib/parsers');
 const typeAsserts = require('./fixtures/type/asserts');
 
@@ -19,6 +19,19 @@ for (let fixture of ['fdinfo', 'fdinfo-synthetic']) {
 		let map = require(`${FIXTURES}/self/${fixture}-map`);
 		test(`parser processFdinfo (self/${fixture}/${fd})`, t => {
 			let result = parsers.processFdinfo(read(`${FIXTURES}/self/${fixture}/${fd}`));
+			let fixtureResult = map.get(fd);
+			assertType(result);
+			t.deepEqual(result, fixtureResult);
+		});
+	}
+}
+
+for (let fixture of ['fd']) {
+	let assertType = typeAsserts.processFd;
+	for (let fd of readIdList(`${FIXTURES}/self/${fixture}`)) {
+		let map = require(`${FIXTURES}/self/${fixture}-map`);
+		test(`parser processFd (self/${fixture}/${fd})`, t => {
+			let result = parsers.processFd(readLink(`${FIXTURES}/self/${fixture}/${fd}`));
 			let fixtureResult = map.get(fd);
 			assertType(result);
 			t.deepEqual(result, fixtureResult);
