@@ -1,4 +1,4 @@
-module.exports = new Map([
+module.exports = [
 	['SHELL', '/bin/bash'],
 	['WINDOWID', '18874942'],
 	['COLORTERM', 'rxvt'],
@@ -41,4 +41,4 @@ module.exports = new Map([
 	['OLDPWD', '/home/stronzi/projects/linux-proc/test'],
 	['GOPATH', '/home/stronzi/go'],
 	['_', '/usr/bin/node'],
-]);
+];

@@ -21,7 +21,7 @@ class Asserts {
 	function schema(type: CType){
 		return switch(type) {
 			case CClass('Array', subtypes): 'Joi.array().items(${schema(subtypes.first())}).min(0)';
-			case CClass('String', _): 'Joi.string()';
+			case CClass('String', _): 'Joi.string().allow(\'\')';
 			case CClass('Date', _): 'Joi.date()';
 			case CTypedef('Null', params): schema(params.first());
 			case CTypedef(path, params) if (params.length == 0):

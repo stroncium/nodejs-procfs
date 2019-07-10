@@ -623,10 +623,11 @@ Parses contents of `/proc/<pid>/gid_map`
 
 /**
 Parses contents of `/proc/<pid>/environ`
+Note: the result can be used to create map, `new Map(result)`.
 @param pid process PID, `self` process if undefined
-@unstable
+@returns key-value pairs of initial environment process was started with
 **/
-	public static function processEnviron(?pid:Int): Dynamic;
+	public static function processEnviron(?pid:Int): Array<Array<String>>;
 
 /**
 Parses contents of `/proc/<pid>/oom_score`

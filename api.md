@@ -33,12 +33,12 @@ Parses contents of `/proc/<pid>/gid_map`
 
 
 ### processEnviron ([pid])
-	⚠️ Unstable
-
 Parses contents of `/proc/<pid>/environ`
 
+Note: the result can be used to create map, `new Map(result)`.
+
  - **`pid`** integer: process PID, `self` process if undefined
- - returns object
+ - returns Array\<Array\<string>>: key-value pairs of initial environment process was started with
 ***
 
 
