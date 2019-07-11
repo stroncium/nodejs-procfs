@@ -96,6 +96,9 @@ for (let [name, path] of [
 	['processLimits', '/limits'],
 	['processStat', '/stat'],
 	['processStatus', '/status'],
+	['processNetDev', '/net/dev'],
+	['processNetWireless', '/net/wireless'],
+	['processNetUnix', '/net/unix'],
 ]) {
 	procfs[name] = pid => {
 		if (pid !== undefined && !(Number.isInteger(pid) && pid >= 0)) {
@@ -127,9 +130,7 @@ module.exports = procfs;
 
 //TODO [pid]/net/*
 //TODO /net/*
-//TODO fd deep info
 //TODO /net/imgp ?
 //TODO /net/dev_mcast ?
-//TODO /net/wireless
 //TODO rt signals
 //TODO check bitfields

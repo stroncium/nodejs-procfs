@@ -63,6 +63,9 @@ for (let [parserName, fixtures] of [
 	['processLimits', 'self/limits'],
 	['processStat', 'self/stat'],
 	['processStatus', 'self/status'],
+	['processNetDev', 'self/net/dev'],
+	['processNetWireless', 'self/net/wireless'],
+	['processNetUnix', 'self/net/unix'],
 
 	['cpuinfo', 'cpuinfo,cpuinfo-synthetic'],
 	['loadavg', 'loadavg'],

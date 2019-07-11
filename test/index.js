@@ -28,6 +28,8 @@ for (let {name, pided} of [
 	{name: 'processFds', pided: true},
 	{name: 'processThreads', pided: true},
 	{name: 'processStatus', pided: true},
+	{name: 'processNetDev', pided: true},
+	{name: 'processNetWireless', pided: true},
 
 	{name: 'processes'},
 	{name: 'cpuinfo'},

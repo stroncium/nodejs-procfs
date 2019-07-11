@@ -220,6 +220,39 @@ Note: permission to read this file(symlink) is governed by ptrace access mode `P
 ***
 
 
+### processNetDev ([pid])
+	⚠️ Unstable: needs checking on more systems
+
+Parses contents of `/proc/<pid>/net/dev`
+
+ - **`pid`** integer: process PID, `self` process if undefined
+ - returns Array\<[NetDev](#type-netdev)>: network devices status information
+
+***
+
+
+### processNetWireless ([pid])
+	⚠️ Unstable: needs checking on more systems
+
+Parses contents of `/proc/<pid>/net/wireless`
+
+ - **`pid`** integer: process PID, `self` process if undefined
+ - returns Array\<[NetWireless](#type-netwireless)>: wireless network devices status information
+
+***
+
+
+### processNetUnix ([pid])
+	⚠️ Unstable: needs checking on more systems
+
+Parses contents of `/proc/<pid>/net/unix`
+
+ - **`pid`** integer: process PID, `self` process if undefined
+ - returns Array\<[NetUnix](#type-netunix)>: statuses of UNIX domain sockets present within the system
+
+***
+
+
 ### cpuinfo ()
 	⚠️ Unstable: documentation on that is hard to find, need to get at least a list of fields which are present on all systems or just remove this method from the library
 
@@ -809,6 +842,58 @@ Object with properties:
 Object with properties:
  - **`deleted`** boolean : if path have been unlinked
  - **`path`** string : actual path of executed command
+
+***
+
+
+## type NetDev
+Object with properties:
+ - **`name`** string : interface name
+ - **`rxBytes`** integer
+ - **`rxCompressed`** integer
+ - **`rxDrop`** integer
+ - **`rxErrors`** integer
+ - **`rxFifo`** integer
+ - **`rxFrame`** integer
+ - **`rxMulticast`** integer
+ - **`rxPackets`** integer
+ - **`txBytes`** integer
+ - **`txCarrier`** integer
+ - **`txColls`** integer
+ - **`txCompressed`** integer
+ - **`txDrop`** integer
+ - **`txErrors`** integer
+ - **`txFifo`** integer
+ - **`txPackets`** integer
+
+***
+
+
+## type NetWireless
+Object with properties:
+ - **`discardedCrypt`** integer : number of packets discarded due to
+ - **`discardedFrag`** integer : number of packets discarded due to inability to perform MAC reassembly
+ - **`discardedMisc`** integer : number of packets discarded due to other reasons
+ - **`discardedNwid`** integer : number of packets discarded due to wrong nwid/essid
+ - **`discardedRetry`** integer : number of packets discarded due to max MAC retries num reached
+ - **`level`** Float : signal strength at the receiver
+ - **`link`** Float : general quality of the reception
+ - **`missedBeacons`** integer : number of missed beacons/superframes
+ - **`name`** string : interface name
+ - **`noise`** Float : silence level (no packet) at the receiver
+
+***
+
+
+## type NetUnix
+Object with properties:
+ - **`flags`** integer : internal kernel flags holding the status of the socket
+ - **`inode`** integer
+ - **`referenceCount`** integer : number of users of the socket
+ - **`slot`** string : kernel table slot number
+ - **`state`** integer : internal state of the socket
+ - **`type`** integer : socket type, `1` for `SOCK_STREAM` sockets, `2` for `SOCK_DGRAM` sockets, `5` for `SOCK_SEQPACKET` sockets
+ - *optional* **`path`** string : bound pathname (if any) of the socket. For sockets in the abstract namespace, commences `
 
 ***
 

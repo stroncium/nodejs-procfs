@@ -596,6 +596,73 @@ typedef ProcessExe = {
 	deleted: Bool,
 };
 
+/**
+@field name interface name
+**/
+typedef NetDev = {
+	name: String,
+	rxBytes: Int,
+	rxPackets: Int,
+	rxErrors: Int,
+	rxDrop: Int,
+	rxFifo: Int,
+	rxFrame: Int,
+	rxCompressed: Int,
+	rxMulticast: Int,
+
+	txBytes: Int,
+	txPackets: Int,
+	txErrors: Int,
+	txDrop: Int,
+	txFifo: Int,
+	txColls: Int,
+	txCarrier: Int,
+	txCompressed: Int,
+};
+
+/**
+@field name interface name
+@field link general quality of the reception
+@field level signal strength at the receiver
+@field noise silence level (no packet) at the receiver
+@field discardedNwid number of packets discarded due to wrong nwid/essid
+@field discardedCrypt number of packets discarded due to
+@field discardedFrag number of packets discarded due to inability to perform MAC reassembly
+@field discardedRetry number of packets discarded due to max MAC retries num reached
+@field discardedMisc number of packets discarded due to other reasons
+@field missedBeacons number of missed beacons/superframes
+**/
+typedef NetWireless = {
+	name: String,
+	link: Float,
+	level: Float,
+	noise: Float,
+	discardedNwid: Int,
+	discardedCrypt: Int,
+	discardedFrag: Int,
+	discardedRetry: Int,
+	discardedMisc: Int,
+	missedBeacons: Int,
+};
+
+/**
+@field slot kernel table slot number
+@field referenceCount number of users of the socket
+@field flags internal kernel flags holding the status of the socket
+@field type socket type, `1` for `SOCK_STREAM` sockets, `2` for `SOCK_DGRAM` sockets, `5` for `SOCK_SEQPACKET` sockets
+@field state internal state of the socket
+@field path bound pathname (if any) of the socket. For sockets in the abstract namespace, commences `@` character.
+**/
+typedef NetUnix = {
+	slot: String,
+	referenceCount: Int,
+	flags: Int,
+	type: Int,
+	state: Int,
+	inode: Int,
+	?path: String,
+};
+
 extern class Procfs{
 /**
 Parses contents of `/proc/<pid>/mountinfo`
@@ -773,6 +840,30 @@ Note: permission to read this file(symlink) is governed by ptrace access mode `P
 @returns path to process `cwd`
 **/
 	public static function processCwd(?pid:Int): Path;
+
+/**
+Parses contents of `/proc/<pid>/net/dev`
+@param pid process PID, `self` process if undefined
+@returns network devices status information
+@unstable needs checking on more systems
+**/
+	public static function processNetDev(?pid:Int): Array<NetDev>;
+
+/**
+Parses contents of `/proc/<pid>/net/wireless`
+@param pid process PID, `self` process if undefined
+@returns wireless network devices status information
+@unstable needs checking on more systems
+**/
+	public static function processNetWireless(?pid:Int): Array<NetWireless>;
+
+/**
+Parses contents of `/proc/<pid>/net/unix`
+@param pid process PID, `self` process if undefined
+@returns statuses of UNIX domain sockets present within the system
+@unstable needs checking on more systems
+**/
+	public static function processNetUnix(?pid:Int): Array<NetUnix>;
 
 /**
 Parses contents of `/proc/cpuinfo`
