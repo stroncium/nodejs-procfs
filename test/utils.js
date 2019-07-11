@@ -11,21 +11,11 @@ const {
 const FIXTURES = `${__dirname}/fixtures/utils`;
 
 test('readLink', t => {
-	t.deepEqual(readLink(`${FIXTURES}/link`), '.');
+	t.is(readLink(`${FIXTURES}/link`), '.');
 });
 
 test('readLink deleted', t => {
-	t.deepEqual(readLink(`${FIXTURES}/deleted-link`, true), {
-		path: '.',
-		deleted: true,
-	});
-});
-
-test('readLink not deleted', t => {
-	t.deepEqual(readLink(`${FIXTURES}/link`, true), {
-		path: '.',
-		deleted: false,
-	});
+	t.is(readLink(`${FIXTURES}/deleted-link`), '. (deleted)');
 });
 
 test('read 4k', t => {

@@ -87,28 +87,6 @@ const processFd = (fd, pid) => {
 	}
 };
 
-const processExe = pid => {
-	if (pid !== undefined && !(Number.isInteger(pid) && pid >= 0)) {
-		throw new TypeError('pid');
-	}
-	try {
-		return readLink(((pid === undefined) ? '/proc/self' : '/proc/' + pid) + '/exe', true);
-	} catch (error) {
-		return handleGenericError(error);
-	}
-};
-
-const processCwd = pid => {
-	if (pid !== undefined && !(Number.isInteger(pid) && pid >= 0)) {
-		throw new TypeError('pid');
-	}
-	try {
-		return readLink(((pid === undefined) ? '/proc/self' : '/proc/' + pid) + '/cwd', false);
-	} catch (error) {
-		return handleGenericError(error);
-	}
-};
-
 const config = () => {
 	try {
 		return gunzipSync(readBuffer('/proc/config.gz')).toString('utf8');
@@ -124,14 +102,28 @@ const procfs = {
 	processThreads,
 	processFdinfo,
 	processFd,
-	processExe,
-	processCwd,
 	config,
 
 	devIdGetMinor,
 	devIdGetMajor,
 	devIdFromMajorMinor,
 };
+
+for (let [name, path] of [
+	['processExe', '/exe'],
+	['processCwd', '/cwd'],
+]) {
+	procfs[name] = pid => {
+		if (pid !== undefined && !(Number.isInteger(pid) && pid >= 0)) {
+			throw new TypeError('pid');
+		}
+		try {
+			return parsers[name](readLink(((pid === undefined) ? '/proc/self' : '/proc/' + pid) + path));
+		} catch (error) {
+			return handleGenericError(error);
+		}
+	};
+}
 
 for (let [name, path] of [
 	['processMountinfo', '/mountinfo'],
