@@ -7,56 +7,25 @@ const {
 	readLink,
 	readBuffer,
 	readdir,
-	exists,
 	devIdGetMinor,
 	devIdGetMajor,
 	devIdFromMajorMinor,
 } = require('./lib/utils');
 
-const procfsExists = exists('/proc');
-
-const handleGenericError = err => {
-	/* istanbul ignore else */
-	if (err.code === 'ENOENT') {
-		/* istanbul ignore if */
-		if (!procfsExists) {
-			throw new Error('procfs doesn\'t exist');
-		}
-		return undefined;
-	}
-	/* istanbul ignore next */
-	throw err;
-};
-
-const processes = () => {
-	try {
-		return parsers.processes(readdir('/proc'));
-	} catch (error) {
-		/* istanbul ignore next */
-		return handleGenericError(error);
-	}
-};
+const processes = () => parsers.processes(readdir('/proc'));
 
 const processFds = pid => {
 	if (pid !== undefined && (!Number.isInteger(pid) || pid <= 0)) {
 		throw new TypeError('pid');
 	}
-	try {
-		return parsers.processFds(readdir(((pid === undefined) ? '/proc/self' : '/proc/' + pid) + '/fd'));
-	} catch (error) {
-		return handleGenericError(error);
-	}
+	return parsers.processFds(readdir(((pid === undefined) ? '/proc/self' : '/proc/' + pid) + '/fd'));
 };
 
 const processThreads = pid => {
 	if (pid !== undefined && (!Number.isInteger(pid) || pid <= 0)) {
 		throw new TypeError('pid');
 	}
-	try {
-		return parsers.processThreads(readdir(((pid === undefined) ? '/proc/self' : '/proc/' + pid) + '/task'));
-	} catch (error) {
-		return handleGenericError(error);
-	}
+	return parsers.processThreads(readdir(((pid === undefined) ? '/proc/self' : '/proc/' + pid) + '/task'));
 };
 
 const processFdinfo = (fd, pid) => {
@@ -66,11 +35,7 @@ const processFdinfo = (fd, pid) => {
 	if (!Number.isInteger(fd) || fd <= 0) {
 		throw new TypeError('fd');
 	}
-	try {
-		return parsers.processFdinfo(read(((pid === undefined) ? '/proc/self/fdinfo/' : `/proc/${pid}/fdinfo/`) + fd));
-	} catch (error) {
-		return handleGenericError(error);
-	}
+	return parsers.processFdinfo(read(((pid === undefined) ? '/proc/self/fdinfo/' : `/proc/${pid}/fdinfo/`) + fd));
 };
 
 const processFd = (fd, pid) => {
@@ -80,20 +45,11 @@ const processFd = (fd, pid) => {
 	if (!Number.isInteger(fd) || fd <= 0) {
 		throw new TypeError('fd');
 	}
-	try {
-		return parsers.processFd(readLink(((pid === undefined) ? '/proc/self/fd/' : `/proc/${pid}/fd/`) + fd));
-	} catch (error) {
-		return handleGenericError(error);
-	}
+	return parsers.processFd(readLink(((pid === undefined) ? '/proc/self/fd/' : `/proc/${pid}/fd/`) + fd));
 };
 
 const config = () => {
-	try {
-		return gunzipSync(readBuffer('/proc/config.gz')).toString('utf8');
-	} catch (error) {
-		/* istanbul ignore next */
-		return handleGenericError(error);
-	}
+	return gunzipSync(readBuffer('/proc/config.gz')).toString('utf8');
 };
 
 const procfs = {
@@ -117,11 +73,7 @@ for (let [name, path] of [
 		if (pid !== undefined && !(Number.isInteger(pid) && pid >= 0)) {
 			throw new TypeError('pid');
 		}
-		try {
-			return parsers[name](readLink(((pid === undefined) ? '/proc/self' : '/proc/' + pid) + path));
-		} catch (error) {
-			return handleGenericError(error);
-		}
+		return parsers[name](readLink(((pid === undefined) ? '/proc/self' : '/proc/' + pid) + path));
 	};
 }
 
@@ -149,11 +101,7 @@ for (let [name, path] of [
 		if (pid !== undefined && !(Number.isInteger(pid) && pid >= 0)) {
 			throw new TypeError('pid');
 		}
-		try {
-			return parsers[name](read(((pid === undefined) ? '/proc/self' : '/proc/' + pid) + path));
-		} catch (error) {
-			return handleGenericError(error);
-		}
+		return parsers[name](read(((pid === undefined) ? '/proc/self' : '/proc/' + pid) + path));
 	};
 }
 
@@ -172,14 +120,7 @@ for (let name of [
 	'meminfo',
 	'cgroups',
 ]) {
-	procfs[name] = () => {
-		try {
-			return parsers[name](read('/proc/' + name));
-		} catch (error) {
-			/* istanbul ignore next */
-			return handleGenericError(error);
-		}
-	};
+	procfs[name] = () => parsers[name](read('/proc/' + name));
 }
 
 module.exports = procfs;

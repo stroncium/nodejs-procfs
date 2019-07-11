@@ -59,8 +59,7 @@ for (let {name, pided} of [
 		});
 
 		test(`procfs.${name}(<nonexisting pid>)`, t => {
-			let result = procfs[name](nonexistingPid);
-			t.is(result, undefined);
+			t.throws(() => procfs[name](nonexistingPid));
 		});
 
 		test(`procfs.${name}(<incorrect pid>)`, t => {
@@ -88,22 +87,22 @@ for (let {name, pided} of [
 		}
 	});
 	if (pided) {
-		test(`procfs.${name}(<existing pid>)`, t => {
-			let result = procfs[name](existingPid);
-			if (result === undefined) {
-				t.is(result, undefined);
-			} else {
-				t.true(result !== undefined);
-				assertType(result);
+		test(`procfs.${name}(<existing pid>) linux version dependent`, t => {
+			let result;
+			try {
+				result = procfs[name](existingPid);
+			} catch (error) {
+				return;
 			}
+			t.true(result !== undefined);
+			assertType(result);
 		});
 
-		test(`procfs.${name}(<nonexisting pid>)`, t => {
-			let result = procfs[name](nonexistingPid);
-			t.is(result, undefined);
+		test(`procfs.${name}(<nonexisting pid>) linux version dependent`, t => {
+			t.throws(() => procfs[name](nonexistingPid));
 		});
 
-		test(`procfs.${name}(<incorrect pid>)`, t => {
+		test(`procfs.${name}(<incorrect pid>) linux version dependent`, t => {
 			t.throws(() => procfs[name]('stat'), 'pid');
 			t.throws(() => procfs[name](-1), 'pid');
 			t.throws(() => procfs[name](1.5), 'pid');
@@ -127,11 +126,11 @@ for (let name of ['processFd', 'processFdinfo']) {
 	});
 
 	test(`procfs.${name}(<nonexisting fd>, <existing pid>)`, t => {
-		t.is(procfs[name](2 ** 23, existingPid), undefined);
+		t.throws(() => procfs[name](2 ** 23, existingPid));
 	});
 
 	test(`procfs.${name}(<nonexisting fd>, <nonexisting pid>)`, t => {
-		t.is(procfs[name](1, nonexistingPid), undefined);
+		t.throws(() => procfs[name](1, nonexistingPid));
 	});
 
 	test(`procfs.${name}(<nonexisting fd>, <incorrect pid>)`, t => {
