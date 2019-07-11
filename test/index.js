@@ -30,6 +30,11 @@ for (let {name, pided} of [
 	{name: 'processStatus', pided: true},
 	{name: 'processNetDev', pided: true},
 	{name: 'processNetWireless', pided: true},
+	{name: 'processNetUnix', pided: true},
+	{name: 'processNetTcp4', pided: true},
+	{name: 'processNetTcp6', pided: true},
+	{name: 'processNetUdp4', pided: true},
+	{name: 'processNetUdp6', pided: true},
 
 	{name: 'processes'},
 	{name: 'cpuinfo'},

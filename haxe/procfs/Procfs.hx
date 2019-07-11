@@ -648,9 +648,7 @@ typedef NetWireless = {
 /**
 @field slot kernel table slot number
 @field referenceCount number of users of the socket
-@field flags internal kernel flags holding the status of the socket
 @field type socket type, `1` for `SOCK_STREAM` sockets, `2` for `SOCK_DGRAM` sockets, `5` for `SOCK_SEQPACKET` sockets
-@field state internal state of the socket
 @field path bound pathname (if any) of the socket. For sockets in the abstract namespace, commences `@` character.
 **/
 typedef NetUnix = {
@@ -661,6 +659,49 @@ typedef NetUnix = {
 	state: Int,
 	inode: Int,
 	?path: String,
+};
+
+
+/**
+@field slot kernel hash slot for the socket
+@field uid effective UID of the creator of the socket
+@field localAddress local address as 32 bit integer
+@field localPort local port
+@field remoteAddress remote address as 32 bit integer
+@field remotePort remote port
+@field txQueue outgoing queue memory usage
+@field rxQueue incoming queue memory usage
+**/
+typedef NetSocket4 = {
+	slot: Int,
+	uid: Int,
+	localAddress: Int,
+	localPort: Int,
+	remoteAddress: Int,
+	remotePort: Int,
+	txQueue: Int,
+	rxQueue: Int,
+};
+
+/**
+@field slot kernel hash slot for the socket
+@field uid effective UID of the creator of the socket
+@field localAddress local address as hexadecimal string
+@field localPort local port
+@field remoteAddress remote address as hexadecimal string
+@field remotePort remote port
+@field txQueue outgoing queue memory usage
+@field rxQueue incoming queue memory usage
+**/
+typedef NetSocket6 = {
+	slot: Int,
+	uid: Int,
+	localAddress: String,
+	localPort: Int,
+	remoteAddress: String,
+	remotePort: Int,
+	txQueue: Int,
+	rxQueue: Int,
 };
 
 extern class Procfs{
@@ -864,6 +905,38 @@ Parses contents of `/proc/<pid>/net/unix`
 @unstable needs checking on more systems
 **/
 	public static function processNetUnix(?pid:Int): Array<NetUnix>;
+
+/**
+Parses contents of `/proc/<pid>/net/tcp`
+@param pid process PID, `self` process if undefined
+@returns statuses of IPv4 TCP sockets present within the system
+@unstable needs checking on more systems
+**/
+	public static function processNetTcp4(?pid:Int): Array<NetSocket4>;
+
+/**
+Parses contents of `/proc/<pid>/net/udp`
+@param pid process PID, `self` process if undefined
+@returns statuses of IPv4 UDP sockets present within the system
+@unstable needs checking on more systems
+**/
+	public static function processNetUdp4(?pid:Int): Array<NetSocket4>;
+
+/**
+Parses contents of `/proc/<pid>/net/tcp6`
+@param pid process PID, `self` process if undefined
+@returns statuses of IPv6 TCP sockets present within the system
+@unstable needs checking on more systems
+**/
+	public static function processNetTcp6(?pid:Int): Array<NetSocket6>;
+
+/**
+Parses contents of `/proc/<pid>/net/udp6`
+@param pid process PID, `self` process if undefined
+@returns statuses of IPv6 UDP sockets present within the system
+@unstable needs checking on more systems
+**/
+	public static function processNetUdp6(?pid:Int): Array<NetSocket6>;
 
 /**
 Parses contents of `/proc/cpuinfo`

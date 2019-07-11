@@ -253,6 +253,50 @@ Parses contents of `/proc/<pid>/net/unix`
 ***
 
 
+### processNetTcp4 ([pid])
+	⚠️ Unstable: needs checking on more systems
+
+Parses contents of `/proc/<pid>/net/tcp`
+
+ - **`pid`** integer: process PID, `self` process if undefined
+ - returns Array\<[NetSocket4](#type-netsocket4)>: statuses of IPv4 TCP sockets present within the system
+
+***
+
+
+### processNetUdp4 ([pid])
+	⚠️ Unstable: needs checking on more systems
+
+Parses contents of `/proc/<pid>/net/udp`
+
+ - **`pid`** integer: process PID, `self` process if undefined
+ - returns Array\<[NetSocket4](#type-netsocket4)>: statuses of IPv4 UDP sockets present within the system
+
+***
+
+
+### processNetTcp6 ([pid])
+	⚠️ Unstable: needs checking on more systems
+
+Parses contents of `/proc/<pid>/net/tcp6`
+
+ - **`pid`** integer: process PID, `self` process if undefined
+ - returns Array\<[NetSocket6](#type-netsocket6)>: statuses of IPv6 TCP sockets present within the system
+
+***
+
+
+### processNetUdp6 ([pid])
+	⚠️ Unstable: needs checking on more systems
+
+Parses contents of `/proc/<pid>/net/udp6`
+
+ - **`pid`** integer: process PID, `self` process if undefined
+ - returns Array\<[NetSocket6](#type-netsocket6)>: statuses of IPv6 UDP sockets present within the system
+
+***
+
+
 ### cpuinfo ()
 	⚠️ Unstable: documentation on that is hard to find, need to get at least a list of fields which are present on all systems or just remove this method from the library
 
@@ -887,13 +931,41 @@ Object with properties:
 
 ## type NetUnix
 Object with properties:
- - **`flags`** integer : internal kernel flags holding the status of the socket
+ - **`flags`** integer
  - **`inode`** integer
  - **`referenceCount`** integer : number of users of the socket
  - **`slot`** string : kernel table slot number
- - **`state`** integer : internal state of the socket
+ - **`state`** integer
  - **`type`** integer : socket type, `1` for `SOCK_STREAM` sockets, `2` for `SOCK_DGRAM` sockets, `5` for `SOCK_SEQPACKET` sockets
  - *optional* **`path`** string : bound pathname (if any) of the socket. For sockets in the abstract namespace, commences `
+
+***
+
+
+## type NetSocket4
+Object with properties:
+ - **`localAddress`** integer : local address as 32 bit integer
+ - **`localPort`** integer : local port
+ - **`remoteAddress`** integer : remote address as 32 bit integer
+ - **`remotePort`** integer : remote port
+ - **`rxQueue`** integer : incoming queue memory usage
+ - **`slot`** integer : kernel hash slot for the socket
+ - **`txQueue`** integer : outgoing queue memory usage
+ - **`uid`** integer : effective UID of the creator of the socket
+
+***
+
+
+## type NetSocket6
+Object with properties:
+ - **`localAddress`** string : local address as hexadecimal string
+ - **`localPort`** integer : local port
+ - **`remoteAddress`** string : remote address as hexadecimal string
+ - **`remotePort`** integer : remote port
+ - **`rxQueue`** integer : incoming queue memory usage
+ - **`slot`** integer : kernel hash slot for the socket
+ - **`txQueue`** integer : outgoing queue memory usage
+ - **`uid`** integer : effective UID of the creator of the socket
 
 ***
 

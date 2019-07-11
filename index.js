@@ -99,6 +99,10 @@ for (let [name, path] of [
 	['processNetDev', '/net/dev'],
 	['processNetWireless', '/net/wireless'],
 	['processNetUnix', '/net/unix'],
+	['processNetTcp4', '/net/tcp'],
+	['processNetTcp6', '/net/tcp6'],
+	['processNetUdp4', '/net/udp'],
+	['processNetUdp6', '/net/udp6'],
 ]) {
 	procfs[name] = pid => {
 		if (pid !== undefined && !(Number.isInteger(pid) && pid >= 0)) {
