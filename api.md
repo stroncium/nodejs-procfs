@@ -226,7 +226,7 @@ Note: permission to read this file(symlink) is governed by ptrace access mode `P
 Parses contents of `/proc/<pid>/net/dev`
 
  - **`pid`** integer: process PID, `self` process if undefined
- - returns Array\<[NetDev](#type-netdev)>: network devices status information
+ - returns Array\<[NetDevice](#type-netdevice)>: network devices status information
 
 ***
 
@@ -237,7 +237,7 @@ Parses contents of `/proc/<pid>/net/dev`
 Parses contents of `/proc/<pid>/net/wireless`
 
  - **`pid`** integer: process PID, `self` process if undefined
- - returns Array\<[NetWireless](#type-netwireless)>: wireless network devices status information
+ - returns Array\<[NetWirelessDevice](#type-netwirelessdevice)>: wireless network devices status information
 
 ***
 
@@ -248,7 +248,7 @@ Parses contents of `/proc/<pid>/net/wireless`
 Parses contents of `/proc/<pid>/net/unix`
 
  - **`pid`** integer: process PID, `self` process if undefined
- - returns Array\<[NetUnix](#type-netunix)>: statuses of UNIX domain sockets present within the system
+ - returns Array\<[NetUnixSocket](#type-netunixsocket)>: statuses of UNIX domain sockets present within the system
 
 ***
 
@@ -890,7 +890,7 @@ Object with properties:
 ***
 
 
-## type NetDev
+## type NetDevice
 Object with properties:
  - **`name`** string : interface name
  - **`rxBytes`** integer
@@ -913,7 +913,7 @@ Object with properties:
 ***
 
 
-## type NetWireless
+## type NetWirelessDevice
 Object with properties:
  - **`discardedCrypt`** integer : number of packets discarded due to
  - **`discardedFrag`** integer : number of packets discarded due to inability to perform MAC reassembly
@@ -929,7 +929,7 @@ Object with properties:
 ***
 
 
-## type NetUnix
+## type NetUnixSocket
 Object with properties:
  - **`flags`** integer
  - **`inode`** integer

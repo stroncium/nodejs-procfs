@@ -599,7 +599,7 @@ typedef ProcessExe = {
 /**
 @field name interface name
 **/
-typedef NetDev = {
+typedef NetDevice = {
 	name: String,
 	rxBytes: Int,
 	rxPackets: Int,
@@ -632,7 +632,7 @@ typedef NetDev = {
 @field discardedMisc number of packets discarded due to other reasons
 @field missedBeacons number of missed beacons/superframes
 **/
-typedef NetWireless = {
+typedef NetWirelessDevice = {
 	name: String,
 	link: Float,
 	level: Float,
@@ -651,7 +651,7 @@ typedef NetWireless = {
 @field type socket type, `1` for `SOCK_STREAM` sockets, `2` for `SOCK_DGRAM` sockets, `5` for `SOCK_SEQPACKET` sockets
 @field path bound pathname (if any) of the socket. For sockets in the abstract namespace, commences `@` character.
 **/
-typedef NetUnix = {
+typedef NetUnixSocket = {
 	slot: String,
 	referenceCount: Int,
 	flags: Int,
@@ -888,7 +888,7 @@ Parses contents of `/proc/<pid>/net/dev`
 @returns network devices status information
 @unstable needs checking on more systems
 **/
-	public static function processNetDev(?pid:Int): Array<NetDev>;
+	public static function processNetDev(?pid:Int): Array<NetDevice>;
 
 /**
 Parses contents of `/proc/<pid>/net/wireless`
@@ -896,7 +896,7 @@ Parses contents of `/proc/<pid>/net/wireless`
 @returns wireless network devices status information
 @unstable needs checking on more systems
 **/
-	public static function processNetWireless(?pid:Int): Array<NetWireless>;
+	public static function processNetWireless(?pid:Int): Array<NetWirelessDevice>;
 
 /**
 Parses contents of `/proc/<pid>/net/unix`
@@ -904,7 +904,7 @@ Parses contents of `/proc/<pid>/net/unix`
 @returns statuses of UNIX domain sockets present within the system
 @unstable needs checking on more systems
 **/
-	public static function processNetUnix(?pid:Int): Array<NetUnix>;
+	public static function processNetUnix(?pid:Int): Array<NetUnixSocket>;
 
 /**
 Parses contents of `/proc/<pid>/net/tcp`

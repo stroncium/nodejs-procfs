@@ -132,9 +132,5 @@ for (let name of [
 
 module.exports = procfs;
 
-//TODO [pid]/net/*
-//TODO /net/*
-//TODO /net/imgp ?
-//TODO /net/dev_mcast ?
 //TODO rt signals
 //TODO check bitfields
