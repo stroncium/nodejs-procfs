@@ -181,11 +181,14 @@ Parses list of `/proc/<pid>/task/*` entries.
 
 
 ### processFdinfo (fd, [pid])
+	⚠️ Unstable
+
 Parses contents of `/proc/<pid>/fdinfo/<fd>`
 
  - **`fd`** integer: target fd
  - **`pid`** integer: process PID, `self` process if undefined
  - returns [ProcessFdinfo](#type-processfdinfo): information about target file descriptor
+
 ***
 
 
@@ -226,7 +229,7 @@ Note: permission to read this file(symlink) is governed by ptrace access mode `P
 Parses contents of `/proc/<pid>/net/dev`
 
  - **`pid`** integer: process PID, `self` process if undefined
- - returns Array\<[NetDevice](#type-netdevice)>: network devices status information
+ - returns Array\<[NetDevice](#type-netdevice)>: statuses of network devices present within the system
 
 ***
 
@@ -237,7 +240,7 @@ Parses contents of `/proc/<pid>/net/dev`
 Parses contents of `/proc/<pid>/net/wireless`
 
  - **`pid`** integer: process PID, `self` process if undefined
- - returns Array\<[NetWirelessDevice](#type-netwirelessdevice)>: wireless network devices status information
+ - returns Array\<[NetWirelessDevice](#type-netwirelessdevice)>: statuses of wireless network devices present within the system
 
 ***
 
@@ -292,6 +295,76 @@ Parses contents of `/proc/<pid>/net/tcp6`
 Parses contents of `/proc/<pid>/net/udp6`
 
  - **`pid`** integer: process PID, `self` process if undefined
+ - returns Array\<[NetSocket6](#type-netsocket6)>: statuses of IPv6 UDP sockets present within the system
+
+***
+
+
+### netDev ()
+	⚠️ Unstable: needs checking on more systems
+
+Parses contents of `/proc/net/dev`
+
+ - returns Array\<[NetDevice](#type-netdevice)>: statuses of network devices present within the system
+
+***
+
+
+### netWireless ()
+	⚠️ Unstable: needs checking on more systems
+
+Parses contents of `/proc/net/wireless`
+
+ - returns Array\<[NetWirelessDevice](#type-netwirelessdevice)>: statuses of wireless network devices present within the system
+
+***
+
+
+### netUnix ()
+	⚠️ Unstable: needs checking on more systems
+
+Parses contents of `/proc/net/unix`
+
+ - returns Array\<[NetUnixSocket](#type-netunixsocket)>: statuses of UNIX domain sockets present within the system
+
+***
+
+
+### netTcp4 ()
+	⚠️ Unstable: needs checking on more systems
+
+Parses contents of `/proc/net/tcp`
+
+ - returns Array\<[NetSocket4](#type-netsocket4)>: statuses of IPv4 TCP sockets present within the system
+
+***
+
+
+### netUdp4 ()
+	⚠️ Unstable: needs checking on more systems
+
+Parses contents of `/proc/net/udp`
+
+ - returns Array\<[NetSocket4](#type-netsocket4)>: statuses of IPv4 UDP sockets present within the system
+
+***
+
+
+### netTcp6 ()
+	⚠️ Unstable: needs checking on more systems
+
+Parses contents of `/proc/net/tcp6`
+
+ - returns Array\<[NetSocket6](#type-netsocket6)>: statuses of IPv6 TCP sockets present within the system
+
+***
+
+
+### netUdp6 ()
+	⚠️ Unstable: needs checking on more systems
+
+Parses contents of `/proc/net/udp6`
+
  - returns Array\<[NetSocket6](#type-netsocket6)>: statuses of IPv6 UDP sockets present within the system
 
 ***

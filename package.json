@@ -109,6 +109,12 @@
       ],
       "unicorn/no-hex-escape": [
         "off"
+      ],
+      "prefer-destructuring": [
+        "off"
+      ],
+      "operator-assignment": [
+        "off"
       ]
     }
   }

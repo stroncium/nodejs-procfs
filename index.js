@@ -130,6 +130,18 @@ for (let name of [
 	procfs[name] = () => parsers[name](read('/proc/' + name));
 }
 
+for (let [name, parser, path] of [
+	['netDev', 'processNetDev', 'net/dev'],
+	['netWireless', 'processNetWireless', 'net/wireless'],
+	['netUnix', 'processNetUnix', 'net/unix'],
+	['netTcp4', 'processNetTcp4', 'net/tcp'],
+	['netTcp6', 'processNetTcp6', 'net/tcp6'],
+	['netUdp4', 'processNetUdp4', 'net/udp'],
+	['netUdp6', 'processNetUdp6', 'net/udp6'],
+]) {
+	procfs[name] = () => parsers[parser](read('/proc/' + path));
+}
+
 module.exports = procfs;
 
 //TODO rt signals

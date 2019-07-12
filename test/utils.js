@@ -18,28 +18,14 @@ test('readLink deleted', t => {
 	t.is(readLink(`${FIXTURES}/deleted-link`), '. (deleted)');
 });
 
-test('read 4k', t => {
-	let str = read(`${FIXTURES}/zero.4k`);
-	t.true(str.length === 4096);
-	t.regex(str, /^\x00+/);
-});
-
-test('read 8k', t => {
-	let str = read(`${FIXTURES}/zero.8k`);
-	t.true(str.length === 8192);
-	t.regex(str, /^\x00+/);
-});
-
-test('read 16k', t => {
-	let str = read(`${FIXTURES}/zero.16k`);
-	t.true(str.length === 16384);
-	t.regex(str, /^\x00+/);
-});
-
-test('read 64k', t => {
-	let str = read(`${FIXTURES}/zero.64k`);
-	t.true(str.length === 65536);
-	t.regex(str, /^\x00+/);
+test('read', t => {
+	for (let iter = 0; iter < 16; iter++) {
+		for (let bytes of [4096, 8192, 16384, 17408]) {
+			let str = read(`${FIXTURES}/${bytes}-zeroes.bin`);
+			t.true(str.length === bytes);
+			t.regex(str, /^\x00+/);
+		}
+	}
 });
 
 test('readIdList', t => {

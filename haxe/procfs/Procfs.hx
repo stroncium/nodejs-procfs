@@ -854,6 +854,7 @@ Parses contents of `/proc/<pid>/fdinfo/<fd>`
 @param fd target fd
 @param pid process PID, `self` process if undefined
 @returns information about target file descriptor
+@unstable
 **/
 	public static function processFdinfo(fd:Int, ?pid:Int): ProcessFdinfo;
 
@@ -885,7 +886,7 @@ Note: permission to read this file(symlink) is governed by ptrace access mode `P
 /**
 Parses contents of `/proc/<pid>/net/dev`
 @param pid process PID, `self` process if undefined
-@returns network devices status information
+@returns statuses of network devices present within the system
 @unstable needs checking on more systems
 **/
 	public static function processNetDev(?pid:Int): Array<NetDevice>;
@@ -893,7 +894,7 @@ Parses contents of `/proc/<pid>/net/dev`
 /**
 Parses contents of `/proc/<pid>/net/wireless`
 @param pid process PID, `self` process if undefined
-@returns wireless network devices status information
+@returns statuses of wireless network devices present within the system
 @unstable needs checking on more systems
 **/
 	public static function processNetWireless(?pid:Int): Array<NetWirelessDevice>;
@@ -937,6 +938,55 @@ Parses contents of `/proc/<pid>/net/udp6`
 @unstable needs checking on more systems
 **/
 	public static function processNetUdp6(?pid:Int): Array<NetSocket6>;
+
+/**
+Parses contents of `/proc/net/dev`
+@returns statuses of network devices present within the system
+@unstable needs checking on more systems
+**/
+	public static function netDev(): Array<NetDevice>;
+
+/**
+Parses contents of `/proc/net/wireless`
+@returns statuses of wireless network devices present within the system
+@unstable needs checking on more systems
+**/
+	public static function netWireless(): Array<NetWirelessDevice>;
+
+/**
+Parses contents of `/proc/net/unix`
+@returns statuses of UNIX domain sockets present within the system
+@unstable needs checking on more systems
+**/
+	public static function netUnix(): Array<NetUnixSocket>;
+
+/**
+Parses contents of `/proc/net/tcp`
+@returns statuses of IPv4 TCP sockets present within the system
+@unstable needs checking on more systems
+**/
+	public static function netTcp4(): Array<NetSocket4>;
+
+/**
+Parses contents of `/proc/net/udp`
+@returns statuses of IPv4 UDP sockets present within the system
+@unstable needs checking on more systems
+**/
+	public static function netUdp4(): Array<NetSocket4>;
+
+/**
+Parses contents of `/proc/net/tcp6`
+@returns statuses of IPv6 TCP sockets present within the system
+@unstable needs checking on more systems
+**/
+	public static function netTcp6(): Array<NetSocket6>;
+
+/**
+Parses contents of `/proc/net/udp6`
+@returns statuses of IPv6 UDP sockets present within the system
+@unstable needs checking on more systems
+**/
+	public static function netUdp6(): Array<NetSocket6>;
 
 /**
 Parses contents of `/proc/cpuinfo`

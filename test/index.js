@@ -36,6 +36,13 @@ for (let {name, pided} of [
 	{name: 'processNetUdp4', pided: true},
 	{name: 'processNetUdp6', pided: true},
 
+	{name: 'netDev'},
+	{name: 'netWireless'},
+	{name: 'netUnix'},
+	{name: 'netTcp4'},
+	{name: 'netTcp6'},
+	{name: 'netUdp4'},
+	{name: 'netUdp6'},
 	{name: 'processes'},
 	{name: 'cpuinfo'},
 	{name: 'loadavg'},

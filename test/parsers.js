@@ -71,6 +71,13 @@ for (let [parserName, fixtures] of [
 	['processNetUdp4', 'self/net/udp'],
 	['processNetUdp6', 'self/net/udp6'],
 
+	['processNetDev', 'net/dev'],
+	['processNetWireless', 'net/wireless'],
+	['processNetUnix', 'net/unix'],
+	['processNetTcp4', 'net/tcp'],
+	['processNetTcp6', 'net/tcp6'],
+	['processNetUdp4', 'net/udp'],
+	['processNetUdp6', 'net/udp6'],
 	['cpuinfo', 'cpuinfo,cpuinfo-synthetic'],
 	['loadavg', 'loadavg'],
 	['uptime', 'uptime'],
