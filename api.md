@@ -151,8 +151,6 @@ Parses contents of `/proc/<pid>/stat`
 
 
 ### processStatus ([pid])
-	⚠️ Unstable
-
 Parses contents of `/proc/<pid>/status`
 
 Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
@@ -857,7 +855,7 @@ Object with properties:
 
 
 ## type Meminfo
-Memory amounts are expressed in KiB.
+Memory amounts are expressed in bytes.
 
 Object with properties:
  - **`active`** integer : `Active` Memory that has been used more recently and usually not reclaimed unless absolutely necessary.

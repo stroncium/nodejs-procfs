@@ -1,6 +1,7 @@
 'use strict';
 const {gunzipSync} = require('zlib');
 
+const ProcfsError = require('./lib/procfs-error');
 const parsers = require('./lib/parsers');
 const {
 	read,
@@ -144,4 +145,5 @@ for (let [name, parser, path] of [
 
 module.exports = {
 	procfs,
+	ProcfsError,
 };

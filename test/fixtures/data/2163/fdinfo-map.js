@@ -9,8 +9,8 @@ module.exports = new Map([
 	[7, {type: 'regular', pos: 0, mntId: 12, flags: 526337}],
 	[8, {type: 'eventfd', pos: 0, mntId: 13, flags: 526338, eventfdCounter: 0}],
 	[9, {type: 'epoll', pos: 0, mntId: 13, flags: 524290, epollCounters: [
-		{fd: 10, eventMask: 25, data: 'a pos:0 ino:72482fa sdev:c'},
-		{fd: 12, eventMask: 25, data: 'c pos:0 ino:2d1b sdev:d'},
+		{fd: 10, eventMask: 25, data: 'a'},
+		{fd: 12, eventMask: 25, data: 'c'},
 	]}],
 	[10, {type: 'regular', pos: 0, mntId: 12, flags: 526336}],
 	[11, {type: 'regular', pos: 0, mntId: 12, flags: 526337}],

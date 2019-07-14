@@ -500,7 +500,7 @@ typedef Partition = {
 };
 
 /**
-Memory amounts are expressed in KiB.
+Memory amounts are expressed in bytes.
 
 @field total `MemTotal` Total usable RAM
 @field free `MemFree` Amount of free RAM
@@ -585,7 +585,7 @@ typedef Meminfo = {
 typedef ProcessFdinfoEpollCounter = {
 	fd: Int,
 	eventMask: Int,
-	data: String, //TODO
+	data: String,
 };
 
 typedef ProcessFdinfoInotifyFile = {
@@ -880,7 +880,6 @@ Parses contents of `/proc/<pid>/stat`
 Parses contents of `/proc/<pid>/status`
 Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
 @param pid process PID, `self` process if undefined
-@unstable
 **/
 	public static function processStatus(?pid:Int): ProcessStatus;
 
