@@ -1039,11 +1039,8 @@ Object with properties:
 
 ## type NetUnixSocket
 Object with properties:
- - **`flags`** integer
- - **`inode`** integer
  - **`referenceCount`** integer : number of users of the socket
  - **`slot`** string : kernel table slot number
- - **`state`** integer
  - **`type`** integer : socket type, `1` for `SOCK_STREAM` sockets, `2` for `SOCK_DGRAM` sockets, `5` for `SOCK_SEQPACKET` sockets
  - *optional* **`path`** string : bound pathname (if any) of the socket. For sockets in the abstract namespace, starts with at sign(char code 64).
 

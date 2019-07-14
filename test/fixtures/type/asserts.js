@@ -236,12 +236,9 @@ module.exports = {
 	})).min(0).required()),
 	processNetUnix: asserter(Joi.array().items(Joi.object().keys({
 		type: Joi.number().integer().required(),
-		state: Joi.number().integer().required(),
 		slot: Joi.string().allow('').required(),
 		referenceCount: Joi.number().integer().required(),
 		path: Joi.string().allow(''),
-		inode: Joi.number().integer().required(),
-		flags: Joi.number().integer().required(),
 	})).min(0).required()),
 	processNetTcp4: asserter(Joi.array().items(Joi.object().keys({
 		uid: Joi.number().integer().required(),
@@ -316,12 +313,9 @@ module.exports = {
 	})).min(0).required()),
 	netUnix: asserter(Joi.array().items(Joi.object().keys({
 		type: Joi.number().integer().required(),
-		state: Joi.number().integer().required(),
 		slot: Joi.string().allow('').required(),
 		referenceCount: Joi.number().integer().required(),
 		path: Joi.string().allow(''),
-		inode: Joi.number().integer().required(),
-		flags: Joi.number().integer().required(),
 	})).min(0).required()),
 	netTcp4: asserter(Joi.array().items(Joi.object().keys({
 		uid: Joi.number().integer().required(),

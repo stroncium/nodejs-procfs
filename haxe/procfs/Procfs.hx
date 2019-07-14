@@ -699,14 +699,12 @@ typedef NetWirelessDevice = {
 @field referenceCount number of users of the socket
 @field type socket type, `1` for `SOCK_STREAM` sockets, `2` for `SOCK_DGRAM` sockets, `5` for `SOCK_SEQPACKET` sockets
 @field path bound pathname (if any) of the socket. For sockets in the abstract namespace, starts with at sign(char code 64).
+
 **/
 typedef NetUnixSocket = {
 	slot: String,
 	referenceCount: Int,
-	flags: Int,
 	type: Int,
-	state: Int,
-	inode: Int,
 	?path: String,
 };
 
