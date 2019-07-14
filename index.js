@@ -17,6 +17,7 @@ const processes = () => {
 	try {
 		return parsers.processes(readdir('/proc'));
 	} catch (error) {
+		/* istanbul ignore next should not ever happen when procfs exists */
 		throw ProcfsError.generic(error);
 	}
 };
@@ -75,6 +76,7 @@ const config = () => {
 	try {
 		return gunzipSync(readBuffer('/proc/config.gz')).toString('utf8');
 	} catch (error) {
+		/* istanbul ignore next should not ever happen when procfs exists and kernel properly configured */
 		throw ProcfsError.generic(error);
 	}
 };
@@ -165,6 +167,7 @@ for (let name of [
 		try {
 			return parsers[name](read('/proc/' + name));
 		} catch (error) {
+			/* istanbul ignore next should not ever happen when procfs exists */
 			throw ProcfsError.generic(error);
 		}
 	};
@@ -183,6 +186,7 @@ for (let [name, parser, path] of [
 		try {
 			return parsers[parser](read('/proc/' + path));
 		} catch (error) {
+			/* istanbul ignore next should not ever happen when procfs exists */
 			throw ProcfsError.generic(error);
 		}
 	};
