@@ -234,8 +234,6 @@ Note: permission to read this file(symlink) is governed by ptrace access mode `P
 
 
 ### processNetDev ([pid])
-	⚠️ Unstable: needs checking on more systems
-
 Parses contents of `/proc/<pid>/net/dev`
 
  - **`pid`** integer: process PID, `self` process if undefined
@@ -245,8 +243,6 @@ Parses contents of `/proc/<pid>/net/dev`
 
 
 ### processNetWireless ([pid])
-	⚠️ Unstable: needs checking on more systems
-
 Parses contents of `/proc/<pid>/net/wireless`
 
  - **`pid`** integer: process PID, `self` process if undefined
@@ -256,8 +252,6 @@ Parses contents of `/proc/<pid>/net/wireless`
 
 
 ### processNetUnix ([pid])
-	⚠️ Unstable: needs checking on more systems
-
 Parses contents of `/proc/<pid>/net/unix`
 
  - **`pid`** integer: process PID, `self` process if undefined
@@ -267,8 +261,6 @@ Parses contents of `/proc/<pid>/net/unix`
 
 
 ### processNetTcp4 ([pid])
-	⚠️ Unstable: needs checking on more systems
-
 Parses contents of `/proc/<pid>/net/tcp`
 
  - **`pid`** integer: process PID, `self` process if undefined
@@ -278,8 +270,6 @@ Parses contents of `/proc/<pid>/net/tcp`
 
 
 ### processNetUdp4 ([pid])
-	⚠️ Unstable: needs checking on more systems
-
 Parses contents of `/proc/<pid>/net/udp`
 
  - **`pid`** integer: process PID, `self` process if undefined
@@ -289,8 +279,6 @@ Parses contents of `/proc/<pid>/net/udp`
 
 
 ### processNetTcp6 ([pid])
-	⚠️ Unstable: needs checking on more systems
-
 Parses contents of `/proc/<pid>/net/tcp6`
 
  - **`pid`** integer: process PID, `self` process if undefined
@@ -300,8 +288,6 @@ Parses contents of `/proc/<pid>/net/tcp6`
 
 
 ### processNetUdp6 ([pid])
-	⚠️ Unstable: needs checking on more systems
-
 Parses contents of `/proc/<pid>/net/udp6`
 
  - **`pid`** integer: process PID, `self` process if undefined
@@ -311,8 +297,6 @@ Parses contents of `/proc/<pid>/net/udp6`
 
 
 ### netDev ()
-	⚠️ Unstable: needs checking on more systems
-
 Parses contents of `/proc/net/dev`
 
  - returns Array\<[NetDevice](#type-netdevice)>: statuses of network devices present within the system
@@ -321,8 +305,6 @@ Parses contents of `/proc/net/dev`
 
 
 ### netWireless ()
-	⚠️ Unstable: needs checking on more systems
-
 Parses contents of `/proc/net/wireless`
 
  - returns Array\<[NetWirelessDevice](#type-netwirelessdevice)>: statuses of wireless network devices present within the system
@@ -331,8 +313,6 @@ Parses contents of `/proc/net/wireless`
 
 
 ### netUnix ()
-	⚠️ Unstable: needs checking on more systems
-
 Parses contents of `/proc/net/unix`
 
  - returns Array\<[NetUnixSocket](#type-netunixsocket)>: statuses of UNIX domain sockets present within the system
@@ -341,8 +321,6 @@ Parses contents of `/proc/net/unix`
 
 
 ### netTcp4 ()
-	⚠️ Unstable: needs checking on more systems
-
 Parses contents of `/proc/net/tcp`
 
  - returns Array\<[NetSocket4](#type-netsocket4)>: statuses of IPv4 TCP sockets present within the system
@@ -351,8 +329,6 @@ Parses contents of `/proc/net/tcp`
 
 
 ### netUdp4 ()
-	⚠️ Unstable: needs checking on more systems
-
 Parses contents of `/proc/net/udp`
 
  - returns Array\<[NetSocket4](#type-netsocket4)>: statuses of IPv4 UDP sockets present within the system
@@ -361,8 +337,6 @@ Parses contents of `/proc/net/udp`
 
 
 ### netTcp6 ()
-	⚠️ Unstable: needs checking on more systems
-
 Parses contents of `/proc/net/tcp6`
 
  - returns Array\<[NetSocket6](#type-netsocket6)>: statuses of IPv6 TCP sockets present within the system
@@ -371,8 +345,6 @@ Parses contents of `/proc/net/tcp6`
 
 
 ### netUdp6 ()
-	⚠️ Unstable: needs checking on more systems
-
 Parses contents of `/proc/net/udp6`
 
  - returns Array\<[NetSocket6](#type-netsocket6)>: statuses of IPv6 UDP sockets present within the system
@@ -402,6 +374,7 @@ Parses contents of `/proc/loadavg`
 Parses contents of `/proc/uptime`
 
  - returns [Uptime](#type-uptime)
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -628,7 +601,7 @@ Object with properties:
 
 
 ## type ProcessState
-One character string indicating process state. Possible states:
+Process state, consists of one character. Possible values:
  - `R`: running
  - `S`: sleeping in an interruptible wait
  - `D`: waiting in uninterruptible disk sleep
@@ -791,10 +764,10 @@ Object with properties:
 
 ## type Swap
 Object with properties:
- - **`path`** [Path](#type-path) : `Filename`
- - **`priority`** integer : `Priority`
+ - **`path`** [Path](#type-path) : `Filename` path to device, partition or file
+ - **`priority`** integer : `Priority`swap area usage priority
  - **`size`** integer : `Size` size, in blocks
- - **`type`** string : `Type`
+ - **`type`** string : `Type` commonly `partition` or `file`(theoretically, other values are possible)
  - **`used`** integer : `Used` used, in blocks
 
 ***
@@ -1000,23 +973,23 @@ Object with properties:
 
 ## type NetDevice
 Object with properties:
- - **`name`** string : interface name
- - **`rxBytes`** integer
- - **`rxCompressed`** integer
- - **`rxDrop`** integer
- - **`rxErrors`** integer
- - **`rxFifo`** integer
- - **`rxFrame`** integer
- - **`rxMulticast`** integer
- - **`rxPackets`** integer
- - **`txBytes`** integer
- - **`txCarrier`** integer
- - **`txColls`** integer
- - **`txCompressed`** integer
- - **`txDrop`** integer
- - **`txErrors`** integer
- - **`txFifo`** integer
- - **`txPackets`** integer
+ - **`name`** string : `Interface` interface name
+ - **`rxBytes`** integer : `Receive/bytes` number of received bytes
+ - **`rxCompressed`** integer : `Receive/compressed` number of compressed packets received
+ - **`rxDrop`** integer : `Receive/drop` number of received packets dropped
+ - **`rxErrors`** integer : `Receive/errs` total number of receive errors
+ - **`rxFifo`** integer : `Receive/fifo` number of receive FIFO buffer errors
+ - **`rxFrame`** integer : `Receive/frame` number of packet framing errors
+ - **`rxMulticast`** integer : `Receive/multicast` number of multicast frames received
+ - **`rxPackets`** integer : `Receive/packets` number of received packets
+ - **`txBytes`** integer : `Transmit/bytes` transmitted bytes
+ - **`txCarrier`** integer : `Transmit/carrier` number of carrier losses detected on the interface
+ - **`txColls`** integer : `Transmit/colls` number of collisions detected on the interface
+ - **`txCompressed`** integer : `Transmit/compressed` number of compressed packets transmitted
+ - **`txDrop`** integer : `Transmit/drop` number of transmit packets dropped
+ - **`txErrors`** integer : `Transmit/errs` total number of transmit errors
+ - **`txFifo`** integer : `Transmit/fifo` number of transmit FIFO buffer errors
+ - **`txPackets`** integer : `Transmit/packets` transmitted packets
 
 ***
 

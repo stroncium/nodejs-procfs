@@ -130,7 +130,7 @@ typedef ProcessLimit = {
 };
 
 /**
-One character string indicating process state. Possible states:
+Process state, consists of one character. Possible values:
  - `R`: running
  - `S`: sleeping in an interruptible wait
  - `D`: waiting in uninterruptible disk sleep
@@ -371,11 +371,11 @@ typedef Uptime = {
 };
 
 /**
-@field path `Filename`
-@field type `Type`
+@field path `Filename` path to device, partition or file
+@field type `Type` commonly `partition` or `file`(theoretically, other values are possible)
 @field size `Size` size, in blocks
 @field used `Used` used, in blocks
-@field priority `Priority`
+@field priority `Priority`swap area usage priority
 **/
 typedef Swap = {
 	path: Path,
@@ -648,7 +648,24 @@ typedef ProcessExe = {
 };
 
 /**
-@field name interface name
+@field name `Interface` interface name
+@field rxBytes `Receive/bytes` number of received bytes
+@field rxPackets `Receive/packets` number of received packets
+@field rxErrors `Receive/errs` total number of receive errors
+@field rxDrop `Receive/drop` number of received packets dropped
+@field rxFifo `Receive/fifo` number of receive FIFO buffer errors
+@field rxFrame `Receive/frame` number of packet framing errors
+@field rxCompressed `Receive/compressed` number of compressed packets received
+@field rxMulticast `Receive/multicast` number of multicast frames received
+
+@field txBytes `Transmit/bytes` transmitted bytes
+@field txPackets `Transmit/packets` transmitted packets
+@field txErrors `Transmit/errs` total number of transmit errors
+@field txDrop `Transmit/drop` number of transmit packets dropped
+@field txFifo `Transmit/fifo` number of transmit FIFO buffer errors
+@field txColls `Transmit/colls` number of collisions detected on the interface
+@field txCarrier `Transmit/carrier` number of carrier losses detected on the interface
+@field txCompressed `Transmit/compressed` number of compressed packets transmitted
 **/
 typedef NetDevice = {
 	name: String,
@@ -950,7 +967,6 @@ Note: permission to read this file(symlink) is governed by ptrace access mode `P
 Parses contents of `/proc/<pid>/net/dev`
 @param pid process PID, `self` process if undefined
 @returns statuses of network devices present within the system
-@unstable needs checking on more systems
 @throws ProcfsError
 **/
 	public static function processNetDev(?pid:Int): Array<NetDevice>;
@@ -959,7 +975,6 @@ Parses contents of `/proc/<pid>/net/dev`
 Parses contents of `/proc/<pid>/net/wireless`
 @param pid process PID, `self` process if undefined
 @returns statuses of wireless network devices present within the system
-@unstable needs checking on more systems
 @throws ProcfsError
 **/
 	public static function processNetWireless(?pid:Int): Array<NetWirelessDevice>;
@@ -968,7 +983,6 @@ Parses contents of `/proc/<pid>/net/wireless`
 Parses contents of `/proc/<pid>/net/unix`
 @param pid process PID, `self` process if undefined
 @returns statuses of UNIX domain sockets present within the system
-@unstable needs checking on more systems
 @throws ProcfsError
 **/
 	public static function processNetUnix(?pid:Int): Array<NetUnixSocket>;
@@ -977,7 +991,6 @@ Parses contents of `/proc/<pid>/net/unix`
 Parses contents of `/proc/<pid>/net/tcp`
 @param pid process PID, `self` process if undefined
 @returns statuses of IPv4 TCP sockets present within the system
-@unstable needs checking on more systems
 @throws ProcfsError
 **/
 	public static function processNetTcp4(?pid:Int): Array<NetSocket4>;
@@ -986,7 +999,6 @@ Parses contents of `/proc/<pid>/net/tcp`
 Parses contents of `/proc/<pid>/net/udp`
 @param pid process PID, `self` process if undefined
 @returns statuses of IPv4 UDP sockets present within the system
-@unstable needs checking on more systems
 @throws ProcfsError
 **/
 	public static function processNetUdp4(?pid:Int): Array<NetSocket4>;
@@ -995,7 +1007,6 @@ Parses contents of `/proc/<pid>/net/udp`
 Parses contents of `/proc/<pid>/net/tcp6`
 @param pid process PID, `self` process if undefined
 @returns statuses of IPv6 TCP sockets present within the system
-@unstable needs checking on more systems
 @throws ProcfsError
 **/
 	public static function processNetTcp6(?pid:Int): Array<NetSocket6>;
@@ -1004,7 +1015,6 @@ Parses contents of `/proc/<pid>/net/tcp6`
 Parses contents of `/proc/<pid>/net/udp6`
 @param pid process PID, `self` process if undefined
 @returns statuses of IPv6 UDP sockets present within the system
-@unstable needs checking on more systems
 @throws ProcfsError
 **/
 	public static function processNetUdp6(?pid:Int): Array<NetSocket6>;
@@ -1012,7 +1022,6 @@ Parses contents of `/proc/<pid>/net/udp6`
 /**
 Parses contents of `/proc/net/dev`
 @returns statuses of network devices present within the system
-@unstable needs checking on more systems
 @throws ProcfsError
 **/
 	public static function netDev(): Array<NetDevice>;
@@ -1020,7 +1029,6 @@ Parses contents of `/proc/net/dev`
 /**
 Parses contents of `/proc/net/wireless`
 @returns statuses of wireless network devices present within the system
-@unstable needs checking on more systems
 @throws ProcfsError
 **/
 	public static function netWireless(): Array<NetWirelessDevice>;
@@ -1028,7 +1036,6 @@ Parses contents of `/proc/net/wireless`
 /**
 Parses contents of `/proc/net/unix`
 @returns statuses of UNIX domain sockets present within the system
-@unstable needs checking on more systems
 @throws ProcfsError
 **/
 	public static function netUnix(): Array<NetUnixSocket>;
@@ -1036,7 +1043,6 @@ Parses contents of `/proc/net/unix`
 /**
 Parses contents of `/proc/net/tcp`
 @returns statuses of IPv4 TCP sockets present within the system
-@unstable needs checking on more systems
 @throws ProcfsError
 **/
 	public static function netTcp4(): Array<NetSocket4>;
@@ -1044,7 +1050,6 @@ Parses contents of `/proc/net/tcp`
 /**
 Parses contents of `/proc/net/udp`
 @returns statuses of IPv4 UDP sockets present within the system
-@unstable needs checking on more systems
 @throws ProcfsError
 **/
 	public static function netUdp4(): Array<NetSocket4>;
@@ -1052,7 +1057,6 @@ Parses contents of `/proc/net/udp`
 /**
 Parses contents of `/proc/net/tcp6`
 @returns statuses of IPv6 TCP sockets present within the system
-@unstable needs checking on more systems
 @throws ProcfsError
 **/
 	public static function netTcp6(): Array<NetSocket6>;
@@ -1060,7 +1064,6 @@ Parses contents of `/proc/net/tcp6`
 /**
 Parses contents of `/proc/net/udp6`
 @returns statuses of IPv6 UDP sockets present within the system
-@unstable needs checking on more systems
 @throws ProcfsError
 **/
 	public static function netUdp6(): Array<NetSocket6>;
@@ -1080,6 +1083,7 @@ Parses contents of `/proc/loadavg`
 
 /**
 Parses contents of `/proc/uptime`
+@throws ProcfsError
 **/
 	public static function uptime(): Uptime;
 
