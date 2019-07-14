@@ -603,6 +603,21 @@ Object with properties:
 ***
 
 
+## type ProcessState
+One character string indicating process state. Possible states:
+ - `R`: running
+ - `S`: sleeping in an interruptible wait
+ - `D`: waiting in uninterruptible disk sleep
+ - `Z`: zombie
+ - `T`: stopped or trace stopped
+ - `t`: tracing stop
+ - `X`: dead
+
+Type: string
+
+***
+
+
 ## type ProcessStat
 Only (arguably) most valuable fields included so far.
 
@@ -632,7 +647,7 @@ Object with properties:
  - **`schedulingPolicy`** integer : `policy` Scheduling policy.
  - **`session`** integer : `session` The session ID of the process.
  - **`startTicks`** integer : `starttime` The time the process started after system boot, in ticks.
- - **`state`** string : `state` One of the following characters, indicating process state: `R`(running), `S`(sleeping in an interruptible wait), `D`(waiting in uninterruptible disk sleep), `Z`(Zombie), `T`(stopped or trace stopped), `t`(tracing stop), `X`(dead).
+ - **`state`** [ProcessState](#type-processstate) : `state` process state
  - **`terminalProcessGroup`** integer : `tpgid` The ID of the foreground process group of the controlling terminal of the process.
  - **`threads`** integer : `num_threads` Number of threads in this process.
  - **`tty`** integer : `tty_nr` The controlling terminal of the process.
@@ -644,61 +659,57 @@ Object with properties:
 
 ## type ProcessStatus
 Object with properties:
- - **`capabilityAmbient`** string
- - **`capabilityBounding`** string
- - **`capabilityEffective`** string
- - **`capabilityInheritable`** string
- - **`capabilityPermitted`** string
- - **`contextSwitchesNonvoluntary`** integer
- - **`contextSwitchesVoluntary`** integer
- - **`cpusAllowedMask`** integer
- - **`fdSize`** integer
- - **`gidEffective`** integer
- - **`gidFilesystem`** integer
- - **`gidReal`** integer
- - **`gidSavedSet`** integer
- - **`groups`** Array\<integer>
- - **`hugetlbPagesSize`** integer
- - **`memoriesAllowedMask`** integer
- - **`name`** string
- - **`numaGroupId`** integer
- - **`parent`** integer
- - **`pid`** integer
- - **`seccompMode`** integer
- - **`sharedSignalsPending`** integer
- - **`signalsBlocked`** string
- - **`signalsCaught`** string
- - **`signalsIgnored`** string
- - **`signalsPending`** integer
- - **`signalsQueued`** integer
- - **`signalsQueuedLimit`** integer
- - **`state`** string
- - **`threadGroupId`** integer
- - **`threads`** integer
- - **`tracer`** integer
- - **`uidEffective`** integer
- - **`uidFilesystem`** integer
- - **`uidReal`** integer
- - **`uidSavedSet`** integer
- - **`vmData`** integer
- - **`vmExe`** integer
- - **`vmHwm`** integer
- - **`vmLib`** integer
- - **`vmLocked`** integer
- - **`vmPeak`** integer
- - **`vmPinned`** integer
- - **`vmPte`** integer
- - **`vmRss`** integer
- - **`vmSize`** integer
- - **`vmStack`** integer
- - **`vmSwap`** integer
- - *optional* **`coreDumping`** boolean : Available since Linux 4.15
- - *optional* **`noNewPrivs`** boolean : Available since Linux 4.10
- - *optional* **`rssAnon`** integer : Available since Linux 4.5
- - *optional* **`rssFile`** integer : Available since Linux 4.5
- - *optional* **`rssShmem`** integer : Available since Linux 4.5
- - *optional* **`speculationStoreBypass`** string : Available since Linux 4.17
- - *optional* **`umask`** integer : Available since Linux 4.7
+ - **`contextSwitchesNonvoluntary`** integer : `nonvoluntary_ctxt_switches` Number of involuntary context switches.
+ - **`contextSwitchesVoluntary`** integer : `voluntary_ctxt_switches` Number of voluntary context switches.
+ - **`cpusAllowedMask`** integer : `Cpus_allowed` Mask of CPUs on which this process may run.
+ - **`fdSlots`** integer : `FDSize` Number of file descriptor slots currently allocated.
+ - **`gidEffective`** integer : `Gid` Effective GID.
+ - **`gidFilesystem`** integer : `Gid` Filesystem GID.
+ - **`gidReal`** integer : `Gid` Real GID.
+ - **`gidSavedSet`** integer : `Gid` Saved set GID.
+ - **`groups`** Array\<integer> : `Groups` Supplementary groups.
+ - **`hugetlbPagesSize`** integer : `HugetlbPages` Size of hugetlb memory portions.
+ - **`memoriesAllowedMask`** integer : `Mems_allowed` Mask of memory nodes allowed to this process.
+ - **`name`** string : `Name` Command run by the process.
+ - **`numaGroupId`** integer : `Ngid` NUMA group ID.
+ - **`parentPid`** integer : `PPid` PID of parent process
+ - **`pid`** integer : `Pid` Thread ID.
+ - **`rtSignalsBlocked`** integer : `SigBlk` Mask indicating signals being blocked, high part(realtime signals).
+ - **`rtSignalsCaught`** integer : `SigCgt` Mask indicating signals being caught, high part(realtime signals).
+ - **`rtSignalsIgnored`** integer : `SigIgn` Mask indicating signals being ignored, high part(realtime signals).
+ - **`sharedSignalsPending`** integer : `ShdPnd` Number of signals pending for process as a whole.
+ - **`signalsBlocked`** integer : `SigBlk` Mask indicating signals being blocked, low part.
+ - **`signalsCaught`** integer : `SigCgt` Mask indicating signals being caught, low part.
+ - **`signalsIgnored`** integer : `SigIgn` Mask indicating signals being ignored, low part.
+ - **`signalsPending`** integer : `SigPnd` Number of signals pending for thread.
+ - **`signalsQueued`** integer : `SigQ` The number of currently queued signals for real UID of the process.
+ - **`signalsQueuedLimit`** integer : `SigQ` Resource limit on the number of queued signals for this process.
+ - **`state`** [ProcessState](#type-processstate) : `State` Current state of the process.
+ - **`threadGroupId`** integer : `Tgid` Thread group ID.
+ - **`threads`** integer : `Threads` Number of threads in process containing this thread.
+ - **`tracerPid`** integer : `TracerPid` PID of process tracing this process (0 if not being traced)
+ - **`uidEffective`** integer : `Uid` Effective UID.
+ - **`uidFilesystem`** integer : `Uid` Filesystem UID.
+ - **`uidReal`** integer : `Uid` Real UID.
+ - **`uidSavedSet`** integer : `Uid` Saved set UID.
+ - **`vmData`** integer : `VmData` Size of data segment.
+ - **`vmExe`** integer : `VmExe` Size of text segment.
+ - **`vmHwm`** integer : `VmHWM` Peak resident set size.
+ - **`vmLib`** integer : `VmLib` Shared library code size.
+ - **`vmLocked`** integer : `VmLck` Locked memory size.
+ - **`vmPeak`** integer : `VmPeak` Peak virtual memory size.
+ - **`vmPinned`** integer : `VmPin` Pinned memory size. These are pages that can't be moved because something needs to directly access physical memory.
+ - **`vmPte`** integer : `VmPTE` Page table entries size.
+ - **`vmRss`** integer : `VmRSS` Resident  set  size. Note: value is the sum of `rssAnon`, `rssFile`, and `rssShmem`(which might not be available depending on kernel version).
+ - **`vmSize`** integer : `VmSize` Virtual memory size.
+ - **`vmStack`** integer : `VmStk` Size of stack segment.
+ - **`vmSwap`** integer : `VmSwap` Swapped-out virtual memory size by anonymous private pages; shmem swap usage is not included.
+ - *optional* **`rssAnon`** integer
+ - *optional* **`rssFile`** integer
+ - *optional* **`rssShmem`** integer
+ - *optional* **`seccompMode`** integer : `Seccomp` Seccomp  mode of the process. `0` means SECCOMP_MODE_DISABLED; `1` means SECCOMP_MODE_STRICT; `2` means SECCOMP_MODE_FILTER. Available if the kernel is configured with `CONFIG_SECCOMP`.
+ - *optional* **`speculationStoreBypass`** string
+ - *optional* **`umask`** integer
 
 ***
 

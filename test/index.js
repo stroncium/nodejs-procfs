@@ -1,6 +1,6 @@
 let test = require('ava');
 const typeAsserts = require('./fixtures/type/asserts');
-let procfs = require('..');
+let {procfs} = require('..');
 
 const existingPid = process.pid;
 const nonexistingPid = 2 ** 23;

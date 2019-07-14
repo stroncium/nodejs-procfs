@@ -142,7 +142,6 @@ for (let [name, parser, path] of [
 	procfs[name] = () => parsers[parser](read('/proc/' + path));
 }
 
-module.exports = procfs;
-
-//TODO rt signals
-//TODO check bitfields
+module.exports = {
+	procfs,
+};

@@ -129,13 +129,23 @@ typedef ProcessLimit = {
 	?units: String,
 };
 
-
+/**
+One character string indicating process state. Possible states:
+ - `R`: running
+ - `S`: sleeping in an interruptible wait
+ - `D`: waiting in uninterruptible disk sleep
+ - `Z`: zombie
+ - `T`: stopped or trace stopped
+ - `t`: tracing stop
+ - `X`: dead
+**/
+typedef ProcessState = String;
 
 /**
 Only (arguably) most valuable fields included so far.
 @field pid `pid` The process PID
 @field comm `comm` The filename of the executable. Visible whether or not the executable is swapped out.
-@field state `state` One of the following characters, indicating process state: `R`(running), `S`(sleeping in an interruptible wait), `D`(waiting in uninterruptible disk sleep), `Z`(Zombie), `T`(stopped or trace stopped), `t`(tracing stop), `X`(dead).
+@field state `state` process state
 @field parent `ppid` The PID of the parent of the process.
 @field processGroup `pgrp` The process group ID of the process.
 @field session `session` The session ID of the process.
@@ -168,7 +178,7 @@ Only (arguably) most valuable fields included so far.
 typedef ProcessStat = {
 	pid: Int,
 	comm: String,
-	state: String,
+	state: ProcessState,
 	parent: Int,
 	processGroup: Int,
 	session: Int,
@@ -200,23 +210,67 @@ typedef ProcessStat = {
 };
 
 /**
-@field umask Available since Linux 4.7
-@field speculationStoreBypass Available since Linux 4.17
-@field rssAnon Available since Linux 4.5
-@field rssFile Available since Linux 4.5
-@field rssShmem Available since Linux 4.5
-@field noNewPrivs Available since Linux 4.10
-@field coreDumping Available since Linux 4.15
+@field name `Name` Command run by the process.
+@field ?umask `Umask` Process umask. Available since Linux 4.7.
+@field state `State` Current state of the process.
+@field threadGroupId `Tgid` Thread group ID.
+@field numaGroupId `Ngid` NUMA group ID.
+@field pid `Pid` Thread ID.
+@field parentPid `PPid` PID of parent process
+@field tracerPid `TracerPid` PID of process tracing this process (0 if not being traced)
+@field uidReal `Uid` Real UID.
+@field uidEffective `Uid` Effective UID.
+@field uidSavedSet `Uid` Saved set UID.
+@field uidFilesystem `Uid` Filesystem UID.
+@field gidReal `Gid` Real GID.
+@field gidEffective `Gid` Effective GID.
+@field gidSavedSet `Gid` Saved set GID.
+@field gidFilesystem `Gid` Filesystem GID.
+@field fdSlots `FDSize` Number of file descriptor slots currently allocated.
+@field groups `Groups` Supplementary groups.
+@field vmPeak `VmPeak` Peak virtual memory size.
+@field vmSize `VmSize` Virtual memory size.
+@field vmLocked `VmLck` Locked memory size.
+@field vmPinned `VmPin` Pinned memory size. These are pages that can't be moved because something needs to directly access physical memory.
+@field vmHwm `VmHWM` Peak resident set size.
+@field vmRss `VmRSS` Resident  set  size. Note: value is the sum of `rssAnon`, `rssFile`, and `rssShmem`(which might not be available depending on kernel version).
+@field ?rssAnon `RssAnon` Size of resident anonymous memory. Available since Linux 4.5.
+@field ?rssFile `RssFile` Size of resident file mappings. Available since Linux 4.5
+@field ?rssShmem `RssShmem` Size of resident shared memory (includes System V shared memory, mappings from tmpfs, and shared anonymous mappings). Available since Linux 4.5.
+@field vmData `VmData` Size of data segment.
+@field vmStack `VmStk` Size of stack segment.
+@field vmExe `VmExe` Size of text segment.
+@field vmLib `VmLib` Shared library code size.
+@field vmPte `VmPTE` Page table entries size.
+@field vmSwap `VmSwap` Swapped-out virtual memory size by anonymous private pages; shmem swap usage is not included.
+@field hugetlbPagesSize `HugetlbPages` Size of hugetlb memory portions.
+@field threads `Threads` Number of threads in process containing this thread.
+@field signalsQueued `SigQ` The number of currently queued signals for real UID of the process.
+@field signalsQueuedLimit `SigQ` Resource limit on the number of queued signals for this process.
+@field signalsPending `SigPnd` Number of signals pending for thread.
+@field sharedSignalsPending `ShdPnd` Number of signals pending for process as a whole.
+@field signalsBlocked `SigBlk` Mask indicating signals being blocked, low part.
+@field signalsIgnored `SigIgn` Mask indicating signals being ignored, low part.
+@field signalsCaught `SigCgt` Mask indicating signals being caught, low part.
+@field rtSignalsBlocked `SigBlk` Mask indicating signals being blocked, high part(realtime signals).
+@field rtSignalsIgnored `SigIgn` Mask indicating signals being ignored, high part(realtime signals).
+@field rtSignalsCaught `SigCgt` Mask indicating signals being caught, high part(realtime signals).
+@field seccompMode `Seccomp` Seccomp  mode of the process. `0` means SECCOMP_MODE_DISABLED; `1` means SECCOMP_MODE_STRICT; `2` means SECCOMP_MODE_FILTER. Available if the kernel is configured with `CONFIG_SECCOMP`.
+@field ?speculationStoreBypass `Speculation_Store_Bypass` Speculation flaw mitigation state. Available since Linux 4.17.
+@field cpusAllowedMask `Cpus_allowed` Mask of CPUs on which this process may run.
+@field memoriesAllowedMask `Mems_allowed` Mask of memory nodes allowed to this process.
+@field contextSwitchesVoluntary `voluntary_ctxt_switches` Number of voluntary context switches.
+@field contextSwitchesNonvoluntary `nonvoluntary_ctxt_switches` Number of involuntary context switches.
 **/
 typedef ProcessStatus = {
 	name: String,
 	?umask: Int,
-	state: String,
+	state: ProcessState,
 	threadGroupId: Int,
 	numaGroupId: Int,
 	pid: Int,
-	parent: Int,
-	tracer: Int,
+	parentPid: Int,
+	tracerPid: Int,
 	uidReal: Int,
 	uidEffective: Int,
 	uidSavedSet: Int,
@@ -225,7 +279,7 @@ typedef ProcessStatus = {
 	gidEffective: Int,
 	gidSavedSet: Int,
 	gidFilesystem: Int,
-	fdSize: Int,
+	fdSlots: Int,
 	groups: Array<Int>,
 	vmPeak: Int,
 	vmSize: Int,
@@ -243,22 +297,18 @@ typedef ProcessStatus = {
 	vmPte: Int,
 	vmSwap: Int,
 	hugetlbPagesSize: Int,
-	?coreDumping: Bool,
 	threads: Int,
 	signalsQueued: Int,
 	signalsQueuedLimit: Int,
 	signalsPending: Int,
 	sharedSignalsPending: Int,
-	signalsBlocked: String, //TODO
-	signalsIgnored: String, //TODO
-	signalsCaught: String, //TODO
-	capabilityInheritable: String, //TODO
-	capabilityPermitted: String, //TODO
-	capabilityEffective: String, //TODO
-	capabilityBounding: String, //TODO
-	capabilityAmbient: String, //TODO
-	?noNewPrivs: Bool,
-	seccompMode: Int,
+	signalsBlocked: Int,
+	signalsIgnored: Int,
+	signalsCaught: Int,
+	rtSignalsBlocked: Int,
+	rtSignalsIgnored: Int,
+	rtSignalsCaught: Int,
+	?seccompMode: Int,
 	?speculationStoreBypass: String,
 	cpusAllowedMask: Int,
 	memoriesAllowedMask: Int,
