@@ -25,10 +25,15 @@ class JavadocHandler {
 
 				switch (name) {
 					case 'param', 'exception', 'throws', 'event', 'field':
-						var ereg = ~/([^\s]+)\s+(.*)/gs;
+						var ereg = ~/(\S+)\s+(.*)/gs;
 						if (ereg.match(doc)) {
 							value = ereg.matched(1).trim();
 							doc = ereg.matched(2).trim();
+						} else if (~/^\S+$/gs.match(doc)) {
+							value = doc.trim();
+							doc = null;
+						} else {
+							doc = doc.trim();
 						}
 					default:
 				}
@@ -78,7 +83,7 @@ class JavadocHandler {
 			var space = new EReg('^' + ereg.matched(0), 'mg');
 			doc = space.replace(doc, '');
 		}
-		return doc;
+		return doc.trim();
 	}
 }
 

@@ -56,15 +56,12 @@ class Md{
 				}
 				if(doc.text != null) md+= doc.text.split('\n').join('\n\n')+'\n\n';
 				for(a in args) {
-					md+= ' - **`${a.name}`** ${typeName(a.t)}';
-					if(doc.params[a.name] != null) md+= ': ' + doc.params[a.name];
-					md+= '\n';
+					md+= ' - **`${a.name}`** ${typeName(a.t)}${doc.params[a.name] == null ? '' : ': ' + doc.params[a.name]}\n';
 				}
-
-				md+= ' - returns ${typeName(ret)}';
-				if(doc.returns != null) md+= ': ' + doc.returns.text;
-				md+= '\n';
-
+				md+= ' - returns ${typeName(ret)}${(doc.returns == null) ? '' : ': ' + doc.returns.text}\n';
+				for(t in doc.throws) {
+					md+= ' - throws [${t.value}](${typeLink(t.value, t.value)})${(t.text == null) ? '' : ': ' + t.text}\n';
+				}
 
 				md+= '***\n';
 				md;

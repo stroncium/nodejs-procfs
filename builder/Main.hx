@@ -8,7 +8,9 @@ class Main{
 	}
 
 	static function getLink(path:String, mappedPath:String) {
-		return path.startsWith('procfs.') ? '#type-'+mappedPath.toLowerCase() : null;
+		if(path.startsWith('procfs.')) return '#type-'+mappedPath.toLowerCase();
+		if(path == 'ProcfsError') return '#procfserror';
+		return null;
 	}
 
 	static function mapPath(path:String) {
@@ -61,6 +63,17 @@ class Main{
 			case TTypedecl(def): md.addTypedef(def);
 			case _:
 		}
+
+		md.addText('## ProcfsError
+extends `Error` with properties:
+ - **`code`** string: error code, one of:
+   - `EPARSE`(`Procfs.ERR_PARSING_FAILED`): guard error, if you see this, consider submitting a bug report
+   - `EUNKNOWN`(`Procfs.ERR_UNKNOWN`): completely unexpected error, if you see this, consider submitting a bug report
+   - `ENOENT`(`Procfs.ERR_NOT_FOUND`): target file not found(or we were denied access)
+ - *optional* **`sourceText`** string: for parsing errors, a part of file we encountered problem with
+ - *optional* **`sourceError`** Error: when applicable, underlying error
+
+');
 
 		sys.io.File.saveContent(docPath, md.getText());
 		sys.io.File.saveContent(assertsPath, asserts.getText());

@@ -386,8 +386,7 @@ typedef Swap = {
 };
 
 /**
-Note: amounts are in units of USER_HZ(a.k.a. ticks) which are 1/100ths of a second on most architectures, use sysconf(_SC_CLK_TCK) to obtain the right value)
-
+Note: amounts are in units of USER_HZ(a.k.a. ticks) which are 1/100ths of a second on most architectures, use sysconf(_SC_CLK_TCK) to obtain the right value).
 @field user `user` time spent in user mode, in ticks
 @field nice `nice` time spent in user mode with low priority, in ticks
 @field system `system` time spent in system mode, in ticks
@@ -699,7 +698,7 @@ typedef NetWirelessDevice = {
 @field slot kernel table slot number
 @field referenceCount number of users of the socket
 @field type socket type, `1` for `SOCK_STREAM` sockets, `2` for `SOCK_DGRAM` sockets, `5` for `SOCK_SEQPACKET` sockets
-@field path bound pathname (if any) of the socket. For sockets in the abstract namespace, commences `@` character.
+@field path bound pathname (if any) of the socket. For sockets in the abstract namespace, starts with at sign(char code 64).
 **/
 typedef NetUnixSocket = {
 	slot: String,
@@ -758,24 +757,28 @@ extern class Procfs{
 /**
 Parses contents of `/proc/<pid>/mountinfo`
 @param pid process PID, `self` process if undefined
+@throws ProcfsError
 **/
 	public static function processMountinfo(?pid:Int): Array<ProcessMountinfo>;
 
 /**
 Parses contents of `/proc/<pid>/io`
 @param pid process PID, `self` process if undefined
+@throws ProcfsError
 **/
 	public static function processIo(?pid:Int): ProcessIo;
 
 /**
 Parses contents of `/proc/<pid>/uid_map`
 @param pid process PID, `self` process if undefined
+@throws ProcfsError
 **/
 	public static function processUidMap(?pid:Int): Array<ProcessIdMapRange>;
 
 /**
 Parses contents of `/proc/<pid>/gid_map`
 @param pid process PID, `self` process if undefined
+@throws ProcfsError
 **/
 	public static function processGidMap(?pid:Int): Array<ProcessIdMapRange>;
 
@@ -784,6 +787,7 @@ Parses contents of `/proc/<pid>/environ`
 Note: the result can be used to create map, `new Map(result)`.
 @param pid process PID, `self` process if undefined
 @returns key-value pairs of initial environment process was started with
+@throws ProcfsError
 **/
 	public static function processEnviron(?pid:Int): Array<Array<String>>;
 
@@ -791,6 +795,7 @@ Note: the result can be used to create map, `new Map(result)`.
 Parses contents of `/proc/<pid>/oom_score`
 @param pid process PID, `self` process if undefined
 @returns current score that the kernel gives to this process for the purpose of selecting a process for the OOM-killer
+@throws ProcfsError
 **/
 	public static function processOomScore(?pid:Int): Int;
 
@@ -798,6 +803,7 @@ Parses contents of `/proc/<pid>/oom_score`
 Parses contents of `/proc/<pid>/timerslack_ns`
 @param pid process PID, `self` process if undefined
 @returns process's "current" timer slack value, in nanoseconds
+@throws ProcfsError
 **/
 	public static function processTimerslackNs(?pid:Int): Int;
 
@@ -806,12 +812,14 @@ Parses contents of `/proc/<pid>/cmdline`
 Complete list of command-line arguments for the process, unless the process is a zombie. In the latter case, `null`.
 Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
 @param pid process PID, `self` process if undefined
+@throws ProcfsError
 **/
 	public static function processCmdline(?pid:Int): Null<Array<String>>;
 
 /**
 Parses contents of `/proc/<pid>/autogroup`
 @param pid process PID, `self` process if undefined
+@throws ProcfsError
 **/
 	public static function processAutogroup(?pid:Int): ProcessAutogroup;
 
@@ -819,6 +827,7 @@ Parses contents of `/proc/<pid>/autogroup`
 Parses contents of `/proc/<pid>/statm`
 @param pid process PID, `self` process if undefined
 @returns information about process memory usage
+@throws ProcfsError
 **/
 	public static function processStatm(?pid:Int): ProcessStatm;
 
@@ -828,6 +837,7 @@ Note: different threads in the same process may have different comm values
 
 @param pid process PID, `self` process if undefined
 @returns the command name associated with the process
+@throws ProcfsError
 **/
 	public static function processComm(?pid:Int): String;
 
@@ -835,6 +845,7 @@ Note: different threads in the same process may have different comm values
 Parses contents of `/proc/<pid>/cgroups`
 @param pid process PID, `self` process if undefined
 @returns control groups to which the process belongs
+@throws ProcfsError
 **/
 	public static function processCgroups(?pid:Int): Array<ProcessCgroup>;
 
@@ -844,6 +855,7 @@ Process's execution domain, as set by `personality`.
 Note: permission to access this file is governed by ptrace access mode `PTRACE_MODE_ATTACH_FSCREDS`
 
 @param pid process PID, `self` process if undefined
+@throws ProcfsError
 **/
 	public static function processPersonality(?pid:Int): Int;
 
@@ -851,6 +863,7 @@ Note: permission to access this file is governed by ptrace access mode `PTRACE_M
 Parses contents of `/proc/<pid>/cpuset`
 @param pid process PID, `self` process if undefined
 @returns path of the process's cpuset directory relative to the root of the cpuset filesystem
+@throws ProcfsError
 **/
 	public static function processCpuset(?pid:Int): String;
 
@@ -858,6 +871,7 @@ Parses contents of `/proc/<pid>/cpuset`
 Parses contents of `/proc/<pid>/limits`
 @param pid process PID, `self` process if undefined
 @returns process's resource limits
+@throws ProcfsError
 **/
 	public static function processLimits(?pid:Int): Array<ProcessLimit>;
 
@@ -865,6 +879,7 @@ Parses contents of `/proc/<pid>/limits`
 Parses contents of `/proc/<pid>/stat`
 @param pid process PID, `self` process if undefined
 @returns status information about the process(used by `ps`)
+@throws ProcfsError
 **/
 	public static function processStat(?pid:Int): ProcessStat;
 
@@ -872,6 +887,7 @@ Parses contents of `/proc/<pid>/stat`
 Parses contents of `/proc/<pid>/status`
 Depending on `hidepid` option `procfs` was mounted with, may not be accessible by anyone but process owner.
 @param pid process PID, `self` process if undefined
+@throws ProcfsError
 **/
 	public static function processStatus(?pid:Int): ProcessStatus;
 
@@ -880,6 +896,7 @@ Parses list of `/proc/<pid>/fd/*` entries.
 Note: In a multithreaded process, the contents of this directory are not available if the main thread has already terminated (typically by calling pthread_exit).
 @param pid process PID, `self` process if undefined
 @return process's current open fds
+@throws ProcfsError
 **/
 	public static function processFds(?pid:Int): Array<Int>;
 
@@ -887,6 +904,7 @@ Note: In a multithreaded process, the contents of this directory are not availab
 Parses list of `/proc/<pid>/task/*` entries.
 @param pid process PID, `self` process if undefined
 @returns process's current threads
+@throws ProcfsError
 **/
 	public static function processThreads(?pid:Int): Array<Int>;
 
@@ -896,6 +914,7 @@ Parses contents of `/proc/<pid>/fdinfo/<fd>`
 @param pid process PID, `self` process if undefined
 @returns information about target file descriptor
 @unstable
+@throws ProcfsError
 **/
 	public static function processFdinfo(fd:Int, ?pid:Int): ProcessFdinfo;
 
@@ -905,12 +924,14 @@ Note: Permission to read this is governed by a ptrace access mode `PTRACE_MODE_R
 @param fd target fd
 @param pid process PID, `self` process if undefined
 @returns information about target file descriptor
+@throws ProcfsError
 **/
 	public static function processFd(fd:Int, ?pid:Int): ProcessFd;
 
 /**
 Parses symlink at `/proc/<pid>/exe`
 @param pid process PID, `self` process if undefined
+@throws ProcfsError
 **/
 	public static function processExe(?pid:Int): ProcessExe;
 
@@ -921,6 +942,7 @@ Note: permission to read this file(symlink) is governed by ptrace access mode `P
 
 @param pid process PID, `self` process if undefined
 @returns path to process `cwd`
+@throws ProcfsError
 **/
 	public static function processCwd(?pid:Int): Path;
 
@@ -929,6 +951,7 @@ Parses contents of `/proc/<pid>/net/dev`
 @param pid process PID, `self` process if undefined
 @returns statuses of network devices present within the system
 @unstable needs checking on more systems
+@throws ProcfsError
 **/
 	public static function processNetDev(?pid:Int): Array<NetDevice>;
 
@@ -937,6 +960,7 @@ Parses contents of `/proc/<pid>/net/wireless`
 @param pid process PID, `self` process if undefined
 @returns statuses of wireless network devices present within the system
 @unstable needs checking on more systems
+@throws ProcfsError
 **/
 	public static function processNetWireless(?pid:Int): Array<NetWirelessDevice>;
 
@@ -945,6 +969,7 @@ Parses contents of `/proc/<pid>/net/unix`
 @param pid process PID, `self` process if undefined
 @returns statuses of UNIX domain sockets present within the system
 @unstable needs checking on more systems
+@throws ProcfsError
 **/
 	public static function processNetUnix(?pid:Int): Array<NetUnixSocket>;
 
@@ -953,6 +978,7 @@ Parses contents of `/proc/<pid>/net/tcp`
 @param pid process PID, `self` process if undefined
 @returns statuses of IPv4 TCP sockets present within the system
 @unstable needs checking on more systems
+@throws ProcfsError
 **/
 	public static function processNetTcp4(?pid:Int): Array<NetSocket4>;
 
@@ -961,6 +987,7 @@ Parses contents of `/proc/<pid>/net/udp`
 @param pid process PID, `self` process if undefined
 @returns statuses of IPv4 UDP sockets present within the system
 @unstable needs checking on more systems
+@throws ProcfsError
 **/
 	public static function processNetUdp4(?pid:Int): Array<NetSocket4>;
 
@@ -969,6 +996,7 @@ Parses contents of `/proc/<pid>/net/tcp6`
 @param pid process PID, `self` process if undefined
 @returns statuses of IPv6 TCP sockets present within the system
 @unstable needs checking on more systems
+@throws ProcfsError
 **/
 	public static function processNetTcp6(?pid:Int): Array<NetSocket6>;
 
@@ -977,6 +1005,7 @@ Parses contents of `/proc/<pid>/net/udp6`
 @param pid process PID, `self` process if undefined
 @returns statuses of IPv6 UDP sockets present within the system
 @unstable needs checking on more systems
+@throws ProcfsError
 **/
 	public static function processNetUdp6(?pid:Int): Array<NetSocket6>;
 
@@ -984,6 +1013,7 @@ Parses contents of `/proc/<pid>/net/udp6`
 Parses contents of `/proc/net/dev`
 @returns statuses of network devices present within the system
 @unstable needs checking on more systems
+@throws ProcfsError
 **/
 	public static function netDev(): Array<NetDevice>;
 
@@ -991,6 +1021,7 @@ Parses contents of `/proc/net/dev`
 Parses contents of `/proc/net/wireless`
 @returns statuses of wireless network devices present within the system
 @unstable needs checking on more systems
+@throws ProcfsError
 **/
 	public static function netWireless(): Array<NetWirelessDevice>;
 
@@ -998,6 +1029,7 @@ Parses contents of `/proc/net/wireless`
 Parses contents of `/proc/net/unix`
 @returns statuses of UNIX domain sockets present within the system
 @unstable needs checking on more systems
+@throws ProcfsError
 **/
 	public static function netUnix(): Array<NetUnixSocket>;
 
@@ -1005,6 +1037,7 @@ Parses contents of `/proc/net/unix`
 Parses contents of `/proc/net/tcp`
 @returns statuses of IPv4 TCP sockets present within the system
 @unstable needs checking on more systems
+@throws ProcfsError
 **/
 	public static function netTcp4(): Array<NetSocket4>;
 
@@ -1012,6 +1045,7 @@ Parses contents of `/proc/net/tcp`
 Parses contents of `/proc/net/udp`
 @returns statuses of IPv4 UDP sockets present within the system
 @unstable needs checking on more systems
+@throws ProcfsError
 **/
 	public static function netUdp4(): Array<NetSocket4>;
 
@@ -1019,6 +1053,7 @@ Parses contents of `/proc/net/udp`
 Parses contents of `/proc/net/tcp6`
 @returns statuses of IPv6 TCP sockets present within the system
 @unstable needs checking on more systems
+@throws ProcfsError
 **/
 	public static function netTcp6(): Array<NetSocket6>;
 
@@ -1026,17 +1061,20 @@ Parses contents of `/proc/net/tcp6`
 Parses contents of `/proc/net/udp6`
 @returns statuses of IPv6 UDP sockets present within the system
 @unstable needs checking on more systems
+@throws ProcfsError
 **/
 	public static function netUdp6(): Array<NetSocket6>;
 
 /**
 Parses contents of `/proc/cpuinfo`
 @unstable documentation on that is hard to find, need to get at least a list of fields which are present on all systems or just remove this method from the library
+@throws ProcfsError
 **/
 	public static function cpuinfo(): Array<CpuCoreInfo>;
 
 /**
 Parses contents of `/proc/loadavg`
+@throws ProcfsError
 **/
 	public static function loadavg(): Loadavg;
 
@@ -1049,54 +1087,63 @@ Parses contents of `/proc/uptime`
 Parses contents of `/proc/version`
 Note: includes the contents of `/proc/sys/kernel/ostype`, `/proc/sys/kernel/osrelease` and `/proc/sys/kernel/version`.
 @returns identifies the kernel version that is currently running
+@throws ProcfsError
 **/
 	public static function version(): String;
 
 /**
 Parses contents of `/proc/cmdline`
 @returns arguments passed to the Linux kernel at boot time
+@throws ProcfsError
 **/
 	public static function cmdline(): String;
 
 /**
 Parses contents of `/proc/swaps`
 @returns swap areas in use
+@throws ProcfsError
 **/
 	public static function swaps(): Array<Swap>;
 
 /**
 Parses contents of `/proc/stat`
 @returns kernel/system statistics
+@throws ProcfsError
 **/
 	public static function stat(): Stat;
 
 /**
 Parses contents of `/proc/devices`
 @returns major numbers and device groups.
+@throws ProcfsError
 **/
 	public static function devices(): Array<Device>;
 
 /**
 Parses contents of `/proc/filesystems`
 @returns filesystems which are supported by the kernel(which were compiled into the kernel or whose kernel modules are currently loaded)
+@throws ProcfsError
 **/
 	public static function filesystems(): Array<Filesystem>;
 
 /**
 Parses contents of `/proc/diskstats`
 @returns I/O statistics for each disk device
+@throws ProcfsError
 **/
 	public static function diskstats(): Array<Diskstat>;
 
 /**
 Parses contents of `/proc/partitions`
 @returns partitions in system
+@throws ProcfsError
 **/
 	public static function partitions(): Array<Partition>;
 
 /**
 Parses contents of `/proc/meminfo`
 @returns statistics about memory usage on the system
+@throws ProcfsError
 **/
 	public static function meminfo(): Meminfo;
 
@@ -1104,17 +1151,20 @@ Parses contents of `/proc/meminfo`
 Parses list of `/proc/*` entries.
 Depending on `hidepid` option `procfs` was mounted with, may only contain user's own processes.
 @returns pids of currently running processes
+@throws ProcfsError
 **/
 	public static function processes(): Array<Int>;
 
 /**
 Available if the kernel is configured with `CONFIG_IKCONFIG_PROC`
 @returns gunziped content of `/proc/config.gz`
+@throws ProcfsError
 **/
 	public static function config(): String;
 
 /**
 @returns controllers that are compiled into the kernel
+@throws ProcfsError
 **/
 	public static function cgroups(): Array<CgroupController>;
 

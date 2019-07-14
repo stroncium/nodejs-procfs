@@ -5,6 +5,7 @@ Parses contents of `/proc/<pid>/mountinfo`
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns Array\<[ProcessMountinfo](#type-processmountinfo)>
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -13,6 +14,7 @@ Parses contents of `/proc/<pid>/io`
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns [ProcessIo](#type-processio)
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -21,6 +23,7 @@ Parses contents of `/proc/<pid>/uid_map`
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns Array\<[ProcessIdMapRange](#type-processidmaprange)>
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -29,6 +32,7 @@ Parses contents of `/proc/<pid>/gid_map`
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns Array\<[ProcessIdMapRange](#type-processidmaprange)>
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -39,6 +43,7 @@ Note: the result can be used to create map, `new Map(result)`.
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns Array\<Array\<string>>: key-value pairs of initial environment process was started with
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -47,6 +52,7 @@ Parses contents of `/proc/<pid>/oom_score`
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns integer: current score that the kernel gives to this process for the purpose of selecting a process for the OOM-killer
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -55,6 +61,7 @@ Parses contents of `/proc/<pid>/timerslack_ns`
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns integer: process's "current" timer slack value, in nanoseconds
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -67,6 +74,7 @@ Depending on `hidepid` option `procfs` was mounted with, may not be accessible b
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns Array\<string>
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -75,6 +83,7 @@ Parses contents of `/proc/<pid>/autogroup`
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns [ProcessAutogroup](#type-processautogroup)
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -83,6 +92,7 @@ Parses contents of `/proc/<pid>/statm`
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns [ProcessStatm](#type-processstatm): information about process memory usage
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -93,6 +103,7 @@ Note: different threads in the same process may have different comm values
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns string: the command name associated with the process
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -101,6 +112,7 @@ Parses contents of `/proc/<pid>/cgroups`
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns Array\<[ProcessCgroup](#type-processcgroup)>: control groups to which the process belongs
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -113,6 +125,7 @@ Note: permission to access this file is governed by ptrace access mode `PTRACE_M
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns integer
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -121,6 +134,7 @@ Parses contents of `/proc/<pid>/cpuset`
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns string: path of the process's cpuset directory relative to the root of the cpuset filesystem
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -129,6 +143,7 @@ Parses contents of `/proc/<pid>/limits`
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns Array\<[ProcessLimit](#type-processlimit)>: process's resource limits
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -137,6 +152,7 @@ Parses contents of `/proc/<pid>/stat`
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns [ProcessStat](#type-processstat): status information about the process(used by `ps`)
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -147,6 +163,7 @@ Depending on `hidepid` option `procfs` was mounted with, may not be accessible b
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns [ProcessStatus](#type-processstatus)
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -157,6 +174,7 @@ Note: In a multithreaded process, the contents of this directory are not availab
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns Array\<integer>: process's current open fds
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -165,18 +183,19 @@ Parses list of `/proc/<pid>/task/*` entries.
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns Array\<integer>: process's current threads
+ - throws [ProcfsError](#procfserror)
 ***
 
 
 ### processFdinfo (fd, [pid])
-	⚠️ Unstable
+	⚠️ Unstable: 
 
 Parses contents of `/proc/<pid>/fdinfo/<fd>`
 
  - **`fd`** integer: target fd
  - **`pid`** integer: process PID, `self` process if undefined
  - returns [ProcessFdinfo](#type-processfdinfo): information about target file descriptor
-
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -188,6 +207,7 @@ Note: Permission to read this is governed by a ptrace access mode `PTRACE_MODE_R
  - **`fd`** integer: target fd
  - **`pid`** integer: process PID, `self` process if undefined
  - returns [ProcessFd](#type-processfd): information about target file descriptor
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -196,6 +216,7 @@ Parses symlink at `/proc/<pid>/exe`
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns [ProcessExe](#type-processexe)
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -208,6 +229,7 @@ Note: permission to read this file(symlink) is governed by ptrace access mode `P
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns [Path](#type-path): path to process `cwd`
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -218,7 +240,7 @@ Parses contents of `/proc/<pid>/net/dev`
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns Array\<[NetDevice](#type-netdevice)>: statuses of network devices present within the system
-
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -229,7 +251,7 @@ Parses contents of `/proc/<pid>/net/wireless`
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns Array\<[NetWirelessDevice](#type-netwirelessdevice)>: statuses of wireless network devices present within the system
-
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -240,7 +262,7 @@ Parses contents of `/proc/<pid>/net/unix`
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns Array\<[NetUnixSocket](#type-netunixsocket)>: statuses of UNIX domain sockets present within the system
-
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -251,7 +273,7 @@ Parses contents of `/proc/<pid>/net/tcp`
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns Array\<[NetSocket4](#type-netsocket4)>: statuses of IPv4 TCP sockets present within the system
-
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -262,7 +284,7 @@ Parses contents of `/proc/<pid>/net/udp`
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns Array\<[NetSocket4](#type-netsocket4)>: statuses of IPv4 UDP sockets present within the system
-
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -273,7 +295,7 @@ Parses contents of `/proc/<pid>/net/tcp6`
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns Array\<[NetSocket6](#type-netsocket6)>: statuses of IPv6 TCP sockets present within the system
-
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -284,7 +306,7 @@ Parses contents of `/proc/<pid>/net/udp6`
 
  - **`pid`** integer: process PID, `self` process if undefined
  - returns Array\<[NetSocket6](#type-netsocket6)>: statuses of IPv6 UDP sockets present within the system
-
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -294,7 +316,7 @@ Parses contents of `/proc/<pid>/net/udp6`
 Parses contents of `/proc/net/dev`
 
  - returns Array\<[NetDevice](#type-netdevice)>: statuses of network devices present within the system
-
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -304,7 +326,7 @@ Parses contents of `/proc/net/dev`
 Parses contents of `/proc/net/wireless`
 
  - returns Array\<[NetWirelessDevice](#type-netwirelessdevice)>: statuses of wireless network devices present within the system
-
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -314,7 +336,7 @@ Parses contents of `/proc/net/wireless`
 Parses contents of `/proc/net/unix`
 
  - returns Array\<[NetUnixSocket](#type-netunixsocket)>: statuses of UNIX domain sockets present within the system
-
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -324,7 +346,7 @@ Parses contents of `/proc/net/unix`
 Parses contents of `/proc/net/tcp`
 
  - returns Array\<[NetSocket4](#type-netsocket4)>: statuses of IPv4 TCP sockets present within the system
-
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -334,7 +356,7 @@ Parses contents of `/proc/net/tcp`
 Parses contents of `/proc/net/udp`
 
  - returns Array\<[NetSocket4](#type-netsocket4)>: statuses of IPv4 UDP sockets present within the system
-
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -344,7 +366,7 @@ Parses contents of `/proc/net/udp`
 Parses contents of `/proc/net/tcp6`
 
  - returns Array\<[NetSocket6](#type-netsocket6)>: statuses of IPv6 TCP sockets present within the system
-
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -354,7 +376,7 @@ Parses contents of `/proc/net/tcp6`
 Parses contents of `/proc/net/udp6`
 
  - returns Array\<[NetSocket6](#type-netsocket6)>: statuses of IPv6 UDP sockets present within the system
-
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -364,6 +386,7 @@ Parses contents of `/proc/net/udp6`
 Parses contents of `/proc/cpuinfo`
 
  - returns Array\<[CpuCoreInfo](#type-cpucoreinfo)>
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -371,6 +394,7 @@ Parses contents of `/proc/cpuinfo`
 Parses contents of `/proc/loadavg`
 
  - returns [Loadavg](#type-loadavg)
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -387,6 +411,7 @@ Parses contents of `/proc/version`
 Note: includes the contents of `/proc/sys/kernel/ostype`, `/proc/sys/kernel/osrelease` and `/proc/sys/kernel/version`.
 
  - returns string: identifies the kernel version that is currently running
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -394,6 +419,7 @@ Note: includes the contents of `/proc/sys/kernel/ostype`, `/proc/sys/kernel/osre
 Parses contents of `/proc/cmdline`
 
  - returns string: arguments passed to the Linux kernel at boot time
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -401,6 +427,7 @@ Parses contents of `/proc/cmdline`
 Parses contents of `/proc/swaps`
 
  - returns Array\<[Swap](#type-swap)>: swap areas in use
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -408,6 +435,7 @@ Parses contents of `/proc/swaps`
 Parses contents of `/proc/stat`
 
  - returns [Stat](#type-stat): kernel/system statistics
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -415,6 +443,7 @@ Parses contents of `/proc/stat`
 Parses contents of `/proc/devices`
 
  - returns Array\<[Device](#type-device)>: major numbers and device groups.
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -422,6 +451,7 @@ Parses contents of `/proc/devices`
 Parses contents of `/proc/filesystems`
 
  - returns Array\<[Filesystem](#type-filesystem)>: filesystems which are supported by the kernel(which were compiled into the kernel or whose kernel modules are currently loaded)
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -429,6 +459,7 @@ Parses contents of `/proc/filesystems`
 Parses contents of `/proc/diskstats`
 
  - returns Array\<[Diskstat](#type-diskstat)>: I/O statistics for each disk device
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -436,6 +467,7 @@ Parses contents of `/proc/diskstats`
 Parses contents of `/proc/partitions`
 
  - returns Array\<[Partition](#type-partition)>: partitions in system
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -443,6 +475,7 @@ Parses contents of `/proc/partitions`
 Parses contents of `/proc/meminfo`
 
  - returns [Meminfo](#type-meminfo): statistics about memory usage on the system
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -452,6 +485,7 @@ Parses list of `/proc/*` entries.
 Depending on `hidepid` option `procfs` was mounted with, may only contain user's own processes.
 
  - returns Array\<integer>: pids of currently running processes
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -459,11 +493,13 @@ Depending on `hidepid` option `procfs` was mounted with, may only contain user's
 Available if the kernel is configured with `CONFIG_IKCONFIG_PROC`
 
  - returns string: gunziped content of `/proc/config.gz`
+ - throws [ProcfsError](#procfserror)
 ***
 
 
 ### cgroups ()
  - returns Array\<[CgroupController](#type-cgroupcontroller)>: controllers that are compiled into the kernel
+ - throws [ProcfsError](#procfserror)
 ***
 
 
@@ -765,7 +801,7 @@ Object with properties:
 
 
 ## type StatCpuTime
-Note: amounts are in units of USER_HZ(a.k.a. ticks) which are 1/100ths of a second on most architectures, use sysconf(_SC_CLK_TCK) to obtain the right value)
+Note: amounts are in units of USER_HZ(a.k.a. ticks) which are 1/100ths of a second on most architectures, use sysconf(_SC_CLK_TCK) to obtain the right value).
 
 Object with properties:
  - **`guest`** integer : `guest` time spent running a virtual CPU for guest operating systems under the control of the Linux kernel, in ticks
@@ -1009,7 +1045,7 @@ Object with properties:
  - **`slot`** string : kernel table slot number
  - **`state`** integer
  - **`type`** integer : socket type, `1` for `SOCK_STREAM` sockets, `2` for `SOCK_DGRAM` sockets, `5` for `SOCK_SEQPACKET` sockets
- - *optional* **`path`** string : bound pathname (if any) of the socket. For sockets in the abstract namespace, commences `
+ - *optional* **`path`** string : bound pathname (if any) of the socket. For sockets in the abstract namespace, starts with at sign(char code 64).
 
 ***
 
@@ -1040,5 +1076,16 @@ Object with properties:
  - **`uid`** integer : effective UID of the creator of the socket
 
 ***
+
+
+## ProcfsError
+extends `Error` with properties:
+ - **`code`** string: error code, one of:
+   - `EPARSE`(`Procfs.ERR_PARSING_FAILED`): guard error, if you see this, consider submitting a bug report
+   - `EUNKNOWN`(`Procfs.ERR_UNKNOWN`): completely unexpected error, if you see this, consider submitting a bug report
+   - `ENOENT`(`Procfs.ERR_NOT_FOUND`): target file not found(or we were denied access)
+ - *optional* **`sourceText`** string: for parsing errors, a part of file we encountered problem with
+ - *optional* **`sourceError`** Error: when applicable, underlying error
+
 
 
