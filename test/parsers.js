@@ -107,3 +107,8 @@ for (let [parserName, fixtures] of [
 		});
 	}
 }
+
+test('parser meminfo(fixture meminfo-incorrect)', t => {
+	let dump = read(`${FIXTURES}/meminfo-incorrect-unit`);
+	t.throws(() => parsers.meminfo(dump), 'Parsing failed: unknown unit');
+});
