@@ -3,6 +3,7 @@ const fs = require('fs');
 const test = require('ava');
 const {read, readIdList, readLink} = require('../lib/utils');
 const parsers = require('../lib/parsers');
+const ProcfsError = require('../lib/procfs-error');
 const typeAsserts = require('./fixtures/type/asserts');
 
 const FIXTURES = `${__dirname}/fixtures/data`;
@@ -109,7 +110,11 @@ for (let [parserName, fixtures] of [
 
 test('parser meminfo(fixture meminfo-incorrect)', t => {
 	let dump = read(`${FIXTURES}/meminfo-incorrect-unit`);
-	t.throws(() => parsers.meminfo(dump), 'Parsing failed: unknown unit');
+	t.throws(() => parsers.meminfo(dump), {
+		instanceOf: ProcfsError,
+		message: 'Parsing failed: unknown unit',
+		code: ProcfsError.ERR_PARSING_FAILED,
+	});
 });
 
 test('parser processCmdline(fixture process-cmdline-zombie)', t => {

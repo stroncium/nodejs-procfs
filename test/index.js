@@ -1,4 +1,6 @@
 let test = require('ava');
+
+const ProcfsError = require('../lib/procfs-error');
 const typeAsserts = require('./fixtures/type/asserts');
 let {procfs} = require('..');
 
@@ -72,13 +74,17 @@ for (let {name, pided} of [
 		});
 
 		test(`procfs.${name}(<nonexisting pid>)`, t => {
-			t.throws(() => procfs[name](nonexistingPid));
+			t.throws(() => procfs[name](nonexistingPid), {
+				instanceOf: ProcfsError,
+				message: 'File not found',
+				code: ProcfsError.ERR_NOT_FOUND,
+			});
 		});
 
 		test(`procfs.${name}(<incorrect pid>)`, t => {
-			t.throws(() => procfs[name]('stat'), 'pid');
-			t.throws(() => procfs[name](-1), 'pid');
-			t.throws(() => procfs[name](1.5), 'pid');
+			t.throws(() => procfs[name]('stat'), TypeError, 'pid');
+			t.throws(() => procfs[name](-1), TypeError, 'pid');
+			t.throws(() => procfs[name](1.5), TypeError, 'pid');
 		});
 	}
 }
@@ -115,13 +121,17 @@ for (let {name, pided} of [
 		});
 
 		test(`procfs.${name}(<nonexisting pid>) linux version dependent`, t => {
-			t.throws(() => procfs[name](nonexistingPid));
+			t.throws(() => procfs[name](nonexistingPid), {
+				instanceOf: ProcfsError,
+				message: 'File not found',
+				code: ProcfsError.ERR_NOT_FOUND,
+			});
 		});
 
 		test(`procfs.${name}(<incorrect pid>) linux version dependent`, t => {
-			t.throws(() => procfs[name]('stat'), 'pid');
-			t.throws(() => procfs[name](-1), 'pid');
-			t.throws(() => procfs[name](1.5), 'pid');
+			t.throws(() => procfs[name]('stat'), TypeError, 'pid');
+			t.throws(() => procfs[name](-1), TypeError, 'pid');
+			t.throws(() => procfs[name](1.5), TypeError, 'pid');
 		});
 	}
 }
@@ -142,22 +152,30 @@ for (let name of ['processFd', 'processFdinfo']) {
 	});
 
 	test(`procfs.${name}(<nonexisting fd>, <existing pid>)`, t => {
-		t.throws(() => procfs[name](2 ** 23, existingPid));
+		t.throws(() => procfs[name](2 ** 23, existingPid), {
+			instanceOf: ProcfsError,
+			message: 'File not found',
+			code: ProcfsError.ERR_NOT_FOUND,
+		});
 	});
 
 	test(`procfs.${name}(<nonexisting fd>, <nonexisting pid>)`, t => {
-		t.throws(() => procfs[name](1, nonexistingPid));
+		t.throws(() => procfs[name](1, nonexistingPid), {
+			instanceOf: ProcfsError,
+			message: 'File not found',
+			code: ProcfsError.ERR_NOT_FOUND,
+		});
 	});
 
 	test(`procfs.${name}(<nonexisting fd>, <incorrect pid>)`, t => {
-		t.throws(() => procfs[name](1, 'abc'), 'pid');
-		t.throws(() => procfs[name](1, -1), 'pid');
-		t.throws(() => procfs[name](1, 1.51), 'pid');
+		t.throws(() => procfs[name](1, 'abc'), TypeError, 'pid');
+		t.throws(() => procfs[name](1, -1), TypeError, 'pid');
+		t.throws(() => procfs[name](1, 1.51), TypeError, 'pid');
 	});
 
 	test(`procfs.${name}(<incorrect fd>, <existing pid>)`, t => {
-		t.throws(() => procfs[name]('abc', existingPid), 'fd');
-		t.throws(() => procfs[name](-1, existingPid), 'fd');
-		t.throws(() => procfs[name](1.5, existingPid), 'fd');
+		t.throws(() => procfs[name]('abc', existingPid), TypeError, 'fd');
+		t.throws(() => procfs[name](-1, existingPid), TypeError, 'fd');
+		t.throws(() => procfs[name](1.5, existingPid), TypeError, 'fd');
 	});
 }
