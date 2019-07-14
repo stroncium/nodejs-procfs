@@ -96,16 +96,6 @@ Note: different threads in the same process may have different comm values
 ***
 
 
-### processSetgroups ([pid])
-Parses contents of `/proc/<pid>/setgroups`
-
-Note: regardless of the value, calls to `setgroups` are also not permitted if `/proc/[pid]/gid_map` has not yet been set.
-
- - **`pid`** integer: process PID, `self` process if undefined
- - returns boolean: if processes in the user namespace that contains the target process are permitted to employ the `setgroups` system call
-***
-
-
 ### processCgroups ([pid])
 Parses contents of `/proc/<pid>/cgroups`
 

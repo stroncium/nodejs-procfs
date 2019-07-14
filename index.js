@@ -90,7 +90,6 @@ for (let [name, path] of [
 	['processAutogroup', '/autogroup'],
 	['processStatm', '/statm'],
 	['processComm', '/comm'],
-	['processSetgroups', '/setgroups'],
 	['processPersonality', '/personality'],
 	['processCgroups', '/cgroup'],
 	['processCpuset', '/cpuset'],

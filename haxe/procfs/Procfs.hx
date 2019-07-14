@@ -832,14 +832,6 @@ Note: different threads in the same process may have different comm values
 	public static function processComm(?pid:Int): String;
 
 /**
-Parses contents of `/proc/<pid>/setgroups`
-Note: regardless of the value, calls to `setgroups` are also not permitted if `/proc/[pid]/gid_map` has not yet been set.
-@param pid process PID, `self` process if undefined
-@returns if processes in the user namespace that contains the target process are permitted to employ the `setgroups` system call
-**/
-	public static function processSetgroups(?pid:Int): Bool;
-
-/**
 Parses contents of `/proc/<pid>/cgroups`
 @param pid process PID, `self` process if undefined
 @returns control groups to which the process belongs

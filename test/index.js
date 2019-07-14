@@ -17,7 +17,6 @@ for (let {name, pided} of [
 	{name: 'processAutogroup', pided: true},
 	{name: 'processStatm', pided: true},
 	{name: 'processComm', pided: true},
-	{name: 'processSetgroups', pided: true},
 	{name: 'processPersonality', pided: true},
 	{name: 'processExe', pided: true},
 	{name: 'processCwd', pided: true},

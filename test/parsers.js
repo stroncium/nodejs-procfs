@@ -56,7 +56,6 @@ for (let [parserName, fixtures] of [
 	['processAutogroup', 'self/autogroup'],
 	['processStatm', 'self/statm'],
 	['processComm', 'self/comm'],
-	['processSetgroups', 'self/setgroups'],
 	['processPersonality', 'self/personality'],
 	['processCgroups', 'self/cgroup'],
 	['processCpuset', 'self/cpuset'],
