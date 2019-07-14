@@ -83,7 +83,7 @@ for (let [parserName, fixtures] of [
 	['version', 'version'],
 	['cmdline', 'cmdline'],
 	['swaps', 'swaps'],
-	['stat', 'stat'],
+	['stat', 'stat,stat-synthetic'],
 	['devices', 'devices'],
 	['filesystems', 'filesystems'],
 	['diskstats', 'diskstats'],
@@ -110,4 +110,13 @@ for (let [parserName, fixtures] of [
 test('parser meminfo(fixture meminfo-incorrect)', t => {
 	let dump = read(`${FIXTURES}/meminfo-incorrect-unit`);
 	t.throws(() => parsers.meminfo(dump), 'Parsing failed: unknown unit');
+});
+
+test('parser processCmdline(fixture process-cmdline-zombie)', t => {
+	let dump = read(`${FIXTURES}/process-cmdline-zombie`);
+	t.is(parsers.processCmdline(dump), null);
+});
+
+test('parser processExe(inline fixture)', t => {
+	t.deepEqual(parsers.processExe('/test-path (deleted)'), {path: '/test-path', deleted: true});
 });
