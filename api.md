@@ -855,13 +855,13 @@ Object with properties:
 ## type Diskstat
 Object with properties:
  - **`currentIoCount`** integer : number of of IOs currently in progress
- - **`devId`** [DevId](#type-devid)
+ - **`devId`** [DevId](#type-devid) : device id
  - **`ioTime`** integer : milliseconds spent doing IO
- - **`name`** string
+ - **`name`** string : device name
  - **`readTime`** integer : milliseconds spent reading
  - **`reads`** integer : total number of reads
  - **`readsMerged`** integer : number of reads merged
- - **`sectorsRead`** integer
+ - **`sectorsRead`** integer : total number of sectors read
  - **`sectorsWriten`** integer : total number of sectors written
  - **`weightedIoTime`** integer : weighted milliseconds spent doing I/Os. This field is incremented at each I/O start, I/O completion, I/O merge, or read of these stats by the number of I/Os in progress times the number of milliseconds spent doing I/O since the last update of this field.  This can provide an easy measure of both I/O completion time and the backlog that may be accumulating.
  - **`writeTime`** integer : milliseconds spent writing

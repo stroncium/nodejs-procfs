@@ -459,9 +459,11 @@ typedef Filesystem = {
 };
 
 /**
+@field devId device id
+@field name device name
 @field reads total number of reads
 @field readsMerged number of reads merged
-@field sectoresRead total number of sectors read
+@field sectorsRead total number of sectors read
 @field readTime milliseconds spent reading
 @field writes total number of writes
 @field writesMerged number of writes merged
