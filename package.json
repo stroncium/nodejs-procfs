@@ -9,7 +9,7 @@
   "scripts": {
     "build:api-xml": "haxe -D use_rtti_doc -cp haxe -xml ./builder/.tmp/api.xml procfs.Procfs",
     "build:clean-api-xml": "rm ./builder/.tmp/api.xml ./builder/.tmp/Main.n",
-    "build:docs-asserts": "cd ./builder/.tmp && SRC=./api.xml DST_API_MD=../../api.md DST_ASSERTS=../../test/fixtures/type/asserts.js haxe -cp ../ -x Main",
+    "build:docs-asserts": "cd ./builder/.tmp && SRC=./api.xml DST_API_MD=../../API.md DST_ASSERTS=../../test/fixtures/type/asserts.js haxe -cp ../ -x Main",
     "build": "npm run build:api-xml && npm run build:docs-asserts && npm run build:clean-api-xml",
     "coverage": "codecov",
     "fulltest": "npm run build && npm run test",
