@@ -463,14 +463,18 @@ Depending on `hidepid` option `procfs` was mounted with, may only contain user's
 
 
 ### config ()
+Parses contents of `/proc/config.gz`
+
 Available if the kernel is configured with `CONFIG_IKCONFIG_PROC`
 
- - returns string: gunziped content of `/proc/config.gz`
+ - returns string: kernel config
  - throws [ProcfsError](#procfserror)
 ***
 
 
 ### cgroups ()
+Parses contents of `/proc/cgroups`
+
  - returns Array\<[CgroupController](#type-cgroupcontroller)>: controllers that are compiled into the kernel
  - throws [ProcfsError](#procfserror)
 ***

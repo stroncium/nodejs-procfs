@@ -1160,13 +1160,15 @@ Depending on `hidepid` option `procfs` was mounted with, may only contain user's
 	public static function processes(): Array<Int>;
 
 /**
+Parses contents of `/proc/config.gz`
 Available if the kernel is configured with `CONFIG_IKCONFIG_PROC`
-@returns gunziped content of `/proc/config.gz`
+@returns kernel config
 @throws ProcfsError
 **/
 	public static function config(): String;
 
 /**
+Parses contents of `/proc/cgroups`
 @returns controllers that are compiled into the kernel
 @throws ProcfsError
 **/
