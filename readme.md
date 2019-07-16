@@ -8,11 +8,32 @@ Compatible with releases of Linux since 4.4 SLTS. Attempts to support new featur
 
 ## Example
 
-//TODO
+`npm install @stroncium/procfs`
+
+```js
+const {
+	procfs,
+	ProcfsError,
+} = require('procfs');
+
+console.log(procfs.uptime()); // { time: 2514423.82, idle: 9658533.16 }
+
+console.log(procfs.processIo()); // { read: 66191, write: 147816, readSyscalls: 176, writeSyscalls: 498, readReal: 9805824, writeReal: 49152, writeCancelled: 0 }
+
+let targetPid = 12345;
+
+try {
+	procfs.processIo(targetPid);
+} catch (error) {
+	if(error.code === ProcfsError.ERR_NOT_FOUND) {
+		console.log('process ${targetPid} does not exist');
+	}
+}
+```
 
 ## API
 
-Full version of API is available in [api.md](https://github.com/stroncium/nodejs-procfs/blob/master/api.md).
+Full version of API is available in [API.md](https://github.com/stroncium/nodejs-procfs/blob/master/API.md).
 
 Currently, the folowing `procfs` paths are supported by the library:
  - `/proc/*`: [procfs.processes](API.md#processes())
@@ -80,4 +101,4 @@ For many methods, synchronous IO is *always* faster than asynchronous, as time r
 
 `npm run fulltest` to `npm run build && npm run test`
 
-`npm run build` builds `api.md` and type asserts for tests from `haxe/procfs/Procfs.hx`.
+`npm run build` builds `API.md` and type asserts for tests from `haxe/procfs/Procfs.hx`.
