@@ -57,7 +57,7 @@ typedef ProcessIo = {
 /**
 @field targetStart start of the range of IDs in the user namespace of the target process
 @field start start of the range of IDs to which the IDs do map
-   Interpretation depends on whether the process that opened and the target process pid are in the same user namespace.
+   Interpretation depends on whether the process that opened and the target process are in the same user namespace.
    If the two processes are in different user namespaces, it is the start of a range of IDs in the user namespace of the process that opened the file
    If the two processes are in the same user namespace it is the start of the range of IDs in the parent user namespace of target process.
 @field length length of the range of IDs that is mapped between the two user namespaces
@@ -583,34 +583,82 @@ typedef Meminfo = {
 	directMap1G: Int,
 };
 
+/**
+@field fd `tfd`, file descriptor
+@field mask `events`, mask of events being monitored for fd
+**/
 typedef ProcessFdinfoEpollCounter = {
 	fd: Int,
-	eventMask: Int,
-	data: String,
+	mask: Int,
 };
 
+/**
+@field wd `wd`, watch descriptor number
+@field inode `ino`, inode of the target file
+@field devId `sdev`, ID of the device where the file resides
+@field mask `mask`, mask of events being monitored for the file
+@field ignoredMask `ignored_mask`, event mask that is ignored for target file
+**/
 typedef ProcessFdinfoInotifyFile = {
 	wd: Int,
 	mask: Int,
 	ignoredMask: Int,
 	inode: Int,
-	deviceId: Int,
+	devId: DevId,
 };
 
+/**
+@field inode `ino`, inode of the target file
+@field devId `sdev`, ID of the device where the file resides
+@field mask `mask`, event mask for this mark
+@field ignoredMask `ignored_mask`, event mask that is ignored for this mark
+@field flags `flags`, mark flags
+**/
 typedef ProcessFdinfoFanotifyMark = {
-	deviceId: Int,
+	devId: DevId,
 	mask: Int,
 	ignoredMask: Int,
 	inode: Int,
 	flags: Int,
 };
 
+/**
+Type of file descriptor. Possible values:
+ - `regular`: regular file descriptor
+ - `event`: eventfd file descriptor
+ - `epoll`: epoll file descriptor
+ - `signal`: signalfd file descriptor
+ - `inotify`: intofiy file descriptor
+ - `fanotify`: fanotify file descriptor
+ - `timer`: timerfd file descriptor
+**/
+typedef ProcessFdinfoType = String;
+
+/**
+@field type fd type
+@field position file offset
+@field mountId ID of the mount point containing the file
+@field flags file access mode and status flags
+@field eventCounter for type `event`, current value of the event counter
+@field epollCounters for type `epoll`, information about file descriptors being monitoring
+@field rtSignalMask for type `signal`, mask of signals being monitored, high part
+@field signalMask for type `signal`, mask of signals being monitored, low part
+@field inotifyFiles for type `inotify`, information of files being monitored
+@field fanotifyFlags for type `fanotify`, `flags` argument given to `fanotify_init`
+@field fanotifyEventFlags for type 'fanotify`, `event_f_flags` argument given to `fanotify_init`
+@field fanotifyMarks for type `fanotify`, information about marks in fanotify group
+@field timerClockId for type `timer`,  clock ID
+@field timerTicks for type `timer`, number of timer expirations that have occured
+@field timerSettimeFlags for type `timer`, flags with which timer was last armed
+@field timerValue for type `timer`, amount of time until the timer will next expire, seconds and nanoseconds
+@field timerInterval for type `timer`, interval of the timer, seconds and nanoseconds
+**/
 typedef ProcessFdinfo = {
-	type: String,
-	pos: Int,
-	mntId: Int,
+	type: ProcessFdinfoType,
+	position: Int,
+	mountId: Int,
 	flags: Int,
-	?eventfdCounter: Int,
+	?eventCounter: Int,
 	?epollCounters: Array<ProcessFdinfoEpollCounter>,
 	?rtSignalMask: Int,
 	?signalMask: Int,
@@ -930,7 +978,6 @@ Parses contents of `/proc/<pid>/fdinfo/<fd>`
 @param fd target fd
 @param pid process PID, `self` process if undefined
 @returns information about target file descriptor
-@unstable
 @throws ProcfsError
 **/
 	public static function processFdinfo(fd:Int, ?pid:Int): ProcessFdinfo;

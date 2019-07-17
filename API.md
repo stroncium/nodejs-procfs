@@ -188,8 +188,6 @@ Parses list of `/proc/<pid>/task/*` entries.
 
 
 ### processFdinfo (fd, [pid])
-	⚠️ Unstable: 
-
 Parses contents of `/proc/<pid>/fdinfo/<fd>`
 
  - **`fd`** integer: target fd
@@ -548,7 +546,7 @@ Object with properties:
 Object with properties:
  - **`length`** integer : length of the range of IDs that is mapped between the two user namespaces
  - **`start`** integer : start of the range of IDs to which the IDs do map
-Interpretation depends on whether the process that opened and the target process pid are in the same user namespace.
+Interpretation depends on whether the process that opened and the target process are in the same user namespace.
 If the two processes are in different user namespaces, it is the start of a range of IDs in the user namespace of the process that opened the file
 If the two processes are in the same user namespace it is the start of the range of IDs in the parent user namespace of target process.
  - **`targetStart`** integer : start of the range of IDs in the user namespace of the target process
@@ -905,54 +903,68 @@ Object with properties:
 
 ## type ProcessFdinfoEpollCounter
 Object with properties:
- - **`data`** string
- - **`eventMask`** integer
- - **`fd`** integer
+ - **`fd`** integer : `tfd`, file descriptor
+ - **`mask`** integer : `events`, mask of events being monitored for fd
 
 ***
 
 
 ## type ProcessFdinfoInotifyFile
 Object with properties:
- - **`deviceId`** integer
- - **`ignoredMask`** integer
- - **`inode`** integer
- - **`mask`** integer
- - **`wd`** integer
+ - **`devId`** [DevId](#type-devid) : `sdev`, ID of the device where the file resides
+ - **`ignoredMask`** integer : `ignored_mask`, event mask that is ignored for target file
+ - **`inode`** integer : `ino`, inode of the target file
+ - **`mask`** integer : `mask`, mask of events being monitored for the file
+ - **`wd`** integer : `wd`, watch descriptor number
 
 ***
 
 
 ## type ProcessFdinfoFanotifyMark
 Object with properties:
- - **`deviceId`** integer
- - **`flags`** integer
- - **`ignoredMask`** integer
- - **`inode`** integer
- - **`mask`** integer
+ - **`devId`** [DevId](#type-devid) : `sdev`, ID of the device where the file resides
+ - **`flags`** integer : `flags`, mark flags
+ - **`ignoredMask`** integer : `ignored_mask`, event mask that is ignored for this mark
+ - **`inode`** integer : `ino`, inode of the target file
+ - **`mask`** integer : `mask`, event mask for this mark
+
+***
+
+
+## type ProcessFdinfoType
+Type of file descriptor. Possible values:
+ - `regular`: regular file descriptor
+ - `event`: eventfd file descriptor
+ - `epoll`: epoll file descriptor
+ - `signal`: signalfd file descriptor
+ - `inotify`: intofiy file descriptor
+ - `fanotify`: fanotify file descriptor
+ - `timer`: timerfd file descriptor
+
+Type: string
 
 ***
 
 
 ## type ProcessFdinfo
 Object with properties:
- - **`flags`** integer
- - **`mntId`** integer
- - **`pos`** integer
- - **`type`** string
- - *optional* **`epollCounters`** Array\<[ProcessFdinfoEpollCounter](#type-processfdinfoepollcounter)>
- - *optional* **`eventfdCounter`** integer
- - *optional* **`fanotifyEventFlags`** integer
- - *optional* **`fanotifyFlags`** integer
- - *optional* **`fanotifyMarks`** Array\<[ProcessFdinfoFanotifyMark](#type-processfdinfofanotifymark)>
- - *optional* **`inotifyFiles`** Array\<[ProcessFdinfoInotifyFile](#type-processfdinfoinotifyfile)>
- - *optional* **`rtSignalMask`** integer
- - *optional* **`signalMask`** integer
- - *optional* **`timerClockId`** integer
- - *optional* **`timerInterval`** Array\<integer>
- - *optional* **`timerSettimeFlags`** integer
- - *optional* **`timerTicks`** integer
- - *optional* **`timerValue`** Array\<integer>
+ - **`flags`** integer : file access mode and status flags
+ - **`mountId`** integer : ID of the mount point containing the file
+ - **`position`** integer : file offset
+ - **`type`** [ProcessFdinfoType](#type-processfdinfotype) : fd type
+ - *optional* **`epollCounters`** Array\<[ProcessFdinfoEpollCounter](#type-processfdinfoepollcounter)> : for type `epoll`, information about file descriptors being monitoring
+ - *optional* **`eventCounter`** integer : for type `event`, current value of the event counter
+ - *optional* **`fanotifyEventFlags`** integer : for type 'fanotify`, `event_f_flags` argument given to `fanotify_init`
+ - *optional* **`fanotifyFlags`** integer : for type `fanotify`, `flags` argument given to `fanotify_init`
+ - *optional* **`fanotifyMarks`** Array\<[ProcessFdinfoFanotifyMark](#type-processfdinfofanotifymark)> : for type `fanotify`, information about marks in fanotify group
+ - *optional* **`inotifyFiles`** Array\<[ProcessFdinfoInotifyFile](#type-processfdinfoinotifyfile)> : for type `inotify`, information of files being monitored
+ - *optional* **`rtSignalMask`** integer : for type `signal`, mask of signals being monitored, high part
+ - *optional* **`signalMask`** integer : for type `signal`, mask of signals being monitored, low part
+ - *optional* **`timerClockId`** integer : for type `timer`,  clock ID
+ - *optional* **`timerInterval`** Array\<integer> : for type `timer`, interval of the timer, seconds and nanoseconds
+ - *optional* **`timerSettimeFlags`** integer : for type `timer`, flags with which timer was last armed
+ - *optional* **`timerTicks`** integer : for type `timer`, number of timer expirations that have occured
+ - *optional* **`timerValue`** Array\<integer> : for type `timer`, amount of time until the timer will next expire, seconds and nanoseconds
 
 ***
 
