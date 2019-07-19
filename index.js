@@ -1,6 +1,4 @@
 'use strict';
-const {gunzipSync} = require('zlib');
-
 const ProcfsError = require('./lib/procfs-error');
 const parsers = require('./lib/parsers');
 const {
@@ -74,7 +72,7 @@ const processFd = (fd, pid) => {
 
 const config = () => {
 	try {
-		return gunzipSync(readBuffer('/proc/config.gz')).toString('utf8');
+		return parsers.config(readBuffer('/proc/config.gz'));
 	} catch (error) {
 		/* istanbul ignore next should not ever happen when procfs exists and kernel properly configured */
 		throw ProcfsError.generic(error);
