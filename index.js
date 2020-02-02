@@ -11,97 +11,94 @@ const {
 	devIdFromMajorMinor,
 } = require('./lib/utils');
 
-const processes = () => {
-	try {
-		return parsers.processes(readdir('/proc'));
-	} catch (error) {
-		/* istanbul ignore next should not ever happen when procfs exists */
-		throw ProcfsError.generic(error);
+class Procfs {
+	constructor(root) {
+		if (root === undefined) {
+			root = '/proc';
+		}
+		this.root = root;
+		this.rootSlash = `${root}/`;
 	}
-};
 
-const processFds = pid => {
-	if (pid !== undefined && (!Number.isInteger(pid) || pid <= 0)) {
-		throw new TypeError('pid');
+	processes() {
+		try {
+			return parsers.processes(readdir(this.root));
+		} catch (error) {
+			/* istanbul ignore next should not ever happen when procfs exists */
+			throw ProcfsError.generic(error);
+		}
 	}
-	try {
-		return parsers.processFds(readdir(((pid === undefined) ? '/proc/self' : '/proc/' + pid) + '/fd'));
-	} catch (error) {
-		throw ProcfsError.generic(error);
-	}
-};
 
-const processThreads = pid => {
-	if (pid !== undefined && (!Number.isInteger(pid) || pid <= 0)) {
-		throw new TypeError('pid');
+	processFds(pid) {
+		if (pid !== undefined && (!Number.isInteger(pid) || pid <= 0)) {
+			throw new TypeError('pid');
+		}
+		try {
+			return parsers.processFds(readdir(`${this.rootSlash}${pid === undefined ? 'self' : pid}/fd`));
+		} catch (error) {
+			throw ProcfsError.generic(error);
+		}
 	}
-	try {
-		return parsers.processThreads(readdir(((pid === undefined) ? '/proc/self' : '/proc/' + pid) + '/task'));
-	} catch (error) {
-		throw ProcfsError.generic(error);
-	}
-};
 
-const processFdinfo = (fd, pid) => {
-	if (pid !== undefined && !(Number.isInteger(pid) && pid >= 0)) {
-		throw new TypeError('pid');
+	processThreads(pid) {
+		if (pid !== undefined && (!Number.isInteger(pid) || pid <= 0)) {
+			throw new TypeError('pid');
+		}
+		try {
+			return parsers.processThreads(readdir(`${this.rootSlash}${pid === undefined ? 'self' : pid}/task`));
+		} catch (error) {
+			throw ProcfsError.generic(error);
+		}
 	}
-	if (!Number.isInteger(fd) || fd <= 0) {
-		throw new TypeError('fd');
-	}
-	try {
-		return parsers.processFdinfo(read(((pid === undefined) ? '/proc/self/fdinfo/' : `/proc/${pid}/fdinfo/`) + fd));
-	} catch (error) {
-		throw ProcfsError.generic(error);
-	}
-};
 
-const processFd = (fd, pid) => {
-	if (pid !== undefined && !(Number.isInteger(pid) && pid >= 0)) {
-		throw new TypeError('pid');
+	processFdinfo(fd, pid) {
+		if (pid !== undefined && !(Number.isInteger(pid) && pid >= 0)) {
+			throw new TypeError('pid');
+		}
+		if (!Number.isInteger(fd) || fd <= 0) {
+			throw new TypeError('fd');
+		}
+		try {
+			return parsers.processFdinfo(read(`${this.rootSlash}${pid === undefined ? 'self' : pid}/fdinfo/${fd}`));
+		} catch (error) {
+			throw ProcfsError.generic(error);
+		}
 	}
-	if (!Number.isInteger(fd) || fd <= 0) {
-		throw new TypeError('fd');
-	}
-	try {
-		return parsers.processFd(readLink(((pid === undefined) ? '/proc/self/fd/' : `/proc/${pid}/fd/`) + fd));
-	} catch (error) {
-		throw ProcfsError.generic(error);
-	}
-};
 
-const config = () => {
-	try {
-		return parsers.config(readBuffer('/proc/config.gz'));
-	} catch (error) {
-		/* istanbul ignore next should not ever happen when procfs exists and kernel properly configured */
-		throw ProcfsError.generic(error);
+	processFd(fd, pid) {
+		if (pid !== undefined && !(Number.isInteger(pid) && pid >= 0)) {
+			throw new TypeError('pid');
+		}
+		if (!Number.isInteger(fd) || fd <= 0) {
+			throw new TypeError('fd');
+		}
+		try {
+			return parsers.processFd(readLink(`${this.rootSlash}${pid === undefined ? 'self' : pid}/fd/${fd}`));
+		} catch (error) {
+			throw ProcfsError.generic(error);
+		}
 	}
-};
 
-const procfs = {
-	processes,
-	processFds,
-	processThreads,
-	processFdinfo,
-	processFd,
-	config,
-
-	devIdGetMinor,
-	devIdGetMajor,
-	devIdFromMajorMinor,
-};
+	config() {
+		try {
+			return parsers.config(readBuffer(`${this.rootSlash}config.gz`));
+		} catch (error) {
+			/* istanbul ignore next should not ever happen when procfs exists and kernel properly configured */
+			throw ProcfsError.generic(error);
+		}
+	}
+}
 
 for (let [name, path] of [
 	['processExe', '/exe'],
 	['processCwd', '/cwd'],
 ]) {
-	procfs[name] = pid => {
+	Procfs.prototype[name] = function (pid) {
 		if (pid !== undefined && !(Number.isInteger(pid) && pid >= 0)) {
 			throw new TypeError('pid');
 		}
 		try {
-			return parsers[name](readLink(((pid === undefined) ? '/proc/self' : '/proc/' + pid) + path));
+			return parsers[name](readLink(`${this.rootSlash}${pid === undefined ? 'self' : pid}${path}`));
 		} catch (error) {
 			throw ProcfsError.generic(error);
 		}
@@ -134,12 +131,12 @@ for (let [name, path] of [
 	['processNetUdp4', '/net/udp'],
 	['processNetUdp6', '/net/udp6'],
 ]) {
-	procfs[name] = pid => {
+	Procfs.prototype[name] = function (pid) {
 		if (pid !== undefined && !(Number.isInteger(pid) && pid >= 0)) {
 			throw new TypeError('pid');
 		}
 		try {
-			return parsers[name](read(((pid === undefined) ? '/proc/self' : '/proc/' + pid) + path));
+			return parsers[name](read(`${this.rootSlash}${pid === undefined ? 'self' : pid}${path}`));
 		} catch (error) {
 			throw ProcfsError.generic(error);
 		}
@@ -161,9 +158,9 @@ for (let name of [
 	'meminfo',
 	'cgroups',
 ]) {
-	procfs[name] = () => {
+	Procfs.prototype[name] = function () {
 		try {
-			return parsers[name](read('/proc/' + name));
+			return parsers[name](read(this.rootSlash + name));
 		} catch (error) {
 			/* istanbul ignore next should not ever happen when procfs exists */
 			throw ProcfsError.generic(error);
@@ -180,9 +177,9 @@ for (let [name, parser, path] of [
 	['netUdp4', 'processNetUdp4', 'net/udp'],
 	['netUdp6', 'processNetUdp6', 'net/udp6'],
 ]) {
-	procfs[name] = () => {
+	Procfs.prototype[name] = function () {
 		try {
-			return parsers[parser](read('/proc/' + path));
+			return parsers[parser](read(this.rootSlash + path));
 		} catch (error) {
 			/* istanbul ignore next should not ever happen when procfs exists */
 			throw ProcfsError.generic(error);
@@ -190,7 +187,9 @@ for (let [name, parser, path] of [
 	};
 }
 
+const procfs = new Procfs();
 module.exports = {
 	procfs,
+	Procfs,
 	ProcfsError,
 };
