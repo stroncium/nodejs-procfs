@@ -89,6 +89,10 @@ class Procfs {
 	}
 }
 
+Procfs.prototype.devIdGetMinor = devIdGetMinor;
+Procfs.prototype.devIdGetMajor = devIdGetMajor;
+Procfs.prototype.devIdFromMajorMinor = devIdFromMajorMinor;
+
 for (let [name, path] of [
 	['processExe', '/exe'],
 	['processCwd', '/cwd'],

@@ -89,6 +89,17 @@ Currently, the folowing `procfs` paths are supported by the library:
  - `/proc/uptime`: [procfs.uptime](API.md#uptime())
  - `/proc/version`: [procfs.version](API.md#version())
 
+## Custom procfs path
+
+```js
+const {
+	Procfs
+} = require('procfs');
+
+let procfs = new Procfs('/custom/proc');
+console.log(procfs.uptime()); // { time: 2514423.82, idle: 9658533.16 }
+```
+
 ## Performance
 Good performance is considered one of the main goals of this library, but for some calls which aren't expected to be used frequently the parsing might be done in sub-optimal(but still quite performant) way. If you encounter a need for performance optimizations of some call, please open an issue.
 
