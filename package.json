@@ -13,7 +13,7 @@
     "build": "npm run build:api-xml && npm run build:docs-asserts && npm run build:clean-api-xml",
     "coverage": "codecov",
     "fulltest": "npm run build && npm run test",
-    "test": "nyc --reporter=lcov ava && xo"
+    "test": "nyc ava && xo"
   },
   "engines": {
     "node": ">=8"
