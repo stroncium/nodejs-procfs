@@ -717,7 +717,6 @@ Object with properties:
 Object with properties:
  - **`addressSizes`** string
  - **`apicId`** integer
- - **`bogoMips`** integer
  - **`bugs`** Array\<string>
  - **`cacheAlignment`** integer
  - **`cacheSize`** string
@@ -740,6 +739,7 @@ Object with properties:
  - **`stepping`** integer
  - **`vendorId`** string
  - **`wp`** boolean
+ - *optional* **`bogoMips`** Float
 
 ***
 

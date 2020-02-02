@@ -379,7 +379,7 @@ module.exports = {
 		cacheSize: Joi.string().allow('').required(),
 		cacheAlignment: Joi.number().integer().required(),
 		bugs: Joi.array().items(Joi.string().allow('')).min(0).required(),
-		bogoMips: Joi.number().integer().required(),
+		bogoMips: Joi.number().unsafe(),
 		apicId: Joi.number().integer().required(),
 		addressSizes: Joi.string().allow('').required(),
 	})).min(0).required()),

@@ -338,7 +338,7 @@ typedef CpuCoreInfo = {
 	wp: Bool,
 	flags: Array<String>,
 	bugs: Array<String>,
-	bogoMips: Int,
+	?bogoMips: Float,
 	clflushSize: Int,
 	cacheAlignment: Int,
 	addressSizes: String,
