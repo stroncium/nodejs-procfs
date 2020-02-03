@@ -1,0 +1,89 @@
+476 298 0:84 / / rw,relatime master:149 - overlay overlay rw,lowerdir=/var/lib/docker/overlay2/l/ZEA3CDVGG6LTRBFDPOHUBIY4XH:/var/lib/docker/overlay2/l/EWZUJRXNTLK5WDBOWL42MBPLKF:/var/lib/docker/overlay2/l/Q2YXNWQF3Z22HSS6B6HNNIMJ3B:/var/lib/docker/overlay2/l/NRZXJXWE3HE3BDDNXWRZN3DITY:/var/lib/docker/overlay2/l/ACA4VXUTRSNSNEROVDBKIQ3A3G:/var/lib/docker/overlay2/l/HVUITUU4YLAC7B2JY7GE7UERKZ:/var/lib/docker/overlay2/l/MFAANWAKHO366ZO5W5F5F54CQN:/var/lib/docker/overlay2/l/4I6FC3NOBOBZOGAHNLWQZWEIAR:/var/lib/docker/overlay2/l/XWLV33SF73SRD4KQTLOKRS7ZHG:/var/lib/docker/overlay2/l/M5WZA4M6G2N2NQXSBMWXNQ4U75,upperdir=/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/diff,workdir=/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/work,index=off,xino=off
+477 476 0:86 / /proc rw,nosuid,nodev,noexec,relatime - proc proc rw
+478 476 0:87 / /dev rw,nosuid - tmpfs tmpfs rw,size=65536k,mode=755
+479 478 0:88 / /dev/pts rw,nosuid,noexec,relatime - devpts devpts rw,gid=5,mode=620,ptmxmode=666
+480 476 0:89 / /sys rw,nosuid,nodev,noexec,relatime - sysfs sysfs rw
+481 480 0:90 / /sys/fs/cgroup rw,nosuid,nodev,noexec,relatime - tmpfs tmpfs rw,mode=755
+482 481 0:28 /docker/3a036cf46c8cf4a9d0759fb3a384f569a1118b540c327621ad0eb58611595f13 /sys/fs/cgroup/systemd rw,nosuid,nodev,noexec,relatime master:10 - cgroup cgroup rw,xattr,name=systemd
+483 481 0:31 /docker/3a036cf46c8cf4a9d0759fb3a384f569a1118b540c327621ad0eb58611595f13 /sys/fs/cgroup/pids rw,nosuid,nodev,noexec,relatime master:14 - cgroup cgroup rw,pids
+484 481 0:32 /docker/3a036cf46c8cf4a9d0759fb3a384f569a1118b540c327621ad0eb58611595f13 /sys/fs/cgroup/net_cls,net_prio rw,nosuid,nodev,noexec,relatime master:15 - cgroup cgroup rw,net_cls,net_prio
+485 481 0:33 /docker/3a036cf46c8cf4a9d0759fb3a384f569a1118b540c327621ad0eb58611595f13 /sys/fs/cgroup/devices rw,nosuid,nodev,noexec,relatime master:16 - cgroup cgroup rw,devices
+486 481 0:34 / /sys/fs/cgroup/rdma rw,nosuid,nodev,noexec,relatime master:17 - cgroup cgroup rw,rdma
+487 481 0:35 /docker/3a036cf46c8cf4a9d0759fb3a384f569a1118b540c327621ad0eb58611595f13 /sys/fs/cgroup/cpuset rw,nosuid,nodev,noexec,relatime master:18 - cgroup cgroup rw,cpuset
+488 481 0:36 /docker/3a036cf46c8cf4a9d0759fb3a384f569a1118b540c327621ad0eb58611595f13 /sys/fs/cgroup/perf_event rw,nosuid,nodev,noexec,relatime master:19 - cgroup cgroup rw,perf_event
+489 481 0:37 /docker/3a036cf46c8cf4a9d0759fb3a384f569a1118b540c327621ad0eb58611595f13 /sys/fs/cgroup/cpu,cpuacct rw,nosuid,nodev,noexec,relatime master:20 - cgroup cgroup rw,cpu,cpuacct
+490 481 0:38 /docker/3a036cf46c8cf4a9d0759fb3a384f569a1118b540c327621ad0eb58611595f13 /sys/fs/cgroup/hugetlb rw,nosuid,nodev,noexec,relatime master:21 - cgroup cgroup rw,hugetlb
+491 481 0:39 /docker/3a036cf46c8cf4a9d0759fb3a384f569a1118b540c327621ad0eb58611595f13 /sys/fs/cgroup/blkio rw,nosuid,nodev,noexec,relatime master:22 - cgroup cgroup rw,blkio
+492 481 0:40 /docker/3a036cf46c8cf4a9d0759fb3a384f569a1118b540c327621ad0eb58611595f13 /sys/fs/cgroup/freezer rw,nosuid,nodev,noexec,relatime master:23 - cgroup cgroup rw,freezer
+493 481 0:41 /docker/3a036cf46c8cf4a9d0759fb3a384f569a1118b540c327621ad0eb58611595f13 /sys/fs/cgroup/memory rw,nosuid,nodev,noexec,relatime master:24 - cgroup cgroup rw,memory
+494 478 0:85 / /dev/mqueue rw,nosuid,nodev,noexec,relatime - mqueue mqueue rw
+495 478 0:91 / /dev/shm rw,nosuid,nodev,noexec,relatime - tmpfs shm rw,size=65536k
+496 476 8:20 / /rootfs rw,relatime master:1 - ext4 /dev/sdb4 rw
+497 496 0:6 / /rootfs/dev rw,nosuid,relatime master:2 - devtmpfs dev rw,size=1951816k,nr_inodes=487954,mode=755
+498 497 0:24 / /rootfs/dev/shm rw,nosuid,nodev master:3 - tmpfs tmpfs rw
+499 497 0:25 / /rootfs/dev/pts rw,nosuid,noexec,relatime master:4 - devpts devpts rw,gid=5,mode=620,ptmxmode=000
+500 497 0:20 / /rootfs/dev/mqueue rw,nosuid,nodev,noexec,relatime master:26 - mqueue mqueue rw
+501 497 0:43 / /rootfs/dev/hugepages rw,relatime master:27 - hugetlbfs hugetlbfs rw,pagesize=2M
+502 496 0:5 / /rootfs/proc rw,nosuid,nodev,noexec,relatime master:5 - proc proc rw
+503 502 0:42 / /rootfs/proc/sys/fs/binfmt_misc rw,relatime master:25 - autofs systemd-1 rw,fd=28,pgrp=0,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=12860
+504 503 0:83 / /rootfs/proc/sys/fs/binfmt_misc rw,nosuid,nodev,noexec,relatime master:146 - binfmt_misc binfmt_misc rw
+505 502 0:44 / /rootfs/proc/fs/nfsd rw,relatime master:61 - nfsd nfsd rw
+506 496 0:22 / /rootfs/sys rw,nosuid,nodev,noexec,relatime master:6 - sysfs sys rw
+507 506 0:8 / /rootfs/sys/kernel/security rw,nosuid,nodev,noexec,relatime master:7 - securityfs securityfs rw
+508 506 0:26 / /rootfs/sys/fs/cgroup ro,nosuid,nodev,noexec master:8 - tmpfs tmpfs ro,mode=755
+509 508 0:27 / /rootfs/sys/fs/cgroup/unified rw,nosuid,nodev,noexec,relatime master:9 - cgroup2 cgroup2 rw,nsdelegate
+510 508 0:28 / /rootfs/sys/fs/cgroup/systemd rw,nosuid,nodev,noexec,relatime master:10 - cgroup cgroup rw,xattr,name=systemd
+511 508 0:31 / /rootfs/sys/fs/cgroup/pids rw,nosuid,nodev,noexec,relatime master:14 - cgroup cgroup rw,pids
+512 508 0:32 / /rootfs/sys/fs/cgroup/net_cls,net_prio rw,nosuid,nodev,noexec,relatime master:15 - cgroup cgroup rw,net_cls,net_prio
+513 508 0:33 / /rootfs/sys/fs/cgroup/devices rw,nosuid,nodev,noexec,relatime master:16 - cgroup cgroup rw,devices
+514 508 0:34 / /rootfs/sys/fs/cgroup/rdma rw,nosuid,nodev,noexec,relatime master:17 - cgroup cgroup rw,rdma
+515 508 0:35 / /rootfs/sys/fs/cgroup/cpuset rw,nosuid,nodev,noexec,relatime master:18 - cgroup cgroup rw,cpuset
+516 508 0:36 / /rootfs/sys/fs/cgroup/perf_event rw,nosuid,nodev,noexec,relatime master:19 - cgroup cgroup rw,perf_event
+517 508 0:37 / /rootfs/sys/fs/cgroup/cpu,cpuacct rw,nosuid,nodev,noexec,relatime master:20 - cgroup cgroup rw,cpu,cpuacct
+518 508 0:38 / /rootfs/sys/fs/cgroup/hugetlb rw,nosuid,nodev,noexec,relatime master:21 - cgroup cgroup rw,hugetlb
+519 508 0:39 / /rootfs/sys/fs/cgroup/blkio rw,nosuid,nodev,noexec,relatime master:22 - cgroup cgroup rw,blkio
+520 508 0:40 / /rootfs/sys/fs/cgroup/freezer rw,nosuid,nodev,noexec,relatime master:23 - cgroup cgroup rw,freezer
+521 508 0:41 / /rootfs/sys/fs/cgroup/memory rw,nosuid,nodev,noexec,relatime master:24 - cgroup cgroup rw,memory
+522 506 0:29 / /rootfs/sys/fs/pstore rw,nosuid,nodev,noexec,relatime master:11 - pstore pstore rw
+523 506 0:30 / /rootfs/sys/fs/bpf rw,nosuid,nodev,noexec,relatime master:12 - bpf none rw,mode=700
+524 506 0:7 / /rootfs/sys/kernel/debug rw,nosuid,nodev,noexec,relatime master:28 - debugfs debugfs rw
+525 506 0:21 / /rootfs/sys/kernel/config rw,nosuid,nodev,noexec,relatime master:29 - configfs configfs rw
+526 496 0:23 / /rootfs/run rw,nosuid,nodev,relatime master:13 - tmpfs run rw,mode=755
+527 526 0:71 / /rootfs/run/user/1000 rw,nosuid,nodev,relatime master:137 - tmpfs tmpfs rw,size=391836k,mode=700,uid=1000,gid=1000
+528 526 0:4 net:[4026532383] /rootfs/run/docker/netns/7403a3330b88 rw master:134 - nsfs nsfs rw
+529 526 0:4 net:[4026532481] /rootfs/run/docker/netns/825a13257b3b rw master:143 - nsfs nsfs rw
+530 526 0:4 net:[4026532285] /rootfs/run/docker/netns/559ef5ce0897 rw master:128 - nsfs nsfs rw
+531 496 0:45 / /rootfs/tmp rw,nosuid,nodev master:63 - tmpfs tmpfs rw
+532 496 8:18 / /rootfs/boot rw,relatime master:65 - ext4 /dev/sdb2 rw
+533 496 8:1 / /rootfs/storage/sea-bar-8-2 rw,noatime master:67 - ext4 /dev/sda1 rw
+534 496 0:46 / /rootfs/var/lib/nfs/rpc_pipefs rw,relatime master:71 - rpc_pipefs sunrpc rw
+535 496 8:33 / /rootfs/storage/sea-bar-8-1 rw,noatime master:69 - ext4 /dev/sdc1 rw
+536 496 0:49 / /rootfs/var/lib/docker/overlay2/23f9018c8499947a9fdf1a09347a9ce73eb3fda1d1c8a88578f0b565e8c73fe4/merged rw,relatime master:125 - overlay overlay rw,lowerdir=/var/lib/docker/overlay2/l/EOXCSB2C7COS5NCD52EJDWLPBM:/var/lib/docker/overlay2/l/6UZH5A3JR24L6QH6FYMGBHDMIP:/var/lib/docker/overlay2/l/OET7MKUDT43YQ7SOTUXRC7OPFP:/var/lib/docker/overlay2/l/TN2R64Z3HAIGTEAYTO53GV5KCZ:/var/lib/docker/overlay2/l/Q7SSKORJEHXP6MT6QTLLDZIROH:/var/lib/docker/overlay2/l/2DLW6K2A2YSYZNRZ66JOQZISO3:/var/lib/docker/overlay2/l/HJTJTMAYZEMZVMQPI57CCJ5J5F,upperdir=/var/lib/docker/overlay2/23f9018c8499947a9fdf1a09347a9ce73eb3fda1d1c8a88578f0b565e8c73fe4/diff,workdir=/var/lib/docker/overlay2/23f9018c8499947a9fdf1a09347a9ce73eb3fda1d1c8a88578f0b565e8c73fe4/work,index=off,xino=off
+537 496 0:60 / /rootfs/var/lib/docker/overlay2/57a87f25d8ace8f64c83924e8f674ee68e36e02dc140917cfc733324d164aa95/merged rw,relatime master:131 - overlay overlay rw,lowerdir=/var/lib/docker/overlay2/l/Q7UAGCX7VP5ZXPZSG27LEJEQZ5:/var/lib/docker/overlay2/l/V64O6AO2QF6JSE7HYUL47ZF2PD:/var/lib/docker/overlay2/l/XSCACHSVYA42GCQXUJRBC23XFB:/var/lib/docker/overlay2/l/JSDI2T4WQ56BHAR7N7VA6MLKSB:/var/lib/docker/overlay2/l/ACA4VXUTRSNSNEROVDBKIQ3A3G:/var/lib/docker/overlay2/l/HVUITUU4YLAC7B2JY7GE7UERKZ:/var/lib/docker/overlay2/l/MFAANWAKHO366ZO5W5F5F54CQN:/var/lib/docker/overlay2/l/4I6FC3NOBOBZOGAHNLWQZWEIAR:/var/lib/docker/overlay2/l/XWLV33SF73SRD4KQTLOKRS7ZHG:/var/lib/docker/overlay2/l/M5WZA4M6G2N2NQXSBMWXNQ4U75,upperdir=/var/lib/docker/overlay2/57a87f25d8ace8f64c83924e8f674ee68e36e02dc140917cfc733324d164aa95/diff,workdir=/var/lib/docker/overlay2/57a87f25d8ace8f64c83924e8f674ee68e36e02dc140917cfc733324d164aa95/work,index=off,xino=off
+538 496 0:72 / /rootfs/var/lib/docker/overlay2/9c3f888e5906e4f8bf9e304986e16039237985c8bd0cc65ac3278c16f02a65d4/merged rw,relatime master:140 - overlay overlay rw,lowerdir=/var/lib/docker/overlay2/l/OMKNYR5IBMFNOVR6Q73LMTRTRB:/var/lib/docker/overlay2/l/JZDX4LRITKPSGIAEXVAR7JN52Q:/var/lib/docker/overlay2/l/SFQIJN4NAF2PFAF7EXWW3XYXXM:/var/lib/docker/overlay2/l/5G3NGPY7OF7ABMQFMFNCAIUNYF,upperdir=/var/lib/docker/overlay2/9c3f888e5906e4f8bf9e304986e16039237985c8bd0cc65ac3278c16f02a65d4/diff,workdir=/var/lib/docker/overlay2/9c3f888e5906e4f8bf9e304986e16039237985c8bd0cc65ac3278c16f02a65d4/work,index=off,xino=off
+539 496 0:84 / /rootfs/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/merged rw,relatime master:149 - overlay overlay rw,lowerdir=/var/lib/docker/overlay2/l/ZEA3CDVGG6LTRBFDPOHUBIY4XH:/var/lib/docker/overlay2/l/EWZUJRXNTLK5WDBOWL42MBPLKF:/var/lib/docker/overlay2/l/Q2YXNWQF3Z22HSS6B6HNNIMJ3B:/var/lib/docker/overlay2/l/NRZXJXWE3HE3BDDNXWRZN3DITY:/var/lib/docker/overlay2/l/ACA4VXUTRSNSNEROVDBKIQ3A3G:/var/lib/docker/overlay2/l/HVUITUU4YLAC7B2JY7GE7UERKZ:/var/lib/docker/overlay2/l/MFAANWAKHO366ZO5W5F5F54CQN:/var/lib/docker/overlay2/l/4I6FC3NOBOBZOGAHNLWQZWEIAR:/var/lib/docker/overlay2/l/XWLV33SF73SRD4KQTLOKRS7ZHG:/var/lib/docker/overlay2/l/M5WZA4M6G2N2NQXSBMWXNQ4U75,upperdir=/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/diff,workdir=/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/work,index=off,xino=off
+540 539 0:84 / /rootfs/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/merged rw,relatime master:149 - overlay overlay rw,lowerdir=/var/lib/docker/overlay2/l/ZEA3CDVGG6LTRBFDPOHUBIY4XH:/var/lib/docker/overlay2/l/EWZUJRXNTLK5WDBOWL42MBPLKF:/var/lib/docker/overlay2/l/Q2YXNWQF3Z22HSS6B6HNNIMJ3B:/var/lib/docker/overlay2/l/NRZXJXWE3HE3BDDNXWRZN3DITY:/var/lib/docker/overlay2/l/ACA4VXUTRSNSNEROVDBKIQ3A3G:/var/lib/docker/overlay2/l/HVUITUU4YLAC7B2JY7GE7UERKZ:/var/lib/docker/overlay2/l/MFAANWAKHO366ZO5W5F5F54CQN:/var/lib/docker/overlay2/l/4I6FC3NOBOBZOGAHNLWQZWEIAR:/var/lib/docker/overlay2/l/XWLV33SF73SRD4KQTLOKRS7ZHG:/var/lib/docker/overlay2/l/M5WZA4M6G2N2NQXSBMWXNQ4U75,upperdir=/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/diff,workdir=/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/work,index=off,xino=off
+541 540 0:86 / /rootfs/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/merged/proc rw,nosuid,nodev,noexec,relatime - proc proc rw
+542 540 0:87 / /rootfs/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/merged/dev rw,nosuid - tmpfs tmpfs rw,size=65536k,mode=755
+543 542 0:88 / /rootfs/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/merged/dev/pts rw,nosuid,noexec,relatime - devpts devpts rw,gid=5,mode=620,ptmxmode=666
+544 542 0:85 / /rootfs/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/merged/dev/mqueue rw,nosuid,nodev,noexec,relatime - mqueue mqueue rw
+545 542 0:91 / /rootfs/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/merged/dev/shm rw,nosuid,nodev,noexec,relatime - tmpfs shm rw,size=65536k
+546 540 0:89 / /rootfs/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/merged/sys rw,nosuid,nodev,noexec,relatime - sysfs sysfs rw
+547 546 0:90 / /rootfs/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/merged/sys/fs/cgroup rw,nosuid,nodev,noexec,relatime - tmpfs tmpfs rw,mode=755
+548 547 0:28 /docker/3a036cf46c8cf4a9d0759fb3a384f569a1118b540c327621ad0eb58611595f13 /rootfs/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/merged/sys/fs/cgroup/systemd rw,nosuid,nodev,noexec,relatime master:10 - cgroup cgroup rw,xattr,name=systemd
+549 547 0:31 /docker/3a036cf46c8cf4a9d0759fb3a384f569a1118b540c327621ad0eb58611595f13 /rootfs/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/merged/sys/fs/cgroup/pids rw,nosuid,nodev,noexec,relatime master:14 - cgroup cgroup rw,pids
+550 547 0:32 /docker/3a036cf46c8cf4a9d0759fb3a384f569a1118b540c327621ad0eb58611595f13 /rootfs/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/merged/sys/fs/cgroup/net_cls,net_prio rw,nosuid,nodev,noexec,relatime master:15 - cgroup cgroup rw,net_cls,net_prio
+551 547 0:33 /docker/3a036cf46c8cf4a9d0759fb3a384f569a1118b540c327621ad0eb58611595f13 /rootfs/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/merged/sys/fs/cgroup/devices rw,nosuid,nodev,noexec,relatime master:16 - cgroup cgroup rw,devices
+552 547 0:34 / /rootfs/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/merged/sys/fs/cgroup/rdma rw,nosuid,nodev,noexec,relatime master:17 - cgroup cgroup rw,rdma
+553 547 0:35 /docker/3a036cf46c8cf4a9d0759fb3a384f569a1118b540c327621ad0eb58611595f13 /rootfs/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/merged/sys/fs/cgroup/cpuset rw,nosuid,nodev,noexec,relatime master:18 - cgroup cgroup rw,cpuset
+554 547 0:36 /docker/3a036cf46c8cf4a9d0759fb3a384f569a1118b540c327621ad0eb58611595f13 /rootfs/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/merged/sys/fs/cgroup/perf_event rw,nosuid,nodev,noexec,relatime master:19 - cgroup cgroup rw,perf_event
+555 547 0:37 /docker/3a036cf46c8cf4a9d0759fb3a384f569a1118b540c327621ad0eb58611595f13 /rootfs/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/merged/sys/fs/cgroup/cpu,cpuacct rw,nosuid,nodev,noexec,relatime master:20 - cgroup cgroup rw,cpu,cpuacct
+556 547 0:38 /docker/3a036cf46c8cf4a9d0759fb3a384f569a1118b540c327621ad0eb58611595f13 /rootfs/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/merged/sys/fs/cgroup/hugetlb rw,nosuid,nodev,noexec,relatime master:21 - cgroup cgroup rw,hugetlb
+557 547 0:39 /docker/3a036cf46c8cf4a9d0759fb3a384f569a1118b540c327621ad0eb58611595f13 /rootfs/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/merged/sys/fs/cgroup/blkio rw,nosuid,nodev,noexec,relatime master:22 - cgroup cgroup rw,blkio
+558 547 0:40 /docker/3a036cf46c8cf4a9d0759fb3a384f569a1118b540c327621ad0eb58611595f13 /rootfs/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/merged/sys/fs/cgroup/freezer rw,nosuid,nodev,noexec,relatime master:23 - cgroup cgroup rw,freezer
+559 547 0:41 /docker/3a036cf46c8cf4a9d0759fb3a384f569a1118b540c327621ad0eb58611595f13 /rootfs/var/lib/docker/overlay2/3ad35b11734149a5def6e2c23a8084c0d0fd025c1fb426e7d3c74a809c2395df/merged/sys/fs/cgroup/memory rw,nosuid,nodev,noexec,relatime master:24 - cgroup cgroup rw,memory
+560 476 8:20 /var/lib/docker/containers/3a036cf46c8cf4a9d0759fb3a384f569a1118b540c327621ad0eb58611595f13/resolv.conf /etc/resolv.conf rw,relatime - ext4 /dev/sdb4 rw
+561 476 8:20 /var/lib/docker/containers/3a036cf46c8cf4a9d0759fb3a384f569a1118b540c327621ad0eb58611595f13/hostname /etc/hostname rw,relatime - ext4 /dev/sdb4 rw
+562 476 8:20 /var/lib/docker/containers/3a036cf46c8cf4a9d0759fb3a384f569a1118b540c327621ad0eb58611595f13/hosts /etc/hosts rw,relatime - ext4 /dev/sdb4 rw
+563 476 0:23 /docker.sock /run/docker.sock rw,nosuid,nodev,relatime - tmpfs run rw,mode=755
+565 526 0:4 net:[4026532579] /rootfs/run/docker/netns/e945d5a51f0a rw master:152 - nsfs nsfs rw
