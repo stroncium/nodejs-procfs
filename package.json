@@ -1,6 +1,6 @@
 {
   "name": "@stroncium/procfs",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Zero dependency library for reading and parsing various files from `procfs` for Node.js, implemented in pure JS.",
   "main": "index.js",
   "files": [
