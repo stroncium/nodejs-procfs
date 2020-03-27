@@ -703,6 +703,10 @@ Object with properties:
  - **`vmSize`** integer : `VmSize` Virtual memory size.
  - **`vmStack`** integer : `VmStk` Size of stack segment.
  - **`vmSwap`** integer : `VmSwap` Swapped-out virtual memory size by anonymous private pages; shmem swap usage is not included.
+ - *optional* **`namespacePids`** Array\<integer> : `NSpid` Thread IDs in each of descending PID namespaces process is a member of, starting from namespace of process that mounted procfs(or root namespace if mounted by kernel).
+ - *optional* **`namespaceProcessGroupIds`** Array\<integer> : `NSpgid` Process group IDs in each of descending PID namespaces process is a member of, starting from namespace of process that mounted procfs(or root namespace if mounted by kernel).
+ - *optional* **`namespaceSessionIds`** Array\<integer> : `NSsid` Session IDs in each of descending PID namespaces process is a member of, starting from namespace of process that mounted procfs(or root namespace if mounted by kernel).
+ - *optional* **`namespaceThreadGroupIds`** Array\<integer> : `NStgid` Thread group IDs in each of descending PID namespaces process is a member of, starting from namespace of process that mounted procfs(or root namespace if mounted by kernel).
  - *optional* **`rssAnon`** integer
  - *optional* **`rssFile`** integer
  - *optional* **`rssShmem`** integer

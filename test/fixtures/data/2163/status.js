@@ -50,4 +50,8 @@ module.exports = {
 	memoriesAllowedMask: 1,
 	contextSwitchesVoluntary: 5,
 	contextSwitchesNonvoluntary: 2,
+	namespacePids: [21324],
+	namespaceProcessGroupIds: [21324],
+	namespaceSessionIds: [17521],
+	namespaceThreadGroupIds: [21324],
 };

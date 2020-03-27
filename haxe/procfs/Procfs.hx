@@ -261,6 +261,10 @@ typedef ProcessStat = {
 @field memoriesAllowedMask `Mems_allowed` Mask of memory nodes allowed to this process.
 @field contextSwitchesVoluntary `voluntary_ctxt_switches` Number of voluntary context switches.
 @field contextSwitchesNonvoluntary `nonvoluntary_ctxt_switches` Number of involuntary context switches.
+@field namespacePids `NSpid` Thread IDs in each of descending PID namespaces process is a member of, starting from namespace of process that mounted procfs(or root namespace if mounted by kernel).
+@field namespaceThreadGroupIds `NStgid` Thread group IDs in each of descending PID namespaces process is a member of, starting from namespace of process that mounted procfs(or root namespace if mounted by kernel).
+@field namespaceProcessGroupIds `NSpgid` Process group IDs in each of descending PID namespaces process is a member of, starting from namespace of process that mounted procfs(or root namespace if mounted by kernel).
+@field namespaceSessionIds `NSsid` Session IDs in each of descending PID namespaces process is a member of, starting from namespace of process that mounted procfs(or root namespace if mounted by kernel).
 **/
 typedef ProcessStatus = {
 	name: String,
@@ -314,6 +318,10 @@ typedef ProcessStatus = {
 	memoriesAllowedMask: Int,
 	contextSwitchesVoluntary: Int,
 	contextSwitchesNonvoluntary: Int,
+	?namespacePids: Array<Int>,
+	?namespaceThreadGroupIds: Array<Int>,
+	?namespaceProcessGroupIds: Array<Int>,
+	?namespaceSessionIds: Array<Int>,
 };
 
 typedef CpuCoreInfo = {
